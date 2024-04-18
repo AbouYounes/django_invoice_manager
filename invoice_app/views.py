@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from .models import *
-
-# Create your views here.
+from django.contrib import messages
 
 class HomeView(View):
     """ Main view """
@@ -28,4 +27,30 @@ class AddCustomerView(View):
         return render(request, self.template_name)
 
      def post(self, request, *args, **kwargs):
-        return render(request, self.template_name) 
+
+        data = {
+            'name': request.POST.get('name'),
+            'email': request.POST.get('email'),
+            'phone': request.POST.get('phone'),
+            'address': request.POST.get('address'),
+            'sex': request.POST.get('sex'),
+            'age': request.POST.get('age'),
+            'city': request.POST.get('city'),
+            'zip_code': request.POST.get('zip'),
+            'save_by': request.user
+
+        }
+
+        try:
+            created = Customer.objects.create(**data)
+            if created:
+                messages.success(request, "Customer registered successfully.")
+            else:
+                messages.error(request, "Sorry, please try again the sent data is corrupt.")
+        except Exception as e:    
+
+            messages.error(request, f"Sorry our system is detecting the following issues {e}.")
+
+        return render(request, self.template_name)   
+
+
