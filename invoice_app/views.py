@@ -66,6 +66,5 @@ class AddInvoiceView(View):
         return  render(request, self.template_name, self.context)
 
     def post(self, request, *args, **kwargs):
-        print(request.POST)  
         return  render(request, self.template_name, self.context)
 
