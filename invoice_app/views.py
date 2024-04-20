@@ -4,6 +4,7 @@ from .models import *
 from django.contrib import messages
 
 from django.db import transaction
+from .utils import pagination
 
 
 class HomeView(View):
@@ -16,10 +17,15 @@ class HomeView(View):
     }
 
     def get(self, request, *args, **kwags):
+        items = pagination(request, self.invoices)
+        self.context['invoices'] = items
         return render(request, self.templates_name, self.context)
+    
 
     def post(self, request, *args, **kwagrs):
         # modify an invoice
+        items = pagination(request, self.invoices)
+        self.context['invoices'] = items
         return render(request, self.templates_name, self.context)
     
 class AddCustomerView(View):
