@@ -1,10 +1,16 @@
+import datetime
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 from .models import *
 from django.contrib import messages
 
+import pdfkit
+
+from django.template.loader import get_template
+
 from django.db import transaction
-from .utils import pagination
+from .utils import pagination, get_invoice
 
 
 class HomeView(View):
@@ -152,11 +158,37 @@ class InvoiceVisualizationView(View):
     template_name = 'invoice.html'
     def get(self, request, *args, **kwargs):
         pk = kwargs.get('pk')
-        obj = Invoice.objects.get(pk=pk)
-        articles = obj.article_set.all()
-        context = {
-            'obj': obj,
-            'articles': articles
-        }
+        pk = kwargs.get('pk')
+        context = get_invoice(pk)
         return render(request, self.template_name, context)
+    
+def get_invoice_pdf(request, *args, **kwargs):
+    """ generate pdf file from html file """
+
+    pk = kwargs.get('pk')
+    context = get_invoice(pk)
+    context['date'] = datetime.datetime.today()
+
+    # get html file
+    template = get_template('invoice-pdf.html')
+
+    # render html with context variables
+    html = template.render(context)
+
+    # options of pdf format 
+    options = {
+        'page-size': 'Letter',
+        'encoding': 'UTF-8',
+        "enable-local-file-access": ""
+    }
+
+    # generate pdf 
+    path_wkthmltopdf = b'C:\Program Files\wkhtmltopdf\\bin\wkhtmltopdf.exe'
+    config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
+    pdf = pdfkit.from_url('http://google.com', 'out.pdf',configuration=config)
+    #pdfkit.from_file("output.xml","rajul-pdf.pdf", configuration=config)
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = "attachement"
+
+    return response
 
