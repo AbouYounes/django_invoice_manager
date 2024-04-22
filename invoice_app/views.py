@@ -6,7 +6,8 @@ from .models import *
 from django.contrib import messages
 
 import pdfkit
-
+import tempfile
+import os
 from django.template.loader import get_template
 
 from django.db import transaction
@@ -169,6 +170,9 @@ def get_invoice_pdf(request, *args, **kwargs):
     context = get_invoice(pk)
     context['date'] = datetime.datetime.today()
 
+    path_wkthmltopdf = b'C:\Program Files\wkhtmltopdf\\bin\wkhtmltopdf.exe'
+    config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
+
     # get html file
     template = get_template('invoice-pdf.html')
 
@@ -177,16 +181,15 @@ def get_invoice_pdf(request, *args, **kwargs):
 
     # options of pdf format 
     options = {
-        'page-size': 'Letter',
+        'page-size': 'A4',
         'encoding': 'UTF-8',
         "enable-local-file-access": ""
     }
 
     # generate pdf 
-    path_wkthmltopdf = b'C:\Program Files\wkhtmltopdf\\bin\wkhtmltopdf.exe'
-    config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
-    pdf = pdfkit.from_url('http://google.com', 'out.pdf',configuration=config)
-    #pdfkit.from_file("output.xml","rajul-pdf.pdf", configuration=config)
+    pdf_file_path = tempfile.mktemp(suffix='.pdf')
+    #pdf = pdfkit.from_string(html, pdf_file_path, options=options)
+    pdf = pdfkit.from_string(html, options=options, configuration=config)
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = "attachement"
 
