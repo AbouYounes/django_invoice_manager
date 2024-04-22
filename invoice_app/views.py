@@ -1,20 +1,24 @@
 import datetime
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 from .models import *
 from django.contrib import messages
 
 import pdfkit
-import tempfile
-import os
+from django.http import HttpResponse
+
 from django.template.loader import get_template
 
 from django.db import transaction
 from .utils import pagination, get_invoice
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .decorators import *
 
-class HomeView(View):
+
+
+class HomeView(LoginRequiredSuperuserMixim, View):
     """ Main view """
 
     templates_name = 'index.html'
@@ -58,7 +62,7 @@ class HomeView(View):
         self.context['invoices'] = items
         return render(request, self.templates_name, self.context)
     
-class AddCustomerView(View):
+class AddCustomerView(LoginRequiredSuperuserMixim, View):
      """ add new customer """    
      template_name = 'add_customer.html'
 
@@ -92,7 +96,7 @@ class AddCustomerView(View):
 
         return render(request, self.template_name)   
 
-class AddInvoiceView(View):
+class AddInvoiceView(LoginRequiredSuperuserMixim, View):
     """ add a new invoice view """
 
     template_name = 'add_invoice.html'
@@ -153,7 +157,7 @@ class AddInvoiceView(View):
         
         return  render(request, self.template_name, self.context)
     
-class InvoiceVisualizationView(View):
+class InvoiceVisualizationView(LoginRequiredSuperuserMixim, View):
     """ This view helps to visualize the invoice """
 
     template_name = 'invoice.html'
@@ -163,6 +167,7 @@ class InvoiceVisualizationView(View):
         context = get_invoice(pk)
         return render(request, self.template_name, context)
     
+@superuser_required
 def get_invoice_pdf(request, *args, **kwargs):
     """ generate pdf file from html file """
 
@@ -170,7 +175,7 @@ def get_invoice_pdf(request, *args, **kwargs):
     context = get_invoice(pk)
     context['date'] = datetime.datetime.today()
 
-    path_wkthmltopdf = b'C:\Program Files\wkhtmltopdf\\bin\wkhtmltopdf.exe'
+    path_wkthmltopdf = b'C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe'
     config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
 
     # get html file
@@ -187,8 +192,6 @@ def get_invoice_pdf(request, *args, **kwargs):
     }
 
     # generate pdf 
-    pdf_file_path = tempfile.mktemp(suffix='.pdf')
-    #pdf = pdfkit.from_string(html, pdf_file_path, options=options)
     pdf = pdfkit.from_string(html, options=options, configuration=config)
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = "attachement"
