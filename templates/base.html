@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
+{% load i18n %} 
+
 <html lang="en">
 
 <head>
@@ -17,16 +19,17 @@
   <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
     crossorigin="anonymous"></script>
     
-  <title>Invoice</title>
+  <title>{% trans 'Invoice' %}</title>
 </head>
 
 <body>
-  
+  {% get_available_languages as LANGUAGES %}
+  {% get_language_info_list for LANGUAGES as languages %}  
 
   <!-- header  -->
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/">INVOICE SYSTEM  MANAGER</a>
+      <a class="navbar-brand" href="/">{% trans 'INVOICE SYSTEM  MANAGER' %}</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -38,7 +41,7 @@
           <div class="nav-item dropdown">
             <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Languages
+              {% trans 'Languages' %}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               {% for language in languages %}
@@ -56,13 +59,13 @@
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-              More option
+              {% trans 'More option' %}
             </a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="{% url 'add-customer' %}">Add customer</a>
-              <a class="dropdown-item" href="#">add admin</a>
+              <a class="dropdown-item" href="{% url 'add-customer' %}">{% trans 'Add customer' %}</a>
+              <a class="dropdown-item" href="#">{% trans 'add admin' %}</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">statistic</a>
+              <a class="dropdown-item" href="#">{% trans 'statistic' %}</a>
             </div>
           </li>
 
@@ -103,7 +106,7 @@
     <!-- copyright -->
 
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      invoice system manager © 2024 copyright:
+      {% trans 'INVOICE SYSTEM  MANAGER' %} © 2024 copyright:
       <a href="https://karimprogrammer.com"> Karim Programmer</a>
     </div>
 

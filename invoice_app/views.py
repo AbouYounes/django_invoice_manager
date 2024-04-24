@@ -16,6 +16,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .decorators import *
 
+from django.utils.translation import gettext as _
+
 
 
 class HomeView(LoginRequiredSuperuserMixim, View):
