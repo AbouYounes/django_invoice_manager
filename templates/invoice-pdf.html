@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% load i18n %} 
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <!-- bootstrap -->
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-   <title>Invoice</title>
+   <title>{% trans 'Invoice' %}</title>
    <style>
      body {
             margin: 0;
@@ -197,7 +199,7 @@
                                         <div class="invoice-details">
                                             <address>
                                                 {{obj.customer.name}}<br>
-                                                {{obj.customer.address}}, {{obj.customer.city}}, Cameroon
+                                                {{obj.customer.address}}, {{obj.customer.city}}, Deutschland
                                             </address>
                                         </div>
                                     </div>
@@ -223,11 +225,11 @@
                                             <table class="table custom-table m-0">
                                                 <thead>
                                                     <tr>
-                                                        <th>Items</th>
-                                                        <th>Product ID</th>
-                                                        <th>Quantities</th>
-                                                        <th>Unit Price</th>
-                                                        <th>Subtotal</th>
+                                                        <th>{% trans 'Items' %}</th>
+                                                        <th>{% trans 'Product ID' %}</th>
+                                                        <th>{% trans 'Quantities' %}</th>
+                                                        <th>{% trans 'Unit Price' %}</th>
+                                                        <th>{% trans 'Subtotal' %}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -269,31 +271,31 @@
                                                     
                                                     
                                                     <tr>
-                                                        <td>Comment: {{obj.comments}}</td>
+                                                        <td>{% trans 'Comment' %}: {{obj.comments}}</td>
                                                         <td colspan="2">
                                                             <p>
-                                                                Subtotal<br>
-                                                                Shipment &amp; Handling<br>
-                                                                Tax<br>
+                                                                {% trans 'Subtotal' %}<br>
+                                                                {% trans 'Shipment' %} &amp; {% trans 'Handling' %}<br>
+                                                                {% trans 'Tax' %}<br>
                                                             </p>
-                                                            <h5 class="text-success"><strong>Total</strong></h5>
+                                                            <h5 class="text-success"><strong>{% trans 'Total' %}</strong></h5>
                                                         </td>			
                                                         <td>
                                                             <p>
-                                                                {{obj.get_total}} FCFA<br>
-                                                                00.00 FCFA<br>
-                                                                00.00 FCFA<br>
+                                                                {{obj.get_total}} Euro<br>
+                                                                00.00 Euro<br>
+                                                                00.00 Euro<br>
                                                             </p>
-                                                            <h5 class="text-success"><strong>{{obj.get_total}} FCFA</strong></h5>
+                                                            <h5 class="text-success"><strong>{{obj.get_total}} Euro</strong></h5>
                                                         </td>
                                                         <td> 
-                                                                PAID:                    
+                                                            {% trans 'PAID' %}:                    
     
                                                             {% if obj.paid  %}
     
-                                                               <strong style="color: green;">YES</strong>
+                                                               <strong style="color: green;">{% trans 'YES' %}</strong>
                                                             {% else %}
-                                                                <strong style="color: red;">NO</strong>
+                                                                <strong style="color: red;">{% trans 'NO' %}</strong>
        
                                                             {% endif %}
                                                         </td>
@@ -308,7 +310,7 @@
                             </div>
         
                             <div class="invoice-footer">
-                                Thank you for your purchase {{date}} .
+                                {% trans 'Thank you for your purchase' %} {{date}} .
                             </div>
         
                         </div>

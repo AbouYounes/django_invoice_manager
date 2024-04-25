@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load i18n %} 
+
 
 {% block content %}
 
@@ -17,10 +19,10 @@
     							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
     								<div class="custom-actions-btns mb-5">
     									<a href="" class="btn btn-primary">
-    										<i class="icon-download"></i> Download
+    										<i class="icon-download"></i>{% trans 'Download' %}
     									</a>
     									<a href="#" class="btn btn-secondary">
-    										<i class="icon-printer"></i> Print
+    										<i class="icon-printer"></i>{% trans 'Print' %}
     									</a>
     								</div>
     							</div>
@@ -30,15 +32,15 @@
     						<!-- Row start -->
     						<div class="row gutters">
     							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-    								<a href="donaldprogrammeur.com" class="invoice-logo">
-    									Donald Programmer
+    								<a href="karimprogrameur.com" class="invoice-logo">
+    									Karim Programer
     								</a>
     							</div>
     							<div class="col-lg-6 col-md-6 col-sm-6">
     								<address class="text-right">
-    									Donald Programmer Inc, 45 NorthWest<br>
-    									Cameroon, Douala<br>
-    									00000 00000
+    									Karim Programer Inc, 51 AADL Z'mala<br>
+    									Tiaret, Algeria<br>
+    									14000
     								</address>
     							</div>
     						</div>
@@ -50,7 +52,7 @@
     								<div class="invoice-details">
     									<address>
     										{{obj.customer.name}}<br>
-    										{{obj.customer.address}}, {{obj.customer.city}}, Cameroon
+    										{{obj.customer.address}}, {{obj.customer.city}}, Algeria
     									</address>
     								</div>
     							</div>
@@ -76,11 +78,11 @@
     									<table class="table custom-table m-0">
     										<thead>
     											<tr>
-    												<th>Items</th>
-													<th>Product ID</th>
-													<th>Quantities</th>
-													<th>Unit Price</th>
-													<th>Subtotal</th>
+    												<th>{% trans 'Items' %}</th>
+													<th>{% trans 'Product ID' %}</th>
+													<th>{% trans 'Quantities' %}</th>
+													<th>{% trans 'Unit Price' %}</th>
+													<th>{% trans 'Subtotal' %}</th>
     											</tr>
     										</thead>
     										<tbody>
@@ -122,25 +124,25 @@
     											
     											
     											<tr>
-    												<td>Comment: {{obj.comments}}</td>
+    												<td>{% trans 'Comment' %}: {{obj.comments}}</td>
     												<td colspan="2">
 														<p>
-															Subtotal<br>
-															Shipment &amp; Handling<br>
-															Tax<br>
+															{% trans 'Subtotal' %}<br>
+															{% trans 'Shipment' %} &amp; {% trans 'Handling' %}<br>
+															{% trans 'Tax' %}<br>
 														</p>
-    													<h5 class="text-success"><strong>Total</strong></h5>
+    													<h5 class="text-success"><strong>{% trans 'Total' %}</strong></h5>
     												</td>			
     												<td>
     													<p>
-    														{{obj.get_total}} FCFA<br>
-    														00.00 FCFA<br>
-    														00.00 FCFA<br>
+    														{{obj.get_total}} Euro<br>
+    														00.00 Euro<br>
+    														00.00 Euro<br>
     													</p>
-    													<h5 class="text-success"><strong>${{obj.get_total}} FCFA</strong></h5>
+    													<h5 class="text-success"><strong>${{obj.get_total}} Euro</strong></h5>
     												</td>
                                                     <td> 
-                                                            PAID:                    
+														{% trans 'PAID' %}:                    
 
                                                         {% if obj.paid  %}
 
@@ -161,7 +163,7 @@
     					</div>
     
     					<div class="invoice-footer">
-    						Thank you for your purchase .
+    						{% trans 'Thank you for your purchase' %}.
     					</div>
     
     				</div>

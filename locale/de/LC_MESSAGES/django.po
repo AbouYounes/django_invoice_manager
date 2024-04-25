@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-24 23:13+0100\n"
+"POT-Creation-Date: 2024-04-25 14:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,11 +26,11 @@ msgstr "Deutsch"
 msgid "English"
 msgstr "Englisch"
 
-#: .\invoice_app\models.py:14
+#: .\invoice_app\models.py:14 .\templates\add_customer.html:37
 msgid "Male"
 msgstr "Männlich"
 
-#: .\invoice_app\models.py:15
+#: .\invoice_app\models.py:15 .\templates\add_customer.html:38
 msgid "Feminine"
 msgstr "Feminin"
 
@@ -45,6 +45,107 @@ msgstr "PROFORMA-RECHNUNG"
 #: .\invoice_app\models.py:45 .\templates\add_invoice.html:33
 msgid "INVOICE"
 msgstr "RECHNUNG"
+
+#: .\invoice_app\views.py:50
+msgid "Change made successfully."
+msgstr "Änderung erfolgreich durchgeführt."
+
+#: .\invoice_app\views.py:52 .\invoice_app\views.py:61
+#, fuzzy, python-brace-format
+#| msgid "Sorry, the following error has occured"
+msgid "Sorry, the following error has occured: {e}."
+msgstr "Leider ist der folgende Fehler aufgetreten: {e}"
+
+#: .\invoice_app\views.py:59
+msgid "The deletion was successful."
+msgstr "Der Löschvorgang war erfolgreich."
+
+#: .\invoice_app\views.py:92
+msgid "Customer registered successfully."
+msgstr "Der Kunde hat sich erfolgreich registriert."
+
+#: .\invoice_app\views.py:94 .\invoice_app\views.py:155
+msgid "Sorry, please try again the sent data is corrupt."
+msgstr ""
+"Entschuldigung, bitte versuchen Sie es erneut. Die gesendeten Daten sind "
+"beschädigt."
+
+#: .\invoice_app\views.py:97
+#, fuzzy, python-brace-format
+#| msgid "Sorry our system is detecting the following issues"
+msgid "Sorry our system is detecting the following issues: {e}"
+msgstr "Leider erkennt unser System die folgenden Probleme: {e}"
+
+#: .\invoice_app\views.py:153
+msgid "Data saved successfully."
+msgstr "Daten erfolgreich gespeichert."
+
+#: .\invoice_app\views.py:158
+#, fuzzy, python-brace-format
+#| msgid "Sorry the following error has occured"
+msgid "Sorry the following error has occured: {e}."
+msgstr "Leider ist der folgende Fehler aufgetreten: {e}"
+
+#: .\templates\add_customer.html:9 .\templates\index.html:21
+msgid "Register a new customer"
+msgstr "Registrieren einen neuen Kunden"
+
+#: .\templates\add_customer.html:15
+msgid "Name"
+msgstr "Name"
+
+#: .\templates\add_customer.html:21
+msgid "Email"
+msgstr "Email"
+
+#: .\templates\add_customer.html:26
+msgid "Phone"
+msgstr "Telefon"
+
+#: .\templates\add_customer.html:34
+msgid "Sex"
+msgstr "Sex"
+
+#: .\templates\add_customer.html:36
+msgid "Choose the gender"
+msgstr "Wählen Sie das Geschlecht"
+
+#: .\templates\add_customer.html:43
+msgid "Age"
+msgstr "Alter"
+
+#: .\templates\add_customer.html:45
+msgid "Choose the age range"
+msgstr "Wählen Sie die Altersgruppe"
+
+#: .\templates\add_customer.html:54
+msgid "Address"
+msgstr "Adresse"
+
+#: .\templates\add_customer.html:56
+msgid "Customer address"
+msgstr "Kundenadresse"
+
+#: .\templates\add_customer.html:62
+msgid "City"
+msgstr "Stadt"
+
+#: .\templates\add_customer.html:64
+msgid "customer city"
+msgstr "Kundenstadt"
+
+#: .\templates\add_customer.html:68
+msgid "Zip code"
+msgstr "PLZ"
+
+#: .\templates\add_customer.html:70
+msgid "customer zip code required"
+msgstr "PLZ des Kunden erforderlich"
+
+#: .\templates\add_customer.html:74 .\templates\add_invoice.html:88
+#: .\templates\index.html:150
+msgid "Save"
+msgstr "Speichern"
 
 #: .\templates\add_invoice.html:9 .\templates\index.html:13
 msgid "Register a new invoice"
@@ -75,11 +176,14 @@ msgid "Quantity"
 msgstr "Menge"
 
 #: .\templates\add_invoice.html:52 .\templates\add_invoice.html:116
+#: .\templates\invoice-pdf.html:231 .\templates\invoice-template.html:84
+#: .\templates\invoice.html:84
 msgid "Unit Price"
 msgstr "Einzelpreis"
 
 #: .\templates\add_invoice.html:57 .\templates\add_invoice.html:76
-#: .\templates\add_invoice.html:121
+#: .\templates\add_invoice.html:121 .\templates\invoice-pdf.html:281
+#: .\templates\invoice-template.html:134 .\templates\invoice.html:134
 msgid "Total"
 msgstr "Gesamt"
 
@@ -95,11 +199,7 @@ msgstr "Letzte Artikelzeile entfernen"
 msgid "Comments"
 msgstr "Kommentare"
 
-#: .\templates\add_invoice.html:88 .\templates\index.html:150
-msgid "Save"
-msgstr "Speichern"
-
-#: .\templates\base.html:22
+#: .\templates\base.html:22 .\templates\invoice-pdf.html:11
 msgid "Invoice"
 msgstr "Rechnung"
 
@@ -127,9 +227,9 @@ msgstr "Administrator hinzufügen"
 msgid "statistic"
 msgstr "Statistik"
 
-#: .\templates\index.html:21
-msgid "Register a new customer"
-msgstr "Registrieren einen neuen Kunden"
+#: .\templates\index.html:30
+msgid "Search"
+msgstr "Suchen"
 
 #: .\templates\index.html:38
 msgid "CUSTOMERS NAME"
@@ -143,7 +243,8 @@ msgstr "DATUM"
 msgid "TOTAL"
 msgstr "GESAMT"
 
-#: .\templates\index.html:41
+#: .\templates\index.html:41 .\templates\invoice-pdf.html:292
+#: .\templates\invoice-template.html:145 .\templates\invoice.html:145
 msgid "PAID"
 msgstr "BEZAHLT"
 
@@ -202,6 +303,68 @@ msgstr "Rechnung löschen"
 msgid "Are you sure you want to delete the invoice ?"
 msgstr "Sind Sie sicher, dass Sie die Rechnung löschen möchten?"
 
+#: .\templates\invoice-pdf.html:228 .\templates\invoice-template.html:81
+#: .\templates\invoice.html:81
+msgid "Items"
+msgstr "Artikel"
+
+#: .\templates\invoice-pdf.html:229 .\templates\invoice-template.html:82
+#: .\templates\invoice.html:82
+msgid "Product ID"
+msgstr "Product ID"
+
+#: .\templates\invoice-pdf.html:230 .\templates\invoice-template.html:83
+#: .\templates\invoice.html:83
+msgid "Quantities"
+msgstr "Mengen"
+
+#: .\templates\invoice-pdf.html:232 .\templates\invoice-pdf.html:277
+#: .\templates\invoice-template.html:85 .\templates\invoice-template.html:130
+#: .\templates\invoice.html:85 .\templates\invoice.html:130
+msgid "Subtotal"
+msgstr "Zwischensumme"
+
+#: .\templates\invoice-pdf.html:274 .\templates\invoice-template.html:127
+#: .\templates\invoice.html:127
+msgid "Comment"
+msgstr "Kommentare"
+
+#: .\templates\invoice-pdf.html:278 .\templates\invoice-template.html:131
+#: .\templates\invoice.html:131
+msgid "Shipment"
+msgstr "Sendung"
+
+#: .\templates\invoice-pdf.html:278 .\templates\invoice-template.html:131
+#: .\templates\invoice.html:131
+msgid "Handling"
+msgstr "Handhabung"
+
+#: .\templates\invoice-pdf.html:279 .\templates\invoice-template.html:132
+#: .\templates\invoice.html:132
+msgid "Tax"
+msgstr "Steuer"
+
+#: .\templates\invoice-pdf.html:296
+msgid "YES"
+msgstr "JA"
+
+#: .\templates\invoice-pdf.html:298
+msgid "NO"
+msgstr "NEIN"
+
+#: .\templates\invoice-pdf.html:313 .\templates\invoice-template.html:166
+#: .\templates\invoice.html:166
+msgid "Thank you for your purchase"
+msgstr "Danke für Ihren Einkauf"
+
+#: .\templates\invoice-template.html:22 .\templates\invoice.html:22
+msgid "Download"
+msgstr "Herunterladen"
+
+#: .\templates\invoice-template.html:25 .\templates\invoice.html:25
+msgid "Print"
+msgstr "Drucken"
+
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
 msgid "Messages"
 msgstr "Mitteilungen"
@@ -212,11 +375,11 @@ msgstr "Site Maps"
 
 #: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
 msgid "Static Files"
-msgstr ""
+msgstr "Statische Dateien"
 
 #: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
 msgid "Syndication"
-msgstr ""
+msgstr "Syndizierung"
 
 #. Translators: String used to replace omitted page numbers in elided page
 #. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
@@ -226,38 +389,40 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\paginator.py:32
 msgid "That page number is not an integer"
-msgstr ""
+msgstr "Diese Seitenzahl ist keine ganze Zahl"
 
 #: .\venv\Lib\site-packages\django\core\paginator.py:33
 msgid "That page number is less than 1"
-msgstr ""
+msgstr "Diese Seitenzahl ist kleiner als 1"
 
 #: .\venv\Lib\site-packages\django\core\paginator.py:34
 msgid "That page contains no results"
-msgstr ""
+msgstr "Diese Seite enthält keine Ergebnisse"
 
 #: .\venv\Lib\site-packages\django\core\validators.py:22
 msgid "Enter a valid value."
-msgstr ""
+msgstr "Geben Sie einen gültigen Wert ein."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:104
 #: .\venv\Lib\site-packages\django\forms\fields.py:760
 msgid "Enter a valid URL."
-msgstr ""
+msgstr "Geben Sie eine gültige URL ein."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:165
 msgid "Enter a valid integer."
-msgstr ""
+msgstr "Geben Sie eine gültige Ganzzahl ein."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:176
 msgid "Enter a valid email address."
-msgstr ""
+msgstr "Geben sie eine gültige E-Mail-Adresse an."
 
 #. Translators: "letters" means latin letters: a-z and A-Z.
 #: .\venv\Lib\site-packages\django\core\validators.py:259
 msgid ""
 "Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
 msgstr ""
+"Geben Sie einen gültigen „Slug“ ein, der aus Buchstaben, Zahlen, "
+"Unterstrichen oder Bindestrichen besteht."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:267
 msgid ""
@@ -268,21 +433,21 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\core\validators.py:279
 #: .\venv\Lib\site-packages\django\core\validators.py:306
 msgid "Enter a valid IPv4 address."
-msgstr ""
+msgstr "Geben Sie eine gültige IPv4-Adresse ein."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:286
 #: .\venv\Lib\site-packages\django\core\validators.py:307
 msgid "Enter a valid IPv6 address."
-msgstr ""
+msgstr "Geben Sie eine gültige IPv6-Adresse ein."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:298
 #: .\venv\Lib\site-packages\django\core\validators.py:305
 msgid "Enter a valid IPv4 or IPv6 address."
-msgstr ""
+msgstr "Geben Sie eine gültige IPv4- oder IPv6-Adresse ein."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:341
 msgid "Enter only digits separated by commas."
-msgstr ""
+msgstr "Geben Sie nur durch Kommas getrennte Ziffern ein."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:347
 #, python-format
@@ -337,7 +502,7 @@ msgstr[1] ""
 #: .\venv\Lib\site-packages\django\forms\fields.py:355
 #: .\venv\Lib\site-packages\django\forms\fields.py:394
 msgid "Enter a number."
-msgstr ""
+msgstr "Geben Sie eine Zahl ein."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:482
 #, python-format
@@ -371,12 +536,12 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:624
 msgid "Null characters are not allowed."
-msgstr ""
+msgstr "Nullzeichen sind nicht zulässig."
 
 #: .\venv\Lib\site-packages\django\db\models\base.py:1473
 #: .\venv\Lib\site-packages\django\forms\models.py:906
 msgid "and"
-msgstr ""
+msgstr "und"
 
 #: .\venv\Lib\site-packages\django\db\models\base.py:1475
 #, python-format
@@ -395,11 +560,11 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:134
 msgid "This field cannot be null."
-msgstr ""
+msgstr "Dieses Feld darf nicht null sein."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:135
 msgid "This field cannot be blank."
-msgstr ""
+msgstr "Dieses Feld darf nicht leer sein."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:136
 #, python-format
@@ -422,29 +587,29 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1155
 #, python-format
 msgid "“%(value)s” value must be either True or False."
-msgstr ""
+msgstr "“%(value)s” Der Wert muss entweder „True“ oder „False“ sein."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1156
 #, python-format
 msgid "“%(value)s” value must be either True, False, or None."
-msgstr ""
+msgstr "“%(value)s” value must be either True, False, or None."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1158
 msgid "Boolean (Either True or False)"
-msgstr ""
+msgstr "Boolescher Wert (entweder wahr oder falsch)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1208
 #, python-format
 msgid "String (up to %(max_length)s)"
-msgstr ""
+msgstr "Zeichenfolge (bis zu%(max_length))"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1210
 msgid "String (unlimited)"
-msgstr ""
+msgstr "Zeichenfolge (unbegrenzt)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1314
 msgid "Comma-separated integers"
-msgstr ""
+msgstr "Durch Kommas getrennte Ganzzahlen"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1415
 #, python-format
@@ -1263,8 +1428,8 @@ msgid ""
 "If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
 "including the “Referrer-Policy: no-referrer” header, please remove them. The "
 "CSRF protection requires the “Referer” header to do strict referer checking. "
-"If you’re concerned about privacy, use alternatives like <a rel=\"noreferrer"
-"\" …> for links to third-party sites."
+"If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\views\csrf.py:54
@@ -1375,9 +1540,9 @@ msgstr ""
 #, python-format
 msgid ""
 "You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
-"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
-"\">DEBUG=True</a> is in your settings file and you have not configured any "
-"URLs."
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:229

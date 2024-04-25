@@ -47,18 +47,18 @@ class HomeView(LoginRequiredSuperuserMixim, View):
                 else:
                     obj.paid = False 
                 obj.save() 
-                messages.success(request,  ("Change made successfully.")) 
+                messages.success(request,  _("Change made successfully."))
             except Exception as e:   
-                messages.error(request, f"Sorry, the following error has occured {e}.")      
+                messages.error(request, _(f"Sorry, the following error has occured: {e}."))      
 
         # deleting an invoice    
         if request.POST.get('id_supprimer'):
             try:
                 obj = Invoice.objects.get(pk=request.POST.get('id_supprimer'))
                 obj.delete()
-                messages.success(request, ("The deletion was successful."))   
+                messages.success(request, _("The deletion was successful."))   
             except Exception as e:
-                messages.error(request, f"Sorry, the following error has occured {e}.")  
+                messages.error(request, _(f"Sorry, the following error has occured: {e}."))  
 
         items = pagination(request, self.invoices)
         self.context['invoices'] = items
@@ -89,12 +89,12 @@ class AddCustomerView(LoginRequiredSuperuserMixim, View):
         try:
             created = Customer.objects.create(**data)
             if created:
-                messages.success(request, "Customer registered successfully.")
+                messages.success(request, _("Customer registered successfully."))
             else:
-                messages.error(request, "Sorry, please try again the sent data is corrupt.")
+                messages.error(request, _("Sorry, please try again the sent data is corrupt."))
         except Exception as e:    
 
-            messages.error(request, f"Sorry our system is detecting the following issues {e}.")
+            messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
 
         return render(request, self.template_name)   
 
@@ -150,12 +150,12 @@ class AddInvoiceView(LoginRequiredSuperuserMixim, View):
             created = Article.objects.bulk_create(items)   
 
             if created:
-                messages.success(request, "Data saved successfully.") 
+                messages.success(request, _("Data saved successfully.")) 
             else:
-                messages.error(request, "Sorry, please try again the sent data is corrupt.")    
+                messages.error(request, _("Sorry, please try again the sent data is corrupt."))    
 
         except Exception as e:
-            messages.error(request, f"Sorry the following error has occured {e}.")  
+            messages.error(request, _(f"Sorry the following error has occured: {e}."))  
         
         return  render(request, self.template_name, self.context)
     
