@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %} 
+
+
+
+
+
+{% block content %}
+<br><br>
+
+<div class="form-group ">
+   <input id="search" class="form-control" type="text" placeholder="{% trans 'Search' %}....">
+</div>
+
+<div>
+   <table class="table table-striped-columns">
+      <thead>
+         <tr>
+            <th scope="col">#</th>
+            <th scope="col">{% trans 'CUSTOMER NAME' %}</th>
+            <th scope="col">{% trans 'EMAIl' %}</th>
+            <th scope="col">{% trans 'PHONE' %}</th>
+            <th scope="col">{% trans 'ADRESSE' %}</th>
+         </tr>
+      </thead>
+      <tbody id="myTable">
+      {% if customers %}
+         {% for customer in customers %}
+         <tr>
+            <th scope="row">{{ customer.pk }}</th>
+            <td>{{customer.name}}</td>
+            <td>{{customer.email}}</td>
+            <td>{{customer.phone}}</td>
+            <td>{{customer.addres}}</td>
+            <td>
+               <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail" class="badge text-white bg-success">{% trans 'View' %}</a>
+
+               <button id="btn-invoice-sup" type="button" data-toggle="modal" data-target="#supprimer"
+                  class="badge text-white bg-danger" title="Supprimer" data-id="{{ invoice.pk }}"
+                  data-customer="{{invoice.customer.name}}">{% trans 'Delete' %}
+               </button>
+
+               <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
+                  data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
+                  class="badge text-dark bg-warning">{% trans 'Modify' %}
+               </button>
+            </td>
+         </tr>
+
+         {% endfor %}
+
+         {% if customers.has_other_pages %}
+         <div class="btn-group" role="group" aria-label="Item pagination">
+
+            {% if customers.has_previous %}
+            <a href="?page={{ invoices.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+            {% endif %}
+
+            {% for page_number in customers.paginator.page_range %}
+
+               {% if customers.number == page_number %}
+                  <button class="btn btn-outline-primary active">
+                     <span> {{page_number}} <span class="sr-only">(current)</span></span>
+                  </button>
+               {% else %}
+                  <a href="?page={{page_number}}" class="btn btn-outline-primary">
+                     {{ page_number }}
+                  </a>
+               {% endif %}   
+
+            {% endfor %}
+
+            {% if customers.has_next %}
+               <a href="?page={{ customers.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+            {% endif %}
+
+         </div>
+         {% endif %}
+
+         {% else %}
+         <p class="text-center text-white">{% trans 'No Customer found.' %}</p>
+         {% endif %}
+
+
+      </tbody>
+
+   </table>
+</div>
+
+<!-- Modal modifier -->
+<div class="modal fade" id="modifier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+   aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title text-dark text-center" id="exampleModalLabel">{% trans 'Modification' %}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         </div>
+   </div>
+</div>
+<!-- end modal-->
+
+<!-- Modal suppression -->
+<div class="modal fade" id="supprimer" tabindex="-1" role="dialog" aria-labelledby="sexampleModalLabel"
+   aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title text-dark" id="sexampleModalLabel">{% trans 'Delete Invoice' %}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- end modal-->
+
+<br><br>
+
+{% endblock %}

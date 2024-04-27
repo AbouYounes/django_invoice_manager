@@ -64,10 +64,25 @@ class HomeView(LoginRequiredSuperuserMixim, View):
         self.context['invoices'] = items
         return render(request, self.templates_name, self.context)
     
+class CustomersView(LoginRequiredSuperuserMixim, View):
+    """ Customers view """
+
+    templates_name = 'customers.html'
+    customers = Customer.objects.select_related('customer', 'save_by').all()
+    context = {
+        'customers': customers
+    }
+    
+    def get(self, request, *args, **kwags):
+        items = pagination(request, self.customers)
+        self.context['customers'] = items
+        return render(request, self.templates_name)
+
+    
 class AddCustomerView(LoginRequiredSuperuserMixim, View):
      """ add new customer """    
      template_name = 'add_customer.html'
-
+     
      def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
 
@@ -165,10 +180,10 @@ class InvoiceVisualizationView(LoginRequiredSuperuserMixim, View):
     template_name = 'invoice.html'
     def get(self, request, *args, **kwargs):
         pk = kwargs.get('pk')
-        pk = kwargs.get('pk')
         context = get_invoice(pk)
         return render(request, self.template_name, context)
     
+   
 @superuser_required
 def get_invoice_pdf(request, *args, **kwargs):
     """ generate pdf file from html file """
