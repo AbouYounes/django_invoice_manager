@@ -65,19 +65,19 @@ class HomeView(LoginRequiredSuperuserMixim, View):
         return render(request, self.templates_name, self.context)
     
 class CustomersView(LoginRequiredSuperuserMixim, View):
-    """ Customers view """
-
-    templates_name = 'customers.html'
-    customers = Customer.objects.select_related('customer', 'save_by').all()
-    context = {
-        'customers': customers
-    }
+    """ Customers view """    
     
-    def get(self, request, *args, **kwags):
-        items = pagination(request, self.customers)
-        self.context['customers'] = items
-        return render(request, self.templates_name)
+    templates_name = 'customers.html'
+    data = Customer.objects.all()
+    context = {
+        'customers': data
+    }
 
+    def get(self, request, *args, **kwags):
+        items = pagination(request, self.data)
+        self.context['customer'] = items
+        return render(request, self.templates_name, self.context)
+    
     
 class AddCustomerView(LoginRequiredSuperuserMixim, View):
      """ add new customer """    

@@ -1,11 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %} 
-
-
-
-
-
 {% block content %}
 <br><br>
 
@@ -22,6 +17,7 @@
             <th scope="col">{% trans 'EMAIl' %}</th>
             <th scope="col">{% trans 'PHONE' %}</th>
             <th scope="col">{% trans 'ADRESSE' %}</th>
+            <th scope="col">{% trans 'ACTION' %}</th>
          </tr>
       </thead>
       <tbody id="myTable">
@@ -32,59 +28,23 @@
             <td>{{customer.name}}</td>
             <td>{{customer.email}}</td>
             <td>{{customer.phone}}</td>
-            <td>{{customer.addres}}</td>
+            <td>{{customer.address}}</td>
             <td>
-               <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail" class="badge text-white bg-success">{% trans 'View' %}</a>
+               <a href="#" title="Detail" class="badge text-white bg-success">{% trans 'View' %}</a>
+               <button id="btn-customer-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
+               data-id="{{customer.pk}}" data-customer="{{customers.name}}"
+               class="badge text-dark bg-warning">{% trans 'Modify' %}
+            </button>
 
-               <button id="btn-invoice-sup" type="button" data-toggle="modal" data-target="#supprimer"
-                  class="badge text-white bg-danger" title="Supprimer" data-id="{{ invoice.pk }}"
-                  data-customer="{{invoice.customer.name}}">{% trans 'Delete' %}
-               </button>
-
-               <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
-                  data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
-                  class="badge text-dark bg-warning">{% trans 'Modify' %}
-               </button>
+            <button id="btn-customer-sup" type="button" data-toggle="modal" data-target="#supprimer"
+               class="badge text-white bg-danger" title="Supprimer" data-id="{{ customer.pk }}"
+               data-customer="{{customers.name}}">{% trans 'Delete' %}
+            </button>
             </td>
          </tr>
-
          {% endfor %}
-
-         {% if customers.has_other_pages %}
-         <div class="btn-group" role="group" aria-label="Item pagination">
-
-            {% if customers.has_previous %}
-            <a href="?page={{ invoices.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
-            {% endif %}
-
-            {% for page_number in customers.paginator.page_range %}
-
-               {% if customers.number == page_number %}
-                  <button class="btn btn-outline-primary active">
-                     <span> {{page_number}} <span class="sr-only">(current)</span></span>
-                  </button>
-               {% else %}
-                  <a href="?page={{page_number}}" class="btn btn-outline-primary">
-                     {{ page_number }}
-                  </a>
-               {% endif %}   
-
-            {% endfor %}
-
-            {% if customers.has_next %}
-               <a href="?page={{ customers.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
-            {% endif %}
-
-         </div>
          {% endif %}
-
-         {% else %}
-         <p class="text-center text-white">{% trans 'No Customer found.' %}</p>
-         {% endif %}
-
-
       </tbody>
-
    </table>
 </div>
 
