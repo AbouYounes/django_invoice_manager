@@ -75,7 +75,7 @@ class CustomersView(LoginRequiredSuperuserMixim, View):
 
     def get(self, request, *args, **kwags):
         items = pagination(request, self.data)
-        self.context['customer'] = items
+        self.context['customers'] = items
         return render(request, self.templates_name, self.context)
     
     
