@@ -41,7 +41,7 @@
          </tr>
       </thead>
       <tbody id="myTable">
-         {% if invoices %}
+      {% if invoices %}
          {% for invoice in invoices %}
          <tr>
             <th scope="row">{{ invoice.pk }}</th>
@@ -49,33 +49,33 @@
             <td>{{invoice.invoice_date_time}}</td>
             <td>{{ invoice.get_total }}</td>
             <td>
-               {% if invoice.paid %}
+            {% if invoice.paid %}
                <img src="{% static 'images/icon-yes.svg' %}" alt="True">
-               {% else %}
+            {% else %}
                <img src="{% static 'images/icon-no.svg' %}" alt="False">
-               {% endif %}
+            {% endif %}
             </td>
             <td>{{invoice.get_invoice_type_display}}</td>
             <td>
                <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail" class="badge text-white bg-success">{% trans 'View' %}</a>
-
+               
                <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
-                  data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
-                  class="badge text-dark bg-warning">{% trans 'Modify' %}
+               data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
+               class="badge text-dark bg-warning">{% trans 'Modify' %}
                </button>
 
                <button id="btn-invoice-sup" type="button" data-toggle="modal" data-target="#supprimer"
                   class="badge text-white bg-danger" title="Supprimer" data-id="{{ invoice.pk }}"
                   data-customer="{{invoice.customer.name}}">{% trans 'Delete' %}
                </button>
-
+               
             </td>
          </tr>
-       
+
 
          {% endfor %}
 
-         {% if invoices.has_other_pages %}
+      {% if invoices.has_other_pages %}
          <div class="btn-group" role="group" aria-label="Item pagination">
 
             {% if invoices.has_previous %}
@@ -103,12 +103,12 @@
             {% endif %}
 
          </div>
-         {% endif %}
+      {% endif %}
 
-         {% else %}
+      {% else %}
          
          <p class="text-center text-white">{% trans 'No invoice found.' %}</p>
-         {% endif %}
+      {% endif %}
 
 
       </tbody>
