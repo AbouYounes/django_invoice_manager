@@ -43,6 +43,14 @@
                 <input required name="article" type="text" class="form-control" id="article-1">
             </div>
 
+            <label for="ut-1">{% trans 'Unit Type' %}</label>
+            <select name="invoice_type" class="form-control" id="ut-1">
+                <option>{% trans 'Choose the Unit type ...' %}</option>
+                <option value="R">{% trans 'Hour' %}</option>
+                <option value="P">{% trans 'Meter' %}</option>
+            </select>
+
+
             <div class="form-group col-md-2">
                 <label for="qty-1">{% trans 'Quantity' %}</label>
                 <input required name="qty" type="number" min="1" step="0.1" class="form-control" id="qty-1">
@@ -141,8 +149,8 @@
 
     function handleChangeSingleArticle(id){
 
-        console.log(id.toString().split('-'))
         let articleId = id.split('-')[1];
+        let idTypeA = `#ut_a-${articleId}`;
         let idQty = `#qty-${articleId}`;
         let unitId = `#unit-${articleId}`;
         let totalIdLine = `#total-a-${articleId}`;

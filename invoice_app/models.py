@@ -74,16 +74,31 @@ class Article(models.Model):
     Author: karim.khattou@univ-tiaret.dz
     """
 
+    UNIT_TYPE = (
+            ('R', _('Heur')),
+            ('P', _('Meter')),
+        )
+
+
     invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
     name = models.CharField(max_length=32)
+    article_date_time = models.DateTimeField(auto_now_add=True)
     quantity = models.IntegerField()
+    unit_type = models.CharField(max_length=1, choices=UNIT_TYPE)
     unit_price = models.DecimalField(max_digits=1000, decimal_places=2)
     total = models.DecimalField(max_digits=1000, decimal_places=2)
+    tva = models.DecimalField(max_digits=2, decimal_places=2)
+    TTC_article = models.DecimalField(max_digits=1000, decimal_places=2)
     class Meta:
         verbose_name = 'Article'
         verbose_name_plural = 'Articles'
 
     @property
     def get_total(self):
-        total = self.quantity * self.unit_price   
-        return total 
+        total = self.quantity  * self.unit_price 
+        return total
+
+    @property
+    def get_total_TTC(self):
+        TTC_article = self.total  * (self.tva + 1)
+        return TTC_article 

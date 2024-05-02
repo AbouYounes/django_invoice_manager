@@ -120,9 +120,12 @@ class AddInvoiceView(LoginRequiredSuperuserMixim, View):
             customer = request.POST.get('customer')
             type = request.POST.get('invoice_type')
             articles = request.POST.getlist('article')
+            date_a = request.POST.getlist('dt_a')
+            u_type = request.POST.getlist('ut_a')
             qties = request.POST.getlist('qty')
             units = request.POST.getlist('unit')
             total_a = request.POST.getlist('total-a')
+            ttc_a = request.POST.getlist('tt-a')
             total = request.POST.get('total')
             comment = request.POST.get('commment')
             invoice_object = {
@@ -140,9 +143,12 @@ class AddInvoiceView(LoginRequiredSuperuserMixim, View):
                 data = Article(
                     invoice_id = invoice.id,
                     name = article,
+                    article_date_time = date_a[index],
+                    unit_type = u_type[index],
                     quantity=qties[index],
                     unit_price = units[index],
                     total = total_a[index],
+                    TTC_article = ttc_a[index]
                 )
 
                 items.append(data)
