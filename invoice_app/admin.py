@@ -19,5 +19,3 @@ admin.site.site_title = _("INVOICE SYSTEM MANAGER")
 admin.site.site_header = _("INVOICE SYSTEM MANAGER")
 admin.site.index_title = _("INVOICE SYSTEM MANAGER")
 
-
-

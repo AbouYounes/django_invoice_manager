@@ -23,7 +23,6 @@ def pagination(request, invoices):
         return items_page    
 
 
-
 def get_invoice(pk):
     """ get invoice fonction """
 
