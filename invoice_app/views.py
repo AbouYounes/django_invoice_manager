@@ -121,11 +121,11 @@ class AddInvoiceView(LoginRequiredSuperuserMixim, View):
             type = request.POST.get('invoice_type')
             articles = request.POST.getlist('article')
             date_a = request.POST.getlist('dt_a')
-            u_type = request.POST.getlist('ut_a')
             qties = request.POST.getlist('qty')
+            u_type = request.POST.getlist('ut_a')
             units = request.POST.getlist('unit')
+            tax_a = request.POST.getlist('tax')
             total_a = request.POST.getlist('total-a')
-            ttc_a = request.POST.getlist('tt-a')
             total = request.POST.get('total')
             comment = request.POST.get('commment')
             invoice_object = {
@@ -143,12 +143,12 @@ class AddInvoiceView(LoginRequiredSuperuserMixim, View):
                 data = Article(
                     invoice_id = invoice.id,
                     name = article,
-                    article_date_time = date_a[index],
-                    unit_type = u_type[index],
+                    article_date = date_a[index],
                     quantity=qties[index],
+                    unit_type = u_type[index],
                     unit_price = units[index],
-                    total = total_a[index],
-                    TTC_article = ttc_a[index]
+                    tva = tax_a[index],
+                    TTC_article = total_a[index]
                 )
 
                 items.append(data)
@@ -196,13 +196,47 @@ def get_invoice_pdf(request, *args, **kwargs):
     options = {
         'page-size': 'A4',
         'encoding': 'UTF-8',
-        "enable-local-file-access": ""
+        'enable-local-file-access': None,
     }
 
     # generate pdf 
-    pdf = pdfkit.from_string(html, options=options, configuration=config)
+    pdf = pdfkit.from_string(html, False, options=options, configuration=config)
+
+    # Create an HTTP response with the PDF file
     response = HttpResponse(pdf, content_type='application/pdf')
-    response['Content-Disposition'] = "attachement"
+    response['Content-Disposition'] = 'attachement: filename="sample.pdf"'
 
     return response
 
+        
+#       @superuser_required
+ #       def get_invoice_pdf(request, *args, **kwargs):
+  #          """ generate pdf file from html file """
+#
+ #           pk = kwargs.get('pk')
+  #          context = get_invoice(pk)
+   #         context['date'] = datetime.datetime.today()
+#
+ #           #path_wkthmltopdf = b'C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe'
+  #          #config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
+#
+ #           # get html file
+  #          template = get_template('invoice-pdf.html')
+#
+ #           # render html with context variables
+  #          html = template.render(context)
+#
+ #           # options of pdf format
+  #          options = {
+   #             'page-size': 'A4',
+    #            'encoding': 'UTF-8',
+     #           "enable-local-file-access": ""
+      #      }
+#
+ #           # generate pdf
+  #          pdf = pdfkit.from_string(html, False, options)
+   #         #pdf = pdfkit.from_string(html, options=options, configuration=config)
+    #        response = HttpResponse(pdf, content_type='application/pdf')
+     #       response['Content-Disposition'] = "attachement"
+#
+ #           return response

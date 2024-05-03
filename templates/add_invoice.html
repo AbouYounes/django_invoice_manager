@@ -43,25 +43,41 @@
                 <input required name="article" type="text" class="form-control" id="article-1">
             </div>
 
-            <label for="ut-1">{% trans 'Unit Type' %}</label>
-            <select name="invoice_type" class="form-control" id="ut-1">
-                <option>{% trans 'Choose the Unit type ...' %}</option>
-                <option value="R">{% trans 'Hour' %}</option>
-                <option value="P">{% trans 'Meter' %}</option>
-            </select>
-
-
-            <div class="form-group col-md-2">
-                <label for="qty-1">{% trans 'Quantity' %}</label>
-                <input required name="qty" type="number" min="1" step="0.1" class="form-control" id="qty-1">
+            <div class="form-group col-sd-1">
+                <label for="dt_1">Date</label>
+                <input required name="dt_a" type=date step=7 min=2014-09-08 class="form-control" id="dt_1-1">
             </div>
 
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-1">
+                <label for="qty-1">{% trans 'Quantity' %}</label>
+                <input required name="qty" type="number" min="1" step="0.1" class="form-control" id="qty-1" onchange="handleChangeSingleArticle(this.id)">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="ut-1">{% trans 'Unit Type' %}</label>
+                <select name="ut_a" class="form-control" id="ut-1">
+                    <option>{% trans 'Choose the Unit type ...' %}</option>
+                    <option value="H">{% trans 'Hour' %}</option>
+                    <option value="M">{% trans 'Meter' %}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-1">
                 <label for="unit-1">{% trans 'Unit Price' %}</label>
                 <input required name="unit" type="number" min="1" step="0.1" onchange="handleChangeSingleArticle(this.id)" class="form-control" id="unit-1">
             </div>
 
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
+                <label for="tax-1">{% trans 'Tax' %}</label>
+                <select required name="tax" class="form-control" id="tax-1" onchange="handleChangeSingleArticle(this.id)">
+                    <option>{% trans 'Choose the Tax value ...' %}</option>
+                    <option value=0>{% trans '00%' %}</option>
+                    <option value=0.17>{% trans '17%' %}</option>
+                    <option value=0.19>{% trans '19%' %}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-1">
                 <label for="total-a-1">{% trans 'Total' %}</label>
                 <input value="0.00" required name="total-a" type="number" min="1" step="0.1" readonly class="form-control"
                     id="total-a-1">
@@ -110,22 +126,41 @@
         let formAdd = `
     
                         <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-5">
                                     <label for="article-${number}">#${number} {% trans 'Item name' %}</label>
                                     <input required name="article" type="text" class="form-control" id="article-${number}">
                                 </div>
-    
-                                <div class="form-group col-md-2">
+
+                                <div class="form-group col-md-1">
                                     <label for="qty-${number}">{% trans 'Quantity' %}</label>
-                                    <input required name="qty" type="number" min="1" step="0.1"  class="form-control" id="qty-${number}">
+                                    <input required name="qty" type="number" min="1" step="0.1" class="form-control" id="qty-${number}" onchange="handleChangeSingleArticle(this.id)">
                                 </div>
     
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-2">
+                                    <label for="ut-${number}">{% trans 'Unit Type' %}</label>
+                                    <select name="ut_a" class="form-control" id="ut-${number}">
+                                        <option>{% trans 'Choose the Unit type ...' %}</option>
+                                        <option value="H">{% trans 'Hour' %}</option>
+                                        <option value="M">{% trans 'Meter' %}</option>
+                                    </select>
+                                </div>
+    
+                                <div class="form-group col-md-1">
                                     <label for="unit-${number}">{% trans 'Unit Price' %}</label>
                                     <input required name="unit" type="number" min="1" step="0.1" onchange="handleChangeSingleArticle(this.id)" class="form-control" id="unit-${number}">
                                 </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="tax-${number}">{% trans 'Tax' %}</label>
+                                    <select required name="tax" class="form-control" id="tax-${number}" onchange="handleChangeSingleArticle(this.id)">
+                                        <option>{% trans 'Choose the Tax value ...' %}</option>
+                                        <option value="0">{% trans '0%' %}</option>
+                                        <option value="0.17">{% trans '17%' %}</option>
+                                        <option value="0.19">{% trans '19%' %}</option>
+                                    </select>
+                                </div>
     
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-1">
                                     <label for="total-a-${number}">{% trans 'Total' %}</label>
                                     <input required name="total-a" type="number" min="1" step="0.1" readonly class="form-control"
                                         id="total-a-${number}">
@@ -150,14 +185,29 @@
     function handleChangeSingleArticle(id){
 
         let articleId = id.split('-')[1];
-        let idTypeA = `#ut_a-${articleId}`;
         let idQty = `#qty-${articleId}`;
+        let taxRate = `#tax-${articleId}`;
         let unitId = `#unit-${articleId}`;
         let totalIdLine = `#total-a-${articleId}`;
-        let totalLine = parseFloat($(idQty).val()) * parseFloat($(unitId).val());
-        $(totalIdLine).val(totalLine);
-        $('#total').val(parseFloat($('#total').val()) + totalLine);
+
+        let qtyValue = parseFloat($(idQty).val());
+        let unitValue = parseFloat($(unitId).val());
+        let taxvalue = parseFloat($(taxRate).val());
+
+        if (!isNaN(qtyValue) && !isNaN(unitValue) && !isNaN(taxvalue)) {
+            let subtotal = qtyValue * unitValue;
+            let taxAmount = subtotal * taxvalue;
+            let totalLine = subtotal + taxAmount;
+
+            $(totalIdLine).val(totalLine.toFixed(2));
+
+            let currentTotal = parseFloat($('#total').val());
+            if (!isNaN(currentTotal)) {
+                let newTotal = currentTotal + totalLine;
+                $('#total').val(newTotal.toFixed(2));
+                }
         
+        }
     }
 
 // TODO This code is not completed you need to add a busness logic for changing in quantity and removving the last item line.    
