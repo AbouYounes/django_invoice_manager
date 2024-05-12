@@ -217,9 +217,6 @@ def get_invoice_pdf(request, *args, **kwargs):
   #          context = get_invoice(pk)
    #         context['date'] = datetime.datetime.today()
 #
- #           #path_wkthmltopdf = b'C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe'
-  #          #config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
-#
  #           # get html file
   #          template = get_template('invoice-pdf.html')
 #
