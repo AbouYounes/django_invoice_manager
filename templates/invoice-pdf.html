@@ -256,9 +256,8 @@
 													<td>{{ article.unit_price }}</td>
 													<td>{{ article.tva }}</td>
 													<td>{{ article.get_total }}</td>
-                                                </tr>
-                                                {% endfor %} 
-                                                <tr>
+                                               {% endfor %} 
+    											<tr>
     												<td colspan="6" class="text-right" >
 														<p>
 															{% trans 'Subtotal' %}<br>
@@ -272,6 +271,7 @@
     													</p>
     												</td>
                                                 </tr>
+                                                {% endfor %} 
     										</tbody>
     									</table>
     								</div>

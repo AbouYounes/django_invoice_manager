@@ -70,8 +70,16 @@
                 placeholder="{% trans 'customer zip code required' %}">
         </div>
     </div>
-
+<div class="row">
     <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
+
+    <a href='#' class="col-md-8">
+        <span class="badge text-bg-secondary"></span>
+     </a>
+
+    <a href="{% url 'customers' %}" class="btn col-md-2 btn-danger">{% trans 'close' %}
+     </a>
+</div>
 
 </form>
 
