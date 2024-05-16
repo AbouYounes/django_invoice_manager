@@ -2,7 +2,6 @@
 {% load static %}
 {% load i18n %} 
 
-
 {% block content %}
 <br><br>
 
@@ -72,6 +71,7 @@
             </td>
          </tr>
 
+         
 
          {% endfor %}
 
@@ -105,14 +105,13 @@
          </div>
       {% endif %}
 
-      {% else %}
+         {% else %}
          
          <p class="text-center text-white">{% trans 'No invoice found.' %}</p>
-      {% endif %}
+         {% endif %}
 
 
       </tbody>
-
    </table>
 </div>
 
@@ -202,10 +201,7 @@
 
    })
 
-
-
 </script>
-
 
 <script>
 
