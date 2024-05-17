@@ -5,6 +5,33 @@
 {% block content %}
 <br><br>
 
+<div class="row row-cols-1 row-cols-md-3 g-4">
+   <div class="col">
+      <div class="card text-white bg-primary mb-4" style="max-width: 20rem;">
+         <div class="card-body">
+         <h5 class="card-title text-center te">{% trans 'INVOICES' %}</h5>
+         <h1 class="card-text text-center">{{total_invoices}}</h1>
+         </div>
+      </div>
+   </div>
+   <div class="col">
+      <div class="card text-white bg-secondary mb-4" style="max-width: 20rem;">
+         <div class="card-body">
+         <h5 class="card-title text-center">{% trans 'CUSTOMERS' %}</h5>
+         <h1 class="card-text text-center">{{total_customers}}</h1>
+         </div>
+      </div>
+   </div>
+   <div class="col">
+      <div class="card text-white bg-success mb-4" style="max-width: 20rem;">
+         <div class="card-body">
+         <h5 class="card-title text-center">{% trans 'PAID INVOICES' %}</h5>
+         <h1 class="card-text text-center">{{total_paid}}</h1>
+         </div>
+      </div>
+   </div>
+</div>
+
 <div class="row">
    <a href="{% url 'add-invoice' %}" class="btn col-md-4 btn-primary">{% trans 'Register a new invoice' %}
       <span class="badge text-bg-secondary"></span>
@@ -70,9 +97,6 @@
                
             </td>
          </tr>
-
-         
-
          {% endfor %}
 
       {% if invoices.has_other_pages %}

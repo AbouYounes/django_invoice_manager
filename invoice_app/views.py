@@ -24,11 +24,21 @@ class HomeView(LoginRequiredSuperuserMixim, View):
     """ Main view """
 
     templates_name = 'index.html'
-    invoices = Invoice.objects.select_related('customer', 'save_by').all()
+    invoices = Invoice.objects.all()
+    customers = Customer.objects.all()
+    article = Article.objects.all()
+    total_invoices = invoices.count()
+    total_customers = customers.count()
+    total_paid = invoices.filter(paid='True').count()
     context = {
-        'invoices': invoices
+        'invoices': invoices,
+        'customers' : customers,
+        'total_invoices' : total_invoices,
+        'total_customers' : total_customers,
+        'total_paid' : total_paid
     }
-
+    Invoice.objects.alatest
+    
     def get(self, request, *args, **kwags):
         items = pagination(request, self.invoices)
         self.context['invoices'] = items
@@ -46,7 +56,7 @@ class HomeView(LoginRequiredSuperuserMixim, View):
                     obj.paid = True
                 else:
                     obj.paid = False 
-                obj.save() 
+                obj.save()
                 messages.success(request,  _("Change made successfully."))
             except Exception as e:   
                 messages.error(request, _(f"Sorry, the following error has occured: {e}."))      
@@ -62,6 +72,7 @@ class HomeView(LoginRequiredSuperuserMixim, View):
 
         items = pagination(request, self.invoices)
         self.context['invoices'] = items
+        Invoice.validate_constraints,
         return render(request, self.templates_name, self.context)
     
 class CustomersView(LoginRequiredSuperuserMixim, View):
