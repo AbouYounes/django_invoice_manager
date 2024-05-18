@@ -45,6 +45,7 @@ class Invoice(models.Model):
         ('I', _('INVOICE'))
     )
 
+    id = models.AutoField(primary_key=True)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
     save_by = models.ForeignKey(User, on_delete=models.PROTECT)
     invoice_date_time = models.DateTimeField(auto_now_add=True)
@@ -102,6 +103,6 @@ class Article(models.Model):
     def get_total(self):
         total = self.quantity  * self.unit_price 
         TTC_article = total  * (self.tva + 1)
-        return TTC_article 
+        return round(TTC_article, 2) 
 
    
