@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<br><br><br><br>
+<br><br>
 
 <h1 class="text-capitalize text-center mx-10 bg-dark text-white">{% trans 'Register a new invoice' %}</h1>
 
@@ -12,116 +12,118 @@
     {% csrf_token %}
 
     <div class="form-row">
-        <div class="form-group col-md-12">
-            <label for="customer">{% trans 'Customer' %}</label>
-            <select name="customer" class="form-control" id="customer">
-                <option>{% trans 'Choose the customer ...' %}</option>
-                {% for customer in customers %}
-                <option value="{{customer.id}}">{{forloop.counter}}-{{customer.name}}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            <label for="invoice">{% trans 'Invoice Type' %}</label>
-            <select name="invoice_type" class="form-control" id="invoice">
-                <option>{% trans 'Choose the invoice type ...' %}</option>
-                <option value="R">{% trans 'RECEIPT' %}</option>
-                <option value="P">{% trans 'PROFORMA INVOICE' %}</option>
-                <option value="I">{% trans 'INVOICE' %}</option>
-            </select>
-        </div>
-    </div>
-
-    <div id="wrapper">
-
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="article-1">#1 {% trans 'Item name' %}</label>
-                <input required name="article" type="text" class="form-control" id="article-1">
-            </div>
-
-            <div class="form-group col-sd-1">
-                <label for="dt_1">Date</label>
-                <input required name="dt_a" type=date step=7 min=2014-09-08 class="form-control" id="dt_1">
-            </div>
-
-            <div class="form-group col-md-1">
-                <label for="qty-1">{% trans 'Quantity' %}</label>
-                <input required name="qty" type="number" min="1" step="0.1" class="form-control" id="qty-1" onchange="handleChangeSingleArticle(this.id)">
-            </div>
-
-            <div class="form-group col-md-2">
-                <label for="ut-1">{% trans 'Unit Type' %}</label>
-                <select name="ut_a" class="form-control" id="ut-1">
-                    <option>{% trans 'Choose the Unit type ...' %}</option>
-                    <option value="H">{% trans 'Hour' %}</option>
-                    <option value="M">{% trans 'Meter' %}</option>
+        <div class="col-sm">
+            <div class="form-group col-md-12">
+                <label for="customer">{% trans 'Customer' %}</label>
+                <select name="customer" class="form-control" id="customer">
+                    <option>{% trans 'Choose the customer ...' %}</option>
+                    {% for customer in customers %}
+                    <option value="{{customer.id}}">{{forloop.counter}}-{{customer.name}}</option>
+                    {% endfor %}
                 </select>
             </div>
-
-            <div class="form-group col-md-1">
-                <label for="unit-1">{% trans 'Unit Price' %}</label>
-                <input required name="unit" type="number" min="1" step="0.1" onchange="handleChangeSingleArticle(this.id)" class="form-control" id="unit-1">
-            </div>
-
-            <div class="form-group col-md-2">
-                <label for="tax-1">{% trans 'Tax' %}</label>
-                <select required name="tax" class="form-control" id="tax-1" onchange="handleChangeSingleArticle(this.id)">
-                    <option>{% trans 'Choose the Tax value ...' %}</option>
-                    <option value=0>{% trans '00%' %}</option>
-                    <option value=0.17>{% trans '17%' %}</option>
-                    <option value=0.19>{% trans '19%' %}</option>
+        </div>
+        <div class="col-sm">
+            <div class="form-group col-md-12">
+                <label for="invoice">{% trans 'Invoice Type' %}</label>
+                <select name="invoice_type" class="form-control" id="invoice">
+                    <option>{% trans 'Choose the invoice type ...' %}</option>
+                    <option value="R">{% trans 'RECEIPT' %}</option>
+                    <option value="P">{% trans 'PROFORMA INVOICE' %}</option>
+                    <option value="I">{% trans 'INVOICE' %}</option>
                 </select>
             </div>
-
-            <div class="form-group col-md-1">
-                <label for="total-a-1">{% trans 'Total' %}</label>
-                <input value="0.00" required name="total-a" type="text" min="1" readonly class="form-control"
-                    id="total-a-1">
+        </div>
+        <div class="col-sm">
+            <div class="card text-dark bg-info mb-3">
+                <div class="card-header">
+                    <div class="form-group col-md-12 text-center">
+                        <label for="total"><h5>{% trans 'Total' %}</h5></label>
+                        <input value="0.00" type="text" name="total" readonly class="form-control" id="total">
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
 
-    <div class="row">
+    <label for="customer">{% trans 'Items' %}</label>
+    <div class="card text-dark bg-light mb-3">
+        <div class="card-body">
+            <div id="wrapper">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="article-1">#1 {% trans 'Item name' %}</label>
+                        <input required name="article" type="text" class="form-control" id="article-1">
+                    </div>
 
-        <button id="btn-add" class="btn btn-outline-success w-50 col-md-6">{% trans 'Add a new item line' %}</button>
-        <button id="btn-remove" class="btn btn-outline-warning w-50 col-md-6">{% trans 'Remove last item line' %}</button>
-    
-    </div>
+                    <div class="form-group col-sd-1">
+                        <label for="dt_1">Date</label>
+                        <input required name="dt_a" type=date class="form-control" id="dt_1">
+                    </div>
 
-    <br><br>
+                    <div class="form-group col-md-1">
+                        <label for="qty-1">{% trans 'Quantity' %}</label>
+                        <input required name="qty" type="number" min="1" step="0.1" class="form-control" id="qty-1" onchange="handleChangeSingleArticle(this.id)">
+                    </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            <label for="total">{% trans 'Total' %}</label>
-            <input value="0.00" type="text" name="total" readonly class="form-control" id="total">
+                    <div class="form-group col-md-2">
+                        <label for="ut-1">{% trans 'Unit Type' %}</label>
+                        <select name="ut_a" class="form-control" id="ut-1">
+                            <option>{% trans 'Choose the Unit type ...' %}</option>
+                            <option value="H">{% trans 'Hour' %}</option>
+                            <option value="M">{% trans 'Meter' %}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-1">
+                        <label for="unit-1">{% trans 'Unit Price' %}</label>
+                        <input required name="unit" type="number" min="1" step="0.1" onchange="handleChangeSingleArticle(this.id)" class="form-control" id="unit-1">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="tax-1">{% trans 'Tax' %}</label>
+                        <select required name="tax" class="form-control" id="tax-1" onchange="handleChangeSingleArticle(this.id)">
+                            <option>{% trans 'Choose the Tax value ...' %}</option>
+                            <option value=0>{% trans '00%' %}</option>
+                            <option value=0.17>{% trans '17%' %}</option>
+                            <option value=0.19>{% trans '19%' %}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-1">
+                        <label for="total-a-1">{% trans 'Total' %}</label>
+                        <input value="0.00" required name="total-a" type="text" min="1" readonly class="form-control"
+                            id="total-a-1">
+                    </div>
+                </div>
+                </div>
+
+            <div class="row justify-content-around">
+                <button id="btn-add" class="btn btn-success w-50 col-md-4">{% trans 'Add a new item line' %}</button>
+                <button id="btn-remove" class="btn btn-warning w-50 col-md-4">{% trans 'Remove last item line' %}</button>
+            </div>
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group col-md-12">
             <label for="comment">{% trans 'Comments' %}</label>
-            <textarea class="form-control" name="comment" id="comment" cols="30" rows="1"></textarea>
+            <select name="commment" class="form-control" id="commment">
+                <option>{% trans 'Choose the comment ...' %}</option>
+                <option value="vielen Dank für Ihren Auftrag. Wir berechenen Ihnen fomgende Leistung:">vielen Dank für Ihren Auftrag. Wir berechenen Ihnen fomgende Leistung:</option>
+                <option ></option>
+                <option ></option>
+            </select>
         </div>
     </div>
 
-    <div class="row">
-        <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
-    
-        <a href='#' class="col-md-8">
-            <span class="badge text-bg-secondary"></span>
-         </a>
-    
-        <a href="{% url 'home' %}" class="btn col-md-2 btn-danger">{% trans 'close' %}
-         </a>
+    <div class="row justify-content-between">
+            <button type="submit" class="btn col-md-3 btn-primary">{% trans 'Save' %}</button>
+            <a href="{% url 'home' %}" class="btn col-md-3 btn-danger">{% trans 'close' %}</a>
     </div>
 </form>
 
-<br><br>
+<br>
 
 <script type="text/javascript">
 
@@ -134,14 +136,14 @@
         let formAdd = `
     
                         <div class="form-row">
-                                <div class="form-group col-md-5">
+                                <div class="form-group col-md-3">
                                     <label for="article-${number}">#${number} {% trans 'Item name' %}</label>
                                     <input required name="article" type="text" class="form-control" id="article-${number}">
                                 </div>
 
                                 <div class="form-group col-sd-1">
                                     <label for="dt_${number}">Date</label>
-                                    <input required name="dt_a" type=date step=7 min=2014-09-08 class="form-control" id="dt_${number}">
+                                    <input required name="dt_a" type=date class="form-control" id="dt_${number}">
                                 </div>
 
                                 <div class="form-group col-md-1">

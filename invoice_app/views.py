@@ -74,7 +74,42 @@ class HomeView(LoginRequiredSuperuserMixim, View):
         self.context['invoices'] = items
         Invoice.validate_constraints,
         return render(request, self.templates_name, self.context)
-    
+
+class AddEntrepreneurView(LoginRequiredSuperuserMixim, View):
+     """ add new entrepreneur """    
+     template_name = 'add_entrepreneur.html'
+     
+     def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+     def post(self, request, *args, **kwargs):
+
+        data = {
+            'name': request.POST.get('name'),
+            'email': request.POST.get('email'),
+            'phone': request.POST.get('phone'),
+            'address': request.POST.get('address'),
+            'sex': request.POST.get('sex'),
+            'age': request.POST.get('age'),
+            'city': request.POST.get('city'),
+            'zip_code': request.POST.get('zip'),
+            'save_by': request.user
+
+        }
+
+        try:
+            created = Customer.objects.create(**data)
+            if created:
+                messages.success(request, _("Entrepreneur registered successfully."))
+            else:
+                messages.error(request, _("Sorry, please try again the sent data is corrupt."))
+        except Exception as e:    
+
+            messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
+
+        return render(request, self.template_name)   
+
+
 class CustomersView(LoginRequiredSuperuserMixim, View):
     """ Customers view """    
     
