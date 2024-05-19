@@ -4,6 +4,41 @@ from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
+class Entrepreneur(models.Model):
+    """
+    Name: Entrepreneur model definition
+    Description: 
+    author: karim.khattou@univ-tiaret.dz
+    """
+    SEX_TYPES = (
+        ('M', _('Male')),
+        ('F', _('Feminine')),
+    )
+    name = models.CharField(max_length=132)
+    email = models.EmailField()
+    phone = models.CharField(max_length=132)
+    address = models.CharField(max_length=64)
+    sex = models.CharField(max_length=1, choices=SEX_TYPES)
+    age = models.CharField(max_length=12)
+    city = models.CharField(max_length=32)
+    zip_code = models.CharField(max_length=16)
+    created_date = models.DateTimeField(auto_now_add=True)
+    save_by = models.ForeignKey(User, on_delete=models.PROTECT)
+    bank = models.CharField(max_length=64)
+    bankaccount = models.CharField(max_length=64)
+    swift = models.CharField(max_length=64)
+    iban = models.CharField(max_length=64)
+
+
+    class Meta: 
+        verbose_name = "Entrepreneur"
+        verbose_name_plural = "Entrepreneur"
+
+    def __str__(self):
+        return self.name
+    
+
+
 class Customer(models.Model):
     """
     Name: Customer model definition
