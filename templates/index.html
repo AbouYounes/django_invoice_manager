@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
-{% load i18n %} 
+{% load i18n %}
+
 
 {% block content %}
 <br><br>
@@ -9,7 +10,7 @@
    <div class="col">
       <div class="card text-white bg-primary mb-4" style="max-width: 20rem;">
          <div class="card-body">
-         <h5 class="card-title text-center te">{% trans 'INVOICES' %}</h5>
+         <h5 class="card-title text-center">{% trans 'INVOICES' %}</h5>
          <h1 class="card-text text-center">{{total_invoices}}</h1>
          </div>
       </div>
@@ -22,7 +23,7 @@
          </div>
       </div>
    </div>
-   <div class="col">
+   <div class="col" method="get">
       <div class="card text-white bg-success mb-4" style="max-width: 20rem;">
          <div class="card-body">
          <h5 class="card-title text-center">{% trans 'PAID INVOICES' %}</h5>
@@ -41,7 +42,7 @@
       <span class="badge text-bg-secondary"></span>
    </a>
 
-   <a href="{% url 'customers' %}" class="btn col-md-4 btn-primary">{% trans 'Customers list' %}
+   <a href="{% url 'add-customer' %}" class="btn col-md-4 btn-primary">{% trans 'Register a new customer' %}
       <span class="badge text-bg-secondary"></span>
    </a>
 
@@ -84,7 +85,7 @@
             <td>{{invoice.get_invoice_type_display}}</td>
             <td>
                <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail" class="badge text-white bg-success">{% trans 'View' %}</a>
-               
+
                <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
                data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
                class="badge text-dark bg-warning">{% trans 'Modify' %}
@@ -94,7 +95,7 @@
                   class="badge text-white bg-danger" title="Supprimer" data-id="{{ invoice.pk }}"
                   data-customer="{{invoice.customer.name}}">{% trans 'Delete' %}
                </button>
-               
+
             </td>
          </tr>
          {% endfor %}
@@ -116,7 +117,7 @@
                   <a href="?page={{page_number}}" class="btn btn-outline-primary">
                      {{ page_number }}
                   </a>
-               {% endif %}   
+               {% endif %}
 
             {% endfor %}
 
@@ -125,17 +126,17 @@
                <a href="?page={{ invoices.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
 
             {% endif %}
-
          </div>
+
       {% endif %}
 
-         {% else %}
-         
+      {% else %}
          <p class="text-center text-white">{% trans 'No invoice found.' %}</p>
-         {% endif %}
+      {% endif %}
 
 
       </tbody>
+
    </table>
 </div>
 
@@ -225,7 +226,10 @@
 
    })
 
+
+
 </script>
+
 
 <script>
 
