@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 
 from django.db import transaction
-from .utils import pagination, get_invoice
+from .utils import pagination, get_invoice, get_customer
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -24,14 +24,21 @@ class HomeView(LoginRequiredSuperuserMixim, View):
     """ Main view """
 
     templates_name = 'index.html'
-    invoices = Invoice.objects.select_related('customer', 'save_by').all()
+    invoices = Invoice.objects.all()
+    customers = Customer.objects.all()
     context = {
-        'invoices': invoices
+        'invoices': invoices,
+        'customers': customers
     }
 
     def get(self, request, *args, **kwags):
         items = pagination(request, self.invoices)
         self.context['invoices'] = items
+        return render(request, self.templates_name, self.context)
+    
+    def get(self, request, *args, **kwags):
+        items = pagination(request, self.customers)
+        self.context['customers'] = items
         return render(request, self.templates_name, self.context)
     
 
@@ -65,8 +72,8 @@ class HomeView(LoginRequiredSuperuserMixim, View):
         return render(request, self.templates_name, self.context)
     
 class CustomersView(LoginRequiredSuperuserMixim, View):
-    """ Customers view """    
-    
+    """ Customers view """  
+
     templates_name = 'customers.html'
     data = Customer.objects.all()
     context = {
@@ -211,7 +218,7 @@ def get_invoice_pdf(request, *args, **kwargs):
     # generate pdf 
     pdf = pdfkit.from_string(html, options=options, configuration=config)
     response = HttpResponse(pdf, content_type='application/pdf')
-    response['Content-Disposition'] = "attachement"
+    response['Content-Disposition'] = 'attachement:filename="sample.pdf"'
 
     return response
 

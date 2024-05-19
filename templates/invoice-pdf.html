@@ -240,38 +240,38 @@
     						<div class="row gutters">
     							<div class="col-lg-12 col-md-12 col-sm-12">
     								<div class="table-responsive">
-    									<table class="table custom-table m-0" >
+    									<table class="table" >
     										<thead>
-    											<tr>
-    												<th>{% trans 'Items' %}</th>
-													<th>{% trans 'Date' %}</th>
-													<th>{% trans 'Quantities' %}</th>
-													<th>{% trans 'Unit' %}</th>
-													<th>{% trans 'Unit Price' %}</th>
-													<th>{% trans 'TVA' %}</th>
-													<th>{% trans 'Subtotal' %}</th>
+    											<tr class="text-center">
+    												<th class="border border-dark">{% trans 'Items' %}</th>
+													<th class="border border-dark">{% trans 'Date' %}</th>
+													<th class="border border-dark">{% trans 'Quantities' %}</th>
+													<th class="border border-dark">{% trans 'Unit' %}</th>
+													<th class="border border-dark">{% trans 'Unit Price' %}</th>
+													<th class="border border-dark">{% trans 'TVA' %}</th>
+													<th class="border border-dark">{% trans 'Subtotal' %}</th>
     											</tr>
     										</thead>
     										<tbody>
                                               {% for article in articles %}
-    											<tr>
-                                                    <td c>{{ article.name }}</td>
-													<td>Date</td>
-													<td>{{ article.quantity }}</td>
-													<td>Unit</td>
-													<td>{{ article.unit_price }}</td>
-													<td>TVA</td>
-													<td>{{ article.get_total }}</td>
+    											<tr class="text-left">
+                                                    <td class="border border-dark">{{ article.name }}</td>
+													<td class="border border-dark">Date</td>
+													<td class="border border-dark">{{ article.quantity }}</td>
+													<td class="border border-dark">Unit</td>
+													<td class="border border-dark">{{ article.unit_price }}</td>
+													<td class="border border-dark">TVA</td>
+													<td class="border border-dark">{{ article.get_total }}</td>
     											</tr>
                                                {% endfor %} 
-    											<tr>
+    											<tr> 
     												<td colspan="6" class="text-right" >
 														<p>
 															{% trans 'Subtotal' %}<br>
 															<strong>{% trans 'Total' %}</strong>
 														</p>
     												</td>			
-    												<td>
+    												<td class="text-right border border-dark">
     													<p>
     														{{obj.get_total}} Euro<br>
 															<strong>{{obj.get_total}} Euro</strong>
