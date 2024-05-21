@@ -24,13 +24,12 @@ class HomeView(LoginRequiredSuperuserMixim, View):
     """ Main view """
 
     templates_name = 'index.html'
-    invoices = Invoice.objects.all()
-    customers = Customer.objects.all()
+    invoices = Invoice.objects.select_related('customer', 'save_by').all()
     context = {
-        'invoices': invoices,
-        'customers': customers
+        'invoices': invoices
     }
-
+    Invoice.objects.alatest
+    
     def get(self, request, *args, **kwags):
         items = pagination(request, self.invoices)
         self.context['invoices'] = items
@@ -53,7 +52,7 @@ class HomeView(LoginRequiredSuperuserMixim, View):
                     obj.paid = True
                 else:
                     obj.paid = False 
-                obj.save() 
+                obj.save()
                 messages.success(request,  _("Change made successfully."))
             except Exception as e:   
                 messages.error(request, _(f"Sorry, the following error has occured: {e}."))      
@@ -69,8 +68,44 @@ class HomeView(LoginRequiredSuperuserMixim, View):
 
         items = pagination(request, self.invoices)
         self.context['invoices'] = items
+        Invoice.validate_constraints,
         return render(request, self.templates_name, self.context)
-    
+
+class AddEntrepreneurView(LoginRequiredSuperuserMixim, View):
+     """ add new entrepreneur """    
+     template_name = 'add_entrepreneur.html'
+     
+     def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+     def post(self, request, *args, **kwargs):
+
+        data = {
+            'name': request.POST.get('name'),
+            'email': request.POST.get('email'),
+            'phone': request.POST.get('phone'),
+            'address': request.POST.get('address'),
+            'sex': request.POST.get('sex'),
+            'age': request.POST.get('age'),
+            'city': request.POST.get('city'),
+            'zip_code': request.POST.get('zip'),
+            'save_by': request.user
+
+        }
+
+        try:
+            created = Customer.objects.create(**data)
+            if created:
+                messages.success(request, _("Entrepreneur registered successfully."))
+            else:
+                messages.error(request, _("Sorry, please try again the sent data is corrupt."))
+        except Exception as e:    
+
+            messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
+
+        return render(request, self.template_name)   
+
+
 class CustomersView(LoginRequiredSuperuserMixim, View):
     """ Customers view """  
 
@@ -142,8 +177,11 @@ class AddInvoiceView(LoginRequiredSuperuserMixim, View):
             customer = request.POST.get('customer')
             type = request.POST.get('invoice_type')
             articles = request.POST.getlist('article')
+            date_a = request.POST.getlist('dt_a')
             qties = request.POST.getlist('qty')
+            u_type = request.POST.getlist('ut_a')
             units = request.POST.getlist('unit')
+            tax_a = request.POST.getlist('tax')
             total_a = request.POST.getlist('total-a')
             total = request.POST.get('total')
             comment = request.POST.get('commment')
@@ -162,9 +200,12 @@ class AddInvoiceView(LoginRequiredSuperuserMixim, View):
                 data = Article(
                     invoice_id = invoice.id,
                     name = article,
+                    article_date = date_a[index],
                     quantity=qties[index],
+                    unit_type = u_type[index],
                     unit_price = units[index],
-                    total = total_a[index],
+                    tva = tax_a[index],
+                    TTC_article = total_a[index]
                 )
 
                 items.append(data)
@@ -212,13 +253,43 @@ def get_invoice_pdf(request, *args, **kwargs):
     options = {
         'page-size': 'A4',
         'encoding': 'UTF-8',
-        "enable-local-file-access": ""
+        'enable-local-file-access': None,
     }
 
     # generate pdf 
-    pdf = pdfkit.from_string(html, options=options, configuration=config)
+    pdf = pdfkit.from_string(html, False, options=options, configuration=config)
+
+    # Create an HTTP response with the PDF file
     response = HttpResponse(pdf, content_type='application/pdf')
-    response['Content-Disposition'] = 'attachement:filename="sample.pdf"'
+    response['Content-Disposition'] = "attachement"
 
     return response
-
+        
+#       @superuser_required
+ #       def get_invoice_pdf(request, *args, **kwargs):
+  #          """ generate pdf file from html file """
+#
+ #           pk = kwargs.get('pk')
+  #          context = get_invoice(pk)
+   #         context['date'] = datetime.datetime.today()
+#
+ #           # get html file
+  #          template = get_template('invoice-pdf.html')
+#
+ #           # render html with context variables
+  #          html = template.render(context)
+#
+ #           # options of pdf format
+  #          options = {
+   #             'page-size': 'A4',
+    #            'encoding': 'UTF-8',
+     #           "enable-local-file-access": ""
+      #      }
+#
+ #           # generate pdf
+  #          pdf = pdfkit.from_string(html, False, options)
+   #         #pdf = pdfkit.from_string(html, options=options, configuration=config)
+    #        response = HttpResponse(pdf, content_type='application/pdf')
+     #       response['Content-Disposition'] = "attachement"
+#
+ #           return response
