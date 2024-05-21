@@ -19,7 +19,7 @@ class Entrepreneur(models.Model):
     phone = models.CharField(max_length=132)
     address = models.CharField(max_length=64)
     sex = models.CharField(max_length=1, choices=SEX_TYPES)
-    age = models.CharField(max_length=12)
+    age = models.CharField(max_length=2)
     city = models.CharField(max_length=32)
     zip_code = models.CharField(max_length=16)
     created_date = models.DateTimeField(auto_now_add=True)

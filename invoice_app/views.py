@@ -98,7 +98,7 @@ class AddEntrepreneurView(LoginRequiredSuperuserMixim, View):
         }
 
         try:
-            created = Customer.objects.create(**data)
+            created = Entrepreneur.objects.create(**data)
             if created:
                 messages.success(request, _("Entrepreneur registered successfully."))
             else:
