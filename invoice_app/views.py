@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 
 from django.db import transaction
-from .utils import pagination, get_invoice, get_customer
+from .utils import pagination, get_invoice
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -24,20 +24,24 @@ class HomeView(LoginRequiredSuperuserMixim, View):
     """ Main view """
 
     templates_name = 'index.html'
-    invoices = Invoice.objects.select_related('customer', 'save_by').all()
+    invoices = Invoice.objects.all()
+    customers = Customer.objects.all()
+    article = Article.objects.all()
+    total_invoices = invoices.count()
+    total_customers = customers.count()
+    total_paid = invoices.filter(paid='True').count()
     context = {
-        'invoices': invoices
+        'invoices': invoices,
+        'customers' : customers,
+        'total_invoices' : total_invoices,
+        'total_customers' : total_customers,
+        'total_paid' : total_paid
     }
     Invoice.objects.alatest
     
     def get(self, request, *args, **kwags):
         items = pagination(request, self.invoices)
         self.context['invoices'] = items
-        return render(request, self.templates_name, self.context)
-    
-    def get(self, request, *args, **kwags):
-        items = pagination(request, self.customers)
-        self.context['customers'] = items
         return render(request, self.templates_name, self.context)
     
 
@@ -107,8 +111,8 @@ class AddEntrepreneurView(LoginRequiredSuperuserMixim, View):
 
 
 class CustomersView(LoginRequiredSuperuserMixim, View):
-    """ Customers view """  
-
+    """ Customers view """    
+    
     templates_name = 'customers.html'
     data = Customer.objects.all()
     context = {
@@ -261,9 +265,10 @@ def get_invoice_pdf(request, *args, **kwargs):
 
     # Create an HTTP response with the PDF file
     response = HttpResponse(pdf, content_type='application/pdf')
-    response['Content-Disposition'] = "attachement"
+    response['Content-Disposition'] = 'attachement: filename="sample.pdf"'
 
     return response
+
         
 #       @superuser_required
  #       def get_invoice_pdf(request, *args, **kwargs):

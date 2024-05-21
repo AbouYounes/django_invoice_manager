@@ -83,7 +83,7 @@ class Invoice(models.Model):
     id = models.AutoField(primary_key=True)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
     save_by = models.ForeignKey(User, on_delete=models.PROTECT)
-    invoice_date = models.DateField(auto_now_add=True)
+    invoice_date_time = models.DateTimeField(auto_now_add=True)
     total = models.DecimalField(max_digits=10000, decimal_places=2)
     last_updated_date = models.DateTimeField(null=True, blank=True)
     paid  = models.BooleanField(default=False)
@@ -95,7 +95,7 @@ class Invoice(models.Model):
         verbose_name_plural = "Invoices"
 
     def __str__(self):
-           return f"{self.customer.name}_{self.invoice_date}"
+           return f"{self.customer.name}_{self.invoice_date_time}"
 
     @property
     def get_total(self):

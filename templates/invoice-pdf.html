@@ -1,5 +1,5 @@
+{% load i18n %}
 <!DOCTYPE html>
-{% load i18n %} 
 
 <html lang="en">
 <head>
@@ -176,15 +176,13 @@
                         <div class="invoice-container">
                             <div class="invoice-header">
                                 <!-- Row start -->
-    						<div class="row gutters">
-    							
-								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end">
-									<img src="..\staticfiles\images\mk_hm.jpg" alt="HTML tutorial  align-items-center" style="width:200px;height:150px;">
-								</div>
+                                <div class="row gutters">
+                                    <div class="col-xl-12 d-flex justify-content-end">
+                                        <img src="C:\Users\yayoo\OneDrive\Bureau\projects\django_invoice_manager\staticfiles\images\mk_hm.jpg" alt="HTML tutorial  align-items-center" style="width:200px;height:150px;">
+                                	</div>
+                                </div>
+    						    <!-- Row end -->
 
-    						</div>
-    						<!-- Row end -->
-        
                                 <!-- Row start -->
     						    <div class="row gutters">
                                     <div class="col-xl-12 col-lg-3 col-md-3 col-sm-3">
@@ -253,25 +251,25 @@
     											</tr>
     										</thead>
     										<tbody>
-                                              {% for article in articles %}
-    											<tr>
-                                                    <td c>{{ article.name }}</td>
-													<td>Date</td>
-													<td>{{ article.quantity }}</td>
-													<td>Unit</td>
-													<td>{{ article.unit_price }}</td>
-													<td>TVA</td>
-													<td>{{ article.get_total }}</td>
-    											</tr>
-                                               {% endfor %} 
-    											<tr>
+                                                {% for article in articles %}
+    											<tr class="text-left">
+                                                    <td class="border border-dark">{{ article.name }}</td>
+													<td class="border border-dark">{{ article.article_date }}</td>
+													<td class="border border-dark">{{ article.quantity }}</td>
+													<td class="border border-dark">{{ article.unit_type }}</td>
+													<td class="border border-dark">{{ article.unit_price }}</td>
+													<td class="border border-dark">{{ article.tva }}</td>
+													<td class="border border-dark">{{ article.get_total }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                                <tr>
     												<td colspan="6" class="text-right" >
 														<p>
 															{% trans 'Subtotal' %}<br>
 															<strong>{% trans 'Total' %}</strong>
 														</p>
-    												</td>			
-    												<td>
+    												</td>
+    												<td class="text-right border border-dark">
     													<p>
     														{{obj.get_total}} Euro<br>
 															<strong>{{obj.get_total}} Euro</strong>

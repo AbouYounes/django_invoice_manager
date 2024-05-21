@@ -46,21 +46,16 @@
             <td>{{customer.phone}}</td>
             <td>{{customer.address}}</td>
             <td>
-
-               <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
-               data-target="#modifier-{{ invoice.id }}" data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
-               class="badge text-dark bg-warning">{% trans 'Modify' %}
-               </button>
-<!--
+               <a href="#" title="Detail" class="badge text-white bg-success">{% trans 'View' %}</a>
                <button id="btn-customer-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
-                  data-id="{{customer.pk}}" data-customer="{{customers.name}}"
-                  class="badge rounded-pill bg-warning text-dark">{% trans 'Modify' %}
-               </button>
-                -->
-               <button id="btn-customer-sup" type="button" data-toggle="modal" data-target="#supprimer"
-                  class="badge rounded-pill bg-danger text-white" title="Supprimer" data-id="{{ customer.pk }}"
-                  data-customer="{{customers.name}}">{% trans 'Delete' %}
-               </button>
+               data-id="{{customer.pk}}" data-customer="{{customers.name}}"
+               class="badge text-dark bg-warning">{% trans 'Modify' %}
+            </button>
+
+            <button id="btn-customer-sup" type="button" data-toggle="modal" data-target="#supprimer"
+               class="badge text-white bg-danger" title="Supprimer" data-id="{{ customer.pk }}"
+               data-customer="{{customers.name}}">{% trans 'Delete' %}
+            </button>
             </td>
          </tr>
          {% endfor %}
@@ -115,7 +110,6 @@
                <div class="form-row">
                   <input name="id_modified" type="hidden" id="id_modified">
                   <div class="form-group col-md-4">
-                     <div>Date: {{obj.invoice_date_time}}</div>
                      <label for="name" class="col-form-label">{% trans 'Name' %}</label>
                      <input data-customer="customer.pk" name="modified" required type="text" class="form-control" id="html" placeholder="customer first and last name">
                   </div>
@@ -203,18 +197,18 @@
 
    // modification of invoice
 
-   $(document).on('click', '#btn-invoice-mod', function(){
-      let invoice_id = $(this).data('id');
+   $(document).on('click', '#btn-customer-mod', function(){
+      let customer_id = $(this).data('id');
       let customer = $(this).data('customer');
-      $('#id_modified').val(invoice_id);
+      $('#id_modified').val(customer_id);
    })
 
    // deleting of invoice
 
-   $(document).on('click', '#btn-invoice-sup', function(){
-      let invoice_id = $(this).data('id');
+   $(document).on('click', '#btn-customer-sup', function(){
+      let customer_id = $(this).data('id');
       let customer = $(this).data('customer');
-      $('#id_supprimer').val(invoice_id);
+      $('#id_supprimer').val(customer_id);
 
    })
 
