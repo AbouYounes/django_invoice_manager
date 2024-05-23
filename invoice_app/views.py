@@ -85,6 +85,7 @@ class AddEntrepreneurView(LoginRequiredSuperuserMixim, View):
      def post(self, request, *args, **kwargs):
 
         data = {
+            'company': request.POST.get('company'),
             'name': request.POST.get('name'),
             'email': request.POST.get('email'),
             'phone': request.POST.get('phone'),
@@ -110,21 +111,6 @@ class AddEntrepreneurView(LoginRequiredSuperuserMixim, View):
         return render(request, self.template_name)   
 
 
-class CustomersView(LoginRequiredSuperuserMixim, View):
-    """ Customers view """    
-    
-    templates_name = 'customers.html'
-    data = Customer.objects.all()
-    context = {
-        'customers': data
-    }
-
-    def get(self, request, *args, **kwags):
-        items = pagination(request, self.data)
-        self.context['customers'] = items
-        return render(request, self.templates_name, self.context)
-    
-    
 class AddCustomerView(LoginRequiredSuperuserMixim, View):
      """ add new customer """    
      template_name = 'add_customer.html'
@@ -159,12 +145,15 @@ class AddCustomerView(LoginRequiredSuperuserMixim, View):
 
         return render(request, self.template_name)   
 
+
 class AddInvoiceView(LoginRequiredSuperuserMixim, View):
     """ add a new invoice view """
 
     template_name = 'add_invoice.html'
     customers = Customer.objects.select_related('save_by').all()
+    entrepreneurs = Entrepreneur.objects.select_related('save_by').all()
     context = {
+        'entrepreneurs': entrepreneurs,
         'customers': customers
     }
 
@@ -178,6 +167,7 @@ class AddInvoiceView(LoginRequiredSuperuserMixim, View):
 
         try: 
 
+            entrepreneur = request.POST.get('entrepreneur')
             customer = request.POST.get('customer')
             type = request.POST.get('invoice_type')
             articles = request.POST.getlist('article')
@@ -190,6 +180,7 @@ class AddInvoiceView(LoginRequiredSuperuserMixim, View):
             total = request.POST.get('total')
             comment = request.POST.get('commment')
             invoice_object = {
+                'entrepreneur_id': entrepreneur,
                 'customer_id': customer,
                 'save_by': request.user,
                 'total': total,
@@ -225,6 +216,22 @@ class AddInvoiceView(LoginRequiredSuperuserMixim, View):
             messages.error(request, _(f"Sorry the following error has occured: {e}."))  
         
         return  render(request, self.template_name, self.context)
+ 
+
+class CustomersView(LoginRequiredSuperuserMixim, View):
+    """ Customers view """    
+    
+    templates_name = 'customers.html'
+    data = Customer.objects.all()
+    context = {
+        'customers': data
+    }
+
+    def get(self, request, *args, **kwags):
+        items = pagination(request, self.data)
+        self.context['customers'] = items
+        return render(request, self.templates_name, self.context)
+    
     
 class InvoiceVisualizationView(LoginRequiredSuperuserMixim, View):
     """ This view helps to visualize the invoice """

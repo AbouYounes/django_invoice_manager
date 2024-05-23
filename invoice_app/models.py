@@ -15,6 +15,7 @@ class Entrepreneur(models.Model):
         ('F', _('Feminine')),
     )
     name = models.CharField(max_length=132)
+    company = models.CharField(max_length=132)
     email = models.EmailField()
     phone = models.CharField(max_length=132)
     address = models.CharField(max_length=64)
@@ -32,7 +33,7 @@ class Entrepreneur(models.Model):
 
     class Meta: 
         verbose_name = "Entrepreneur"
-        verbose_name_plural = "Entrepreneur"
+        verbose_name_plural = "Entrepreneurs"
 
     def __str__(self):
         return self.name
@@ -80,7 +81,7 @@ class Invoice(models.Model):
         ('I', _('INVOICE'))
     )
 
-    id = models.AutoField(primary_key=True)
+    entrepreneur = models.ForeignKey(Entrepreneur, on_delete=models.PROTECT)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
     save_by = models.ForeignKey(User, on_delete=models.PROTECT)
     invoice_date_time = models.DateTimeField(auto_now_add=True)
