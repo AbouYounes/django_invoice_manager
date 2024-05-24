@@ -277,14 +277,14 @@
     										</thead>
     										<tbody>
                                                 {% for article in articles %}
-    											<tr class="text-left">
-                                                    <td class="border border-dark">{{ article.name }}</td>
-													<td class="border border-dark">{{ article.article_date }}</td>
-													<td class="border border-dark">{{ article.quantity }}</td>
-													<td class="border border-dark">{{ article.unit_type }}</td>
-													<td class="border border-dark">{{ article.unit_price }}</td>
-													<td class="border border-dark">{{ article.tva }}</td>
-													<td class="border border-dark">{{ article.get_total }}</td>
+    											<tr>
+                                                    <td class="border border-dark text-left">{{ article.name }}</td>
+													<td class="border border-dark text-right">{{ article.article_date }}</td>
+													<td class="border border-dark text-right">{{ article.quantity }}</td>
+													<td class="border border-dark text-right">{{ article.unit_type }}</td>
+													<td class="border border-dark text-right">{{ article.unit_price }}</td>
+													<td class="border border-dark text-right">{{ article.tva }}</td>
+													<td class="border border-dark text-right">{{ article.get_total }}</td>
                                                 </tr>
                                                 {% endfor %}
                                                 <tr>

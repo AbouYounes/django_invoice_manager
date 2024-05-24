@@ -137,9 +137,8 @@
 <br>
 
 <script type="text/javascript">
-
-    // click to add new line item 
     
+    // click to add new line item 
     $(document).on('click', '#btn-add', function(){
         
         var number = $('#wrapper').children().length + 1;
@@ -199,7 +198,6 @@
         $("#wrapper:last").append(formAdd);          
     })
     
-    
     // Remove last item line 
     
     $(document).on('click', '#btn-remove', function(){
@@ -209,35 +207,52 @@
     // compute defferent totals 12
 
     function handleChangeSingleArticle(id) {
-    let articleId = id.split('-')[1];
+        let articleId = id.split('-')[1];
+        let newTotal;
 
-    let qtySelector = `#qty-${articleId}`;
-    let taxRateSelector = `#tax-${articleId}`;
-    let unitSelector = `#unit-${articleId}`;
-    let totalLineSelector = `#total-a-${articleId}`;
-    let totalSelector = '#total';
 
-    let qtyValue = parseFloat($(qtySelector).val());
-    let unitValue = parseFloat($(unitSelector).val());
-    let taxValue = parseFloat($(taxRateSelector).val());
+        let qtySelector = `#qty-${articleId}`;              
+        let unitSelector = `#unit-${articleId}`;                
+        let taxRateSelector = `#tax-${articleId}`;          
+        let totalLineSelector = `#total-a-${articleId}`;    
+        let totalSelector = '#total';                       
 
-    if (!isNaN(qtyValue) && !isNaN(unitValue) && !isNaN(taxValue)) {
-        let subtotal = qtyValue * unitValue;
-        let taxAmount = subtotal * taxValue;
-        let totalLine = subtotal + taxAmount;
+        let qtyValue = parseFloat($(qtySelector).val());    
+        let unitValue = parseFloat($(unitSelector).val());  
+        let taxValue = parseFloat($(taxRateSelector).val());    
 
-        $(totalLineSelector).val(totalLine.toFixed(2));
 
-        let currentTotal = parseFloat($(totalSelector).val());
-        if (!isNaN(currentTotal)) {
-            let newTotal = currentTotal + totalLine;
+        if (!isNaN(qtyValue) && !isNaN(unitValue) && !isNaN(taxValue)) {
+            let subtotal = qtyValue * unitValue;
+            let taxAmount = subtotal * taxValue;        
+            let totalLine = subtotal + taxAmount;
+
+            $(totalLineSelector).val(totalLine.toFixed(2));
+
+            const inputs = document.getElementsByName('total-a');
+            let newTotal = 0;
+
+            inputs.forEach(input => {
+            const value = parseFloat(input.value);
+            if (!isNaN(value)) {
+                newTotal += value;
+            }
+            });
+
             $(totalSelector).val(newTotal.toFixed(2));
         }
-    } else {
-        console.error('Invalid input values. Please check the input fields.');
+                
+        else    {
+            console.error('Invalid input values. Please check the input fields.');
+            
+        }
     }
-}
 
 </script>
+
+
+
+    
+
 
 {% endblock content %}
