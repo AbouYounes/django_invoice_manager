@@ -221,16 +221,11 @@ class AddInvoiceView(LoginRequiredSuperuserMixim, View):
 class CustomersView(LoginRequiredSuperuserMixim, View):
     """ Customers view """    
     
-    templates_name = 'customers.html'
-    data = Customer.objects.all()
-    context = {
-        'customers': data
-    }
-
-    def get(self, request, *args, **kwags):
-        items = pagination(request, self.data)
-        self.context['customers'] = items
-        return render(request, self.templates_name, self.context)
+    template_name = 'customer.html'
+    def get(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        context = get_customer(pk)
+        return render(request, self.template_name, context)
     
     
 class InvoiceVisualizationView(LoginRequiredSuperuserMixim, View):
