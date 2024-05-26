@@ -25,15 +25,22 @@ def pagination(request, invoices):
 
 def get_invoice(pk):
     """ get invoice fonction """
-
     obj = Invoice.objects.get(pk=pk)
-
     articles = obj.article_set.all()
-
     context = {
         'obj': obj,
         'articles': articles
     }
+    return context
 
+
+def get_customer(pk):
+    """ get customer fonction """
+    obj =Customer.objects.get(pk=pk)
+    customers = obj.all()
+    context = {
+        'obj': obj,
+        'customers': customers
+    }
     return context
 

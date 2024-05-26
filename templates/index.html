@@ -16,7 +16,7 @@
       </div>
    </div>
    <div class="col">
-      <div class="card text-white bg-secondary mb-4" style="max-width: 20rem;">
+      <div class="card text-white bg-secondary" style="max-width: 20rem;">
          <div class="card-body">
          <h5 class="card-title text-center">{% trans 'CUSTOMERS' %}</h5>
          <h1 class="card-text text-center">{{total_customers}}</h1>
@@ -33,111 +33,182 @@
    </div>
 </div>
 
-<div class="row">
-   <a href="{% url 'add-invoice' %}" class="btn col-md-4 btn-primary">{% trans 'Register a new invoice' %}
-      <span class="badge text-bg-secondary"></span>
-   </a>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+   <div class="col">
+      <a href="{% url 'add-invoice' %}" class="btn btn-primary mb-4">{% trans 'Register a new invoice' %}
+         <span class="badge text-bg-secondary"></span>
+      </a>
+   </div>
 
-   <a href='#' class="col-md-4">
-      <span class="badge text-bg-secondary"></span>
-   </a>
+   <div class="col">
+      <a href="{% url 'add-invoice' %}" class="btn btn-primary mb-4">{% trans 'Register a new invoice' %}
+         <span class="badge text-bg-secondary"></span>
+      </a>
+   </div>
 
-   <a href="{% url 'add-customer' %}" class="btn col-md-4 btn-primary">{% trans 'Register a new customer' %}
-      <span class="badge text-bg-secondary"></span>
-   </a>
+   <div class="col">
+      <a href="{% url 'add-customer' %}" class="btn btn-primary mb-4">{% trans 'Register a new customer' %}
+         <span class="badge text-bg-secondary"></span>
+      </a>
+   </div>
 
 </div>
 
 <br> <br>
 
-<div class="form-group ">
-   <input id="search" class="form-control" type="text" placeholder="{% trans 'Search' %}....">
-</div>
-
-<div>
-   <table class="table table-striped-columns">
-      <thead>
-         <tr>
-            <th scope="col">#</th>
-            <th scope="col">{% trans 'CUSTOMERS NAME' %}</th>
-            <th scope="col">{% trans 'DATE' %}</th>
-            <th scope="col">{% trans 'TOTAL' %}</th>
-            <th scope="col">{% trans 'PAID' %}</th>
-            <th scope="col">{% trans 'TYPE OF INVOICE' %}</th>
-            <th scope="col">{% trans 'ACTION' %}</th>
-         </tr>
-      </thead>
-      <tbody id="myTable">
-      {% if invoices %}
-         {% for invoice in invoices %}
-         <tr>
-            <th scope="row">{{ invoice.pk }}</th>
-            <td>{{invoice.customer.name}}</td>
-            <td>{{invoice.invoice_date_time}}</td>
-            <td>{{ invoice.get_total }}</td>
-            <td>
-            {% if invoice.paid %}
-               <img src="{% static 'images/icon-yes.svg' %}" alt="True">
-            {% else %}
-               <img src="{% static 'images/icon-no.svg' %}" alt="False">
-            {% endif %}
-            </td>
-            <td>{{invoice.get_invoice_type_display}}</td>
-            <td>
-               <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail" class="badge text-white bg-success">{% trans 'View' %}</a>
-
-               <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
-               data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
-               class="badge text-dark bg-warning">{% trans 'Modify' %}
-               </button>
-
-               <button id="btn-invoice-sup" type="button" data-toggle="modal" data-target="#supprimer"
-                  class="badge text-white bg-danger" title="Supprimer" data-id="{{ invoice.pk }}"
-                  data-customer="{{invoice.customer.name}}">{% trans 'Delete' %}
-               </button>
-
-            </td>
-         </tr>
-         {% endfor %}
-
-      {% if invoices.has_other_pages %}
-         <div class="btn-group" role="group" aria-label="Item pagination">
-
-            {% if invoices.has_previous %}
-            <a href="?page={{ invoices.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
-            {% endif %}
-
-            {% for page_number in invoices.paginator.page_range %}
-
-               {% if invoices.number == page_number %}
-                  <button class="btn btn-outline-primary active">
-                     <span> {{page_number}} <span class="sr-only">(current)</span></span>
-                  </button>
+<div class="card">
+   <div class="card-body">
+      <!-- Search Bar -->
+      <div class="form-group ">
+         <input id="search" class="form-control" type="text" placeholder="{% trans 'Search' %}....">
+      </div>
+      <!-- liste invoices -->
+      <table class="table table-striped-columns">
+         <thead>
+            <tr>
+               <th scope="col">#</th>
+               <th scope="col">{% trans 'CUSTOMERS NAME' %}</th>
+               <th scope="col">{% trans 'DATE' %}</th>
+               <th scope="col">{% trans 'TOTAL' %}</th>
+               <th scope="col">{% trans 'PAID' %}</th>
+               <th scope="col">{% trans 'TYPE OF INVOICE' %}</th>
+               <th scope="col">{% trans 'ACTION' %}</th>
+            </tr>
+         </thead>
+         <tbody id="myTable">
+         {% if invoices %}
+            {% for invoice in invoices %}
+            <tr>
+               <th scope="row">{{ invoice.pk }}</th>
+               <td>{{invoice.customer.name}}</td>
+               <td>{{invoice.invoice_date_time}}</td>
+               <td>{{ invoice.get_total }}</td>
+               <td>
+               {% if invoice.paid %}
+                  <img src="{% static 'images/icon-yes.svg' %}" alt="True">
                {% else %}
-                  <a href="?page={{page_number}}" class="btn btn-outline-primary">
-                     {{ page_number }}
-                  </a>
+                  <img src="{% static 'images/icon-no.svg' %}" alt="False">
                {% endif %}
+               </td>
+               <td>{{invoice.get_invoice_type_display}}</td>
+               <td>
+                  <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail" class="badge text-white bg-success">{% trans 'View' %}</a>
 
+                  <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
+                  data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
+                  class="badge text-dark bg-warning">{% trans 'Modify' %}
+                  </button>
+
+                  <button id="btn-invoice-sup" type="button" data-toggle="modal" data-target="#supprimer"
+                     class="badge text-white bg-danger" title="Supprimer" data-id="{{ invoice.pk }}"
+                     data-customer="{{invoice.customer.name}}">{% trans 'Delete' %}
+                  </button>
+               </td>
+            </tr>
             {% endfor %}
 
-            {% if invoices.has_next %}
+         {% if invoices.has_other_pages %}
+            <div class="btn-group" role="group" aria-label="Item pagination">
 
-               <a href="?page={{ invoices.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+               {% if invoices.has_previous %}
+               <a href="?page={{ invoices.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+               {% endif %}
 
-            {% endif %}
-         </div>
+               {% for page_number in invoices.paginator.page_range %}
+                  {% if invoices.number == page_number %}
+                     <button class="btn btn-outline-primary active">
+                        <span> {{page_number}} <span class="sr-only">(current)</span></span>
+                     </button>
+                  {% else %}
+                     <a href="?page={{page_number}}" class="btn btn-outline-primary">
+                        {{ page_number }}
+                     </a>
+                  {% endif %}
+               {% endfor %}
 
-      {% endif %}
+               {% if invoices.has_next %}
+                  <a href="?page={{ invoices.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+               {% endif %}
+            </div>
+         {% endif %}
 
-      {% else %}
-         <p class="text-center text-white">{% trans 'No invoice found.' %}</p>
-      {% endif %}
+         {% else %}
+            <p class="text-center text-white">{% trans 'No invoice found.' %}</p>
+         {% endif %}
+         </tbody>
+      </table>
+   </div>
+</div>
 
+<div class="card">
+   <div class="card-body">
+      <!-- Search Bar -->
+      <div class="form-group ">
+         <input id="search_customer" class="form-control" type="text" placeholder="{% trans 'Search' %}....">
+      </div>
+      <!-- liste customers -->
+      <table class="table table-striped-columns">
+         <thead>
+            <tr>
+               <th scope="col">#</th>
+               <th scope="col">{% trans 'CUSTOMERS NAME' %}</th>
+               <th scope="col">{% trans 'EMAIL' %}</th>
+               <th scope="col">{% trans 'PHONE' %}</th>
+               <th scope="col">{% trans 'ADRESS' %}</th>
+               <th scope="col">{% trans 'ACTION' %}</th>
+            </tr>
+         </thead>
+         <tbody id="myTable">
+         {% if customers %}
+            {% for customer in customers %}
+            <tr>
+               <th scope="row">{{ customers.pk }}</th>
+               <td>{{customer.name}}</td>
+               <td>{{customer.email}}</td>
+               <td>{{customer.phone}}</td>
+               <td>{{customer.address}}</td>
+               <td>
+                  <a href="{% url 'customers' %}" title="Detail" class="badge text-white bg-warning">{% trans 'Update' %}</a>
 
-      </tbody>
+                  <button id="btn-invoice-sup" type="button" data-toggle="modal" data-target="#supprimer"
+                     class="badge text-white bg-danger" title="Supprimer" data-id="#"
+                     data-customer="#">{% trans 'Delete' %}
+                  </button>
+               </td>
+            </tr>
+            {% endfor %}
 
-   </table>
+         {% if invoices.has_other_pages %}
+            <div class="btn-group" role="group" aria-label="Item pagination">
+
+               {% if invoices.has_previous %}
+               <a href="?page={{ invoices.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+               {% endif %}
+
+               {% for page_number in invoices.paginator.page_range %}
+                  {% if invoices.number == page_number %}
+                     <button class="btn btn-outline-primary active">
+                        <span> {{page_number}} <span class="sr-only">(current)</span></span>
+                     </button>
+                  {% else %}
+                     <a href="?page={{page_number}}" class="btn btn-outline-primary">
+                        {{ page_number }}
+                     </a>
+                  {% endif %}
+               {% endfor %}
+
+               {% if invoices.has_next %}
+                  <a href="?page={{ invoices.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+               {% endif %}
+            </div>
+         {% endif %}
+
+         {% else %}
+            <p class="text-center text-white">{% trans 'No invoice found.' %}</p>
+         {% endif %}
+         </tbody>
+      </table>
+   </div>
 </div>
 
 <!-- Modal modifier -->
@@ -154,17 +225,12 @@
          <form method="post">
             {% csrf_token %}
             <div class="modal-body">
-
                <input name="id_modified" type="hidden" id="id_modified">
-
                <label id="label_id" class="text-dark checkbox-inline"> <strong id="strong_id">{% trans 'This bill has been paid?' %}</strong></label>
-
                <input type="radio" id="html" name="modified" value="True">
                <label class="text-white bg-primary" for="html">{% trans 'Yes' %}</label>
-
                <input type="radio" id="css" name="modified" value="False">
                <label class="text-white bg-danger" for="css">{% trans 'No' %}</label><br>
-
             </div>
             <div class="modal-footer">
                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
@@ -192,14 +258,12 @@
                {% csrf_token %}
                <input name="id_supprimer" type="hidden" id="id_supprimer">
                <label id="label_id_s" class="text-dark checkbox-inline"> <strong id="strong_id_s">{% trans 'Are you sure you want to delete the invoice ?' %}</strong></label>
-
                <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
                   <button type="submit" class="btn btn-danger">{% trans 'Delete' %}</button>
                </div>
             </form>
          </div>
-
       </div>
    </div>
 </div>
@@ -208,31 +272,22 @@
 <br><br>
 
 <script type="text/javascript">
-
    // modification of invoice
-
    $(document).on('click', '#btn-invoice-mod', function(){
       let invoice_id = $(this).data('id');
       let customer = $(this).data('customer');
       $('#id_modified').val(invoice_id);
    })
-
    // deleting of invoice
-
    $(document).on('click', '#btn-invoice-sup', function(){
       let invoice_id = $(this).data('id');
       let customer = $(this).data('customer');
       $('#id_supprimer').val(invoice_id);
-
    })
-
-
 
 </script>
 
-
 <script>
-
    $(document).ready(function(){
       $("#search").on("keyup", function(){
          var value = $(this).val().toLowerCase();
@@ -241,8 +296,6 @@
          });
       });
    });
-
 </script>
-
 
 {% endblock %}
