@@ -5,7 +5,7 @@
 
 {% block content %}
 <br><br>
-
+<!-- counter -->
 <div class="row row-cols-1 row-cols-md-3 g-4">
    <div class="col">
       <div class="card text-white bg-primary mb-4" style="max-width: 20rem;">
@@ -33,6 +33,7 @@
    </div>
 </div>
 
+<!-- Regestering buttons -->
 <div class="row row-cols-1 row-cols-md-3 g-4">
    <div class="col">
       <a href="{% url 'add-invoice' %}" class="btn btn-primary mb-4">{% trans 'Register a new invoice' %}
@@ -56,13 +57,14 @@
 
 <br> <br>
 
+<!-- invoices liste -->
 <div class="card">
    <div class="card-body">
       <!-- Search Bar -->
       <div class="form-group ">
          <input id="search" class="form-control" type="text" placeholder="{% trans 'Search' %}....">
       </div>
-      <!-- liste invoices -->
+      <!-- invoices table -->
       <table class="table table-striped-columns">
          <thead>
             <tr>
@@ -140,6 +142,7 @@
    </div>
 </div>
 
+<!-- Customers liste -->
 <div class="card">
    <div class="card-body">
       <!-- Search Bar -->
@@ -162,13 +165,13 @@
          {% if customers %}
             {% for customer in customers %}
             <tr>
-               <th scope="row">{{ customers.pk }}</th>
+               <th scope="row">{{ customer.pk }}</th>
                <td>{{customer.name}}</td>
                <td>{{customer.email}}</td>
                <td>{{customer.phone}}</td>
                <td>{{customer.address}}</td>
                <td>
-                  <a href="{% url 'customers' %}" title="Detail" class="badge text-white bg-warning">{% trans 'Update' %}</a>
+                  <a href="{% url 'customer' pk=customer.pk %}" title="Detail" class="badge text-white bg-warning">{% trans 'Update' %}</a>
 
                   <button id="btn-invoice-sup" type="button" data-toggle="modal" data-target="#supprimer"
                      class="badge text-white bg-danger" title="Supprimer" data-id="#"

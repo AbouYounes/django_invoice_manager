@@ -36,11 +36,14 @@ def get_invoice(pk):
 
 def get_customer(pk):
     """ get customer fonction """
-    obj =Customer.objects.get(pk=pk)
-    customers = obj.all()
+    customer =Customer.objects.get(pk=pk)
+    invoices = customer.invoice_set.all()
+    total_invoices = invoices.count()
+
     context = {
-        'obj': obj,
-        'customers': customers
+        'customer': customer,
+        'invoices': invoices,
+        'total_invoices': total_invoices
     }
     return context
 

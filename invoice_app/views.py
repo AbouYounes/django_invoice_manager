@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 
 from django.db import transaction
-from .utils import pagination, get_invoice
+from .utils import get_customer, pagination, get_invoice
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -218,8 +218,8 @@ class AddInvoiceView(LoginRequiredSuperuserMixim, View):
         return  render(request, self.template_name, self.context)
  
 
-class CustomersView(LoginRequiredSuperuserMixim, View):
-    """ Customers view """    
+class CustomerView(LoginRequiredSuperuserMixim, View):
+    """ Customer view """    
     
     template_name = 'customer.html'
     def get(self, request, *args, **kwargs):
