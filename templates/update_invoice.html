@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+{% load i18n %} 
+
+
+{% block content %}
+
+<br><br>
+
+<h1 class="text-capitalize text-center mx-10 bg-dark text-white">{% trans 'Update invoice' %}</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="form-row">
+        <div class="col-sm">
+            <div class="form-group col-md-12">
+                <label for="entrepreneur">{% trans 'Entrepreneur' %}</label>
+                <select name="entrepreneur" class="form-control" id="entrepreneur">
+                    <option>{% trans 'Choose the Entrepreneur ...' %}</option>
+                    {% for entrepreneur in entrepreneurs %}
+                    <option value="{{entrepreneur.id}}">{{forloop.counter}}-{{entrepreneur.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="form-group col-md-12">
+                <label for="customer">{% trans 'Customer' %}</label>
+                <select name="customer" class="form-control" id="customer">
+                    <option>{% trans 'Choose the customer ...' %}</option>
+                    {% for customer in customers %}
+                    <option value="{{customer.id}}">{{forloop.counter}}-{{customer.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="form-group col-md-12">
+                <label for="invoice">{% trans 'Invoice Type' %}</label>
+                <select name="invoice_type" class="form-control" id="invoice">
+                    <option>{% trans 'Choose the invoice type ...' %}</option>
+                    <option value="R">{% trans 'RECEIPT' %}</option>
+                    <option value="P">{% trans 'PROFORMA INVOICE' %}</option>
+                    <option value="I">{% trans 'INVOICE' %}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-dark bg-info mb-3">
+                <div class="card-header">
+                    <div class="form-group col-md-12 text-center">
+                        <label for="total"><h5>{% trans 'Total' %}</h5></label>
+                        <input value="0.00" type="text" name="total" readonly class="form-control" id="total">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <label for="customer">{% trans 'Items' %}</label>
+    <div class="card text-dark bg-light mb-3">
+        <div class="card-body">
+            <div id="wrapper">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="article-1">#1 {% trans 'Item name' %}</label>
+                        <input required name="article" type="text" class="form-control" id="article-1">
+                    </div>
+
+                    <div class="form-group col-sd-1">
+                        <label for="dt_1">Date</label>
+                        <input required name="dt_a" type=date class="form-control" id="dt_1">
+                    </div>
+
+                    <div class="form-group col-md-1">
+                        <label for="qty-1">{% trans 'Quantity' %}</label>
+                        <input required name="qty" type="number" min="1" step="0.1" class="form-control" id="qty-1" onchange="handleChangeSingleArticle(this.id)">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="ut-1">{% trans 'Unit Type' %}</label>
+                        <select name="ut_a" class="form-control" id="ut-1">
+                            <option>{% trans 'Choose the Unit type ...' %}</option>
+                            <option value="H">{% trans 'Hour' %}</option>
+                            <option value="M">{% trans 'Meter' %}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-1">
+                        <label for="unit-1">{% trans 'Unit Price' %}</label>
+                        <input required name="unit" type="number" min="1" step="0.1" onchange="handleChangeSingleArticle(this.id)" class="form-control" id="unit-1">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="tax-1">{% trans 'Tax' %}</label>
+                        <select required name="tax" class="form-control" id="tax-1" onchange="handleChangeSingleArticle(this.id)">
+                            <option>{% trans 'Choose the Tax value ...' %}</option>
+                            <option value=0>{% trans '00%' %}</option>
+                            <option value=0.17>{% trans '17%' %}</option>
+                            <option value=0.19>{% trans '19%' %}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-1">
+                        <label for="total-a-1">{% trans 'Total' %}</label>
+                        <input value="0.00" required name="total-a" type="text" min="1" readonly class="form-control"
+                            id="total-a-1">
+                    </div>
+                </div>
+                </div>
+
+            <div class="row justify-content-around">
+                <button id="btn-add" class="btn btn-success w-50 col-md-4">{% trans 'Add a new item line' %}</button>
+                <button id="btn-remove" class="btn btn-warning w-50 col-md-4">{% trans 'Remove last item line' %}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="comment">{% trans 'Comments' %}</label>
+            <select name="commment" class="form-control" id="commment">
+                <option>{% trans 'Choose the comment ...' %}</option>
+                <option value="vielen Dank für Ihren Auftrag. Wir berechenen Ihnen fomgende Leistung:">vielen Dank für Ihren Auftrag. Wir berechenen Ihnen fomgende Leistung:</option>
+                <option ></option>
+                <option ></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row justify-content-between">
+            <button type="submit" class="btn col-md-3 btn-primary">{% trans 'Save' %}</button>
+            <a href="{% url 'home' %}" class="btn col-md-3 btn-danger">{% trans 'close' %}</a>
+    </div>
+</form>
+
+<br>
+
+<script type="text/javascript">
+    
+    // click to add new line item 
+    $(document).on('click', '#btn-add', function(){
+        
+        var number = $('#wrapper').children().length + 1;
+    
+        let formAdd = `
+    
+                        <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <label for="article-${number}">#${number} {% trans 'Item name' %}</label>
+                                    <input required name="article" type="text" class="form-control" id="article-${number}">
+                                </div>
+
+                                <div class="form-group col-sd-1">
+                                    <label for="dt_${number}">Date</label>
+                                    <input required name="dt_a" type=date class="form-control" id="dt_${number}">
+                                </div>
+
+                                <div class="form-group col-md-1">
+                                    <label for="qty-${number}">{% trans 'Quantity' %}</label>
+                                    <input required name="qty" type="number" min="1" step="0.1" class="form-control" id="qty-${number}" onchange="handleChangeSingleArticle(this.id)">
+                                </div>
+    
+                                <div class="form-group col-md-2">
+                                    <label for="ut-${number}">{% trans 'Unit Type' %}</label>
+                                    <select name="ut_a" class="form-control" id="ut-${number}">
+                                        <option>{% trans 'Choose the Unit type ...' %}</option>
+                                        <option value="H">{% trans 'Hour' %}</option>
+                                        <option value="M">{% trans 'Meter' %}</option>
+                                    </select>
+                                </div>
+    
+                                <div class="form-group col-md-1">
+                                    <label for="unit-${number}">{% trans 'Unit Price' %}</label>
+                                    <input required name="unit" type="number" min="1" step="0.1" onchange="handleChangeSingleArticle(this.id)" class="form-control" id="unit-${number}">
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="tax-${number}">{% trans 'Tax' %}</label>
+                                    <select required name="tax" class="form-control" id="tax-${number}" onchange="handleChangeSingleArticle(this.id)">
+                                        <option>{% trans 'Choose the Tax value ...' %}</option>
+                                        <option value="0">{% trans '0%' %}</option>
+                                        <option value="0.17">{% trans '17%' %}</option>
+                                        <option value="0.19">{% trans '19%' %}</option>
+                                    </select>
+                                </div>
+    
+                                <div class="form-group col-md-1">
+                                    <label for="total-a-${number}">{% trans 'Total' %}</label>
+                                    <input required name="total-a" type="text" min="1" readonly class="form-control"
+                                        id="total-a-${number}">
+                                </div>
+    
+                            </div>
+                    `;   
+                    
+        
+        $("#wrapper:last").append(formAdd);          
+    })
+    
+    // Remove last item line 
+    
+    $(document).on('click', '#btn-remove', function(){
+        $("#wrapper").children().last().remove();
+    })
+
+    // compute defferent totals 12
+
+    function handleChangeSingleArticle(id) {
+        let articleId = id.split('-')[1];
+        let newTotal;
+
+
+        let qtySelector = `#qty-${articleId}`;              
+        let unitSelector = `#unit-${articleId}`;                
+        let taxRateSelector = `#tax-${articleId}`;          
+        let totalLineSelector = `#total-a-${articleId}`;    
+        let totalSelector = '#total';                       
+
+        let qtyValue = parseFloat($(qtySelector).val());    
+        let unitValue = parseFloat($(unitSelector).val());  
+        let taxValue = parseFloat($(taxRateSelector).val());    
+
+
+        if (!isNaN(qtyValue) && !isNaN(unitValue) && !isNaN(taxValue)) {
+            let subtotal = qtyValue * unitValue;
+            let taxAmount = subtotal * taxValue;        
+            let totalLine = subtotal + taxAmount;
+
+            $(totalLineSelector).val(totalLine.toFixed(2));
+
+            const inputs = document.getElementsByName('total-a');
+            let newTotal = 0;
+
+            inputs.forEach(input => {
+            const value = parseFloat(input.value);
+            if (!isNaN(value)) {
+                newTotal += value;
+            }
+            });
+
+            $(totalSelector).val(newTotal.toFixed(2));
+        }
+                
+        else    {
+            console.error('Invalid input values. Please check the input fields.');
+            
+        }
+    }
+
+</script>
+
+
+
+    
+
+
+{% endblock content %}
