@@ -34,20 +34,20 @@
 </div>
 
 <!-- Regestering buttons -->
-<div class="row row-cols-1 row-cols-md-3 g-4">
-   <div class="col">
+<div class="row">
+   <div class="col-4">
       <a href="{% url 'add-invoice' %}" class="btn btn-primary mb-4">{% trans 'Register a new invoice' %}
          <span class="badge text-bg-secondary"></span>
       </a>
    </div>
 
-   <div class="col">
+   <div class="col-4">
       <a href="{% url 'add-invoice' %}" class="btn btn-primary mb-4">{% trans 'Register a new invoice' %}
          <span class="badge text-bg-secondary"></span>
       </a>
    </div>
 
-   <div class="col">
+   <div class="col-4">
       <a href="{% url 'add-customer' %}" class="btn btn-primary mb-4">{% trans 'Register a new customer' %}
          <span class="badge text-bg-secondary"></span>
       </a>
@@ -57,160 +57,159 @@
 
 <br> <br>
 
-<!-- invoices liste -->
-<div class="card">
-   <div class="card-body">
-      <!-- Search Bar -->
-      <div class="form-group ">
-         <input id="search" class="form-control" type="text" placeholder="{% trans 'Search' %}....">
-      </div>
-      <!-- invoices table -->
-      <table class="table table-striped-columns">
-         <thead>
-            <tr>
-               <th scope="col">#</th>
-               <th scope="col">{% trans 'CUSTOMERS NAME' %}</th>
-               <th scope="col">{% trans 'DATE' %}</th>
-               <th scope="col">{% trans 'TOTAL' %}</th>
-               <th scope="col">{% trans 'PAID' %}</th>
-               <th scope="col">{% trans 'TYPE OF INVOICE' %}</th>
-               <th scope="col">{% trans 'ACTION' %}</th>
-            </tr>
-         </thead>
-         <tbody id="myTable">
-         {% if invoices %}
-            {% for invoice in invoices %}
-            <tr>
-               <th scope="row">{{ invoice.pk }}</th>
-               <td>{{invoice.customer.name}}</td>
-               <td>{{invoice.invoice_date_time}}</td>
-               <td>{{ invoice.get_total }}</td>
-               <td>
-               {% if invoice.paid %}
-                  <img src="{% static 'images/icon-yes.svg' %}" alt="True">
-               {% else %}
-                  <img src="{% static 'images/icon-no.svg' %}" alt="False">
-               {% endif %}
-               </td>
-               <td>{{invoice.get_invoice_type_display}}</td>
-               <td>
-                  <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail"><button class="btn-sm btn-success">{% trans 'View' %}</button></a>
-
-                  <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
-                  data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
-                  class="btn-sm btn-warning">{% trans 'Modify' %}
-                  </button>
-
-                  <button id="btn-customer-sup" type="button" data-toggle="modal" data-target="#supprimer"
-                     class="btn-sm btn-danger" title="Supprimer" data-id="{{ invoice.pk }}"
-                     data-customer="{{invoice.customer.name}}">{% trans 'Delete' %}
-                  </button>
-               </td>
-            </tr>
-            {% endfor %}
-
-         {% if invoices.has_other_pages %}
-            <div class="btn-group" role="group" aria-label="Item pagination">
-
-               {% if invoices.has_previous %}
-               <a href="?page={{ invoices.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
-               {% endif %}
-
-               {% for page_number in invoices.paginator.page_range %}
-                  {% if invoices.number == page_number %}
-                     <button class="btn btn-outline-primary active">
-                        <span> {{page_number}} <span class="sr-only">(current)</span></span>
-                     </button>
+<!-- listes -->
+<div class="row">
+   <!-- invoices liste -->
+   <div class="col-md-7">
+      <div class="card card-body">
+         <!-- Search Bar -->
+         <div class="form-group ">
+            <input id="search" class="form-control" type="text" placeholder="{% trans 'Search' %}....">
+         </div>
+         <!-- invoices table -->
+         <table class="table table-sm">
+            <thead>
+               <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">{% trans 'CUSTOMERS NAME' %}</th>
+                  <th scope="col">{% trans 'DATE' %}</th>
+                  <th scope="col">{% trans 'TOTAL' %}</th>
+                  <th scope="col">{% trans 'PAID' %}</th>
+                  <th scope="col">{% trans 'TYPE OF INVOICE' %}</th>
+                  <th scope="col">{% trans 'ACTION' %}</th>
+               </tr>
+            </thead>
+            <tbody id="myTable">
+            {% if invoices %}
+               {% for invoice in invoices %}
+               <tr>
+                  <th scope="row">{{ invoice.pk }}</th>
+                  <td>{{invoice.customer.name}}</td>
+                  <td>{{invoice.invoice_date_time}}</td>
+                  <td>{{ invoice.get_total }}</td>
+                  <td>
+                  {% if invoice.paid %}
+                     <img src="{% static 'images/icon-yes.svg' %}" alt="True">
                   {% else %}
-                     <a href="?page={{page_number}}" class="btn btn-outline-primary">
-                        {{ page_number }}
-                     </a>
+                     <img src="{% static 'images/icon-no.svg' %}" alt="False">
                   {% endif %}
+                  </td>
+                  <td>{{invoice.get_invoice_type_display}}</td>
+                  <td>
+                     <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail"><button class="btn-sm btn-success">{% trans 'View' %}</button></a>
+
+                     <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
+                     data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
+                     class="btn-sm btn-warning">{% trans 'Modify' %}
+                     </button>
+
+                     <button id="btn-customer-sup" type="button" data-toggle="modal" data-target="#supprimer"
+                        class="btn-sm btn-danger" title="Supprimer" data-id="{{ invoice.pk }}"
+                        data-customer="{{invoice.customer.name}}">{% trans 'Delete' %}
+                     </button>
+                  </td>
+               </tr>
                {% endfor %}
 
-               {% if invoices.has_next %}
-                  <a href="?page={{ invoices.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
-               {% endif %}
-            </div>
-         {% endif %}
+            {% if invoices.has_other_pages %}
+               <div class="btn-group" role="group" aria-label="Item pagination">
 
-         {% else %}
-            <p class="text-center text-white">{% trans 'No invoice found.' %}</p>
-         {% endif %}
-         </tbody>
-      </table>
+                  {% if invoices.has_previous %}
+                  <a href="?page={{ invoices.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+                  {% endif %}
+
+                  {% for page_number in invoices.paginator.page_range %}
+                     {% if invoices.number == page_number %}
+                        <button class="btn btn-outline-primary active">
+                           <span> {{page_number}} <span class="sr-only">(current)</span></span>
+                        </button>
+                     {% else %}
+                        <a href="?page={{page_number}}" class="btn btn-outline-primary">
+                           {{ page_number }}
+                        </a>
+                     {% endif %}
+                  {% endfor %}
+
+                  {% if invoices.has_next %}
+                     <a href="?page={{ invoices.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+                  {% endif %}
+               </div>
+            {% endif %}
+
+            {% else %}
+               <p class="text-center text-white">{% trans 'No invoice found.' %}</p>
+            {% endif %}
+            </tbody>
+         </table>
+      </div>
    </div>
-</div>
 
-<!-- Customers liste -->
-<div class="card">
-   <div class="card-body">
-      <!-- Search Bar -->
-      <div class="form-group ">
-         <input id="search_customer" class="form-control" type="text" placeholder="{% trans 'Search' %}....">
-      </div>
-      <!-- liste customers -->
-      <table class="table table-striped-columns">
-         <thead>
-            <tr>
-               <th scope="col">#</th>
-               <th scope="col">{% trans 'CUSTOMERS NAME' %}</th>
-               <th scope="col">{% trans 'EMAIL' %}</th>
-               <th scope="col">{% trans 'PHONE' %}</th>
-               <th scope="col">{% trans 'ADRESS' %}</th>
-               <th scope="col">{% trans 'ACTION' %}</th>
-            </tr>
-         </thead>
-         <tbody id="myTable">
-         {% if customers %}
-            {% for customer in customers %}
-            <tr>
-               <th scope="row">{{ customer.pk }}</th>
-               <td>{{customer.name}}</td>
-               <td>{{customer.email}}</td>
-               <td>{{customer.phone}}</td>
-               <td>{{customer.address}}</td>
-               <td>
-                  <a href="{% url 'customer' pk=customer.pk %}" title="Detail"><button class="btn-sm btn-info">{% trans 'Update' %}</button></a>
+   <!-- Customers liste -->
+   <div class="col-md-5">
+      <div class="card card-body">
+         <!-- Search Bar -->
+         <div class="form-group ">
+            <input id="search_customer" class="form-control" type="text" placeholder="{% trans 'Search' %}....">
+         </div>
+         <!-- liste customers -->
+         <table class="table table-sm">
+            <thead>
+               <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">{% trans 'CUSTOMERS NAME' %}</th>
+                  <th scope="col">{% trans 'EMAIL' %}</th>
+                  <th scope="col">{% trans 'ACTION' %}</th>
+               </tr>
+            </thead>
+            <tbody id="myTable">
+            {% if customers %}
+               {% for customer in customers %}
+               <tr>
+                  <th scope="row">{{ customer.pk }}</th>
+                  <td>{{customer.name}}</td>
+                  <td>{{customer.email}}</td>
+                  <td>
+                     <a href="{% url 'customer' pk=customer.pk %}" title="Detail"><button class="btn-sm btn-info">{% trans 'Update' %}</button></a>
 
-                  <button id="btn-invoice-sup" type="button" data-toggle="modal" data-target="#customer_del"
-                     class="btn-sm btn-danger" title="Supprimer" data-id="#"
-                     data-customer="#">{% trans 'Delete' %}
-                  </button>
-               </td>
-            </tr>
-            {% endfor %}
-
-         {% if invoices.has_other_pages %}
-            <div class="btn-group" role="group" aria-label="Item pagination">
-
-               {% if invoices.has_previous %}
-               <a href="?page={{ invoices.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
-               {% endif %}
-
-               {% for page_number in invoices.paginator.page_range %}
-                  {% if invoices.number == page_number %}
-                     <button class="btn btn-outline-primary active">
-                        <span> {{page_number}} <span class="sr-only">(current)</span></span>
+                     <button id="btn-invoice-sup" type="button" data-toggle="modal" data-target="#customer_del"
+                        class="btn-sm btn-danger" title="Supprimer" data-id="#"
+                        data-customer="#">{% trans 'Delete' %}
                      </button>
-                  {% else %}
-                     <a href="?page={{page_number}}" class="btn btn-outline-primary">
-                        {{ page_number }}
-                     </a>
-                  {% endif %}
+                  </td>
+               </tr>
                {% endfor %}
 
-               {% if invoices.has_next %}
-                  <a href="?page={{ invoices.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
-               {% endif %}
-            </div>
-         {% endif %}
+            {% if invoices.has_other_pages %}
+               <div class="btn-group" role="group" aria-label="Item pagination">
 
-         {% else %}
-            <p class="text-center text-white">{% trans 'No invoice found.' %}</p>
-         {% endif %}
-         </tbody>
-      </table>
+                  {% if invoices.has_previous %}
+                  <a href="?page={{ invoices.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+                  {% endif %}
+
+                  {% for page_number in invoices.paginator.page_range %}
+                     {% if invoices.number == page_number %}
+                        <button class="btn btn-outline-primary active">
+                           <span> {{page_number}} <span class="sr-only">(current)</span></span>
+                        </button>
+                     {% else %}
+                        <a href="?page={{page_number}}" class="btn btn-outline-primary">
+                           {{ page_number }}
+                        </a>
+                     {% endif %}
+                  {% endfor %}
+
+                  {% if invoices.has_next %}
+                     <a href="?page={{ invoices.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+                  {% endif %}
+               </div>
+            {% endif %}
+
+            {% else %}
+               <p class="text-center text-white">{% trans 'No invoice found.' %}</p>
+            {% endif %}
+            </tbody>
+         </table>
+      </div>
    </div>
 </div>
 
