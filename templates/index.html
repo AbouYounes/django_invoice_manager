@@ -6,55 +6,51 @@
 {% block content %}
 <br><br>
 <!-- counter -->
-<div class="row row-cols-1 row-cols-md-3 g-4">
-   <div class="col">
-      <div class="card text-white bg-primary mb-4" style="max-width: 20rem;">
-         <div class="card-body">
-         <h5 class="card-title text-center">{% trans 'INVOICES' %}</h5>
-         <h1 class="card-text text-center">{{total_invoices}}</h1>
+<div class="container">
+   <div class="row justify-content-center">
+      <div class="col-4">
+         <div class="card text-white bg-primary mb-4" style="max-width: 20rem;">
+            <div class="card-body">
+            <h5 class="card-title text-center">{% trans 'INVOICES' %}</h5>
+            <h1 class="card-text text-center">{{total_invoices}}</h1>
+            </div>
          </div>
       </div>
-   </div>
-   <div class="col">
-      <div class="card text-white bg-secondary" style="max-width: 20rem;">
-         <div class="card-body">
-         <h5 class="card-title text-center">{% trans 'CUSTOMERS' %}</h5>
-         <h1 class="card-text text-center">{{total_customers}}</h1>
+      <div class="col-4">
+         <div class="card text-white bg-secondary" style="max-width: 20rem;">
+            <div class="card-body">
+            <h5 class="card-title text-center">{% trans 'CUSTOMERS' %}</h5>
+            <h1 class="card-text text-center">{{total_customers}}</h1>
+            </div>
          </div>
       </div>
-   </div>
-   <div class="col" method="get">
-      <div class="card text-white bg-success mb-4" style="max-width: 20rem;">
-         <div class="card-body">
-         <h5 class="card-title text-center">{% trans 'PAID INVOICES' %}</h5>
-         <h1 class="card-text text-center">{{total_paid}}</h1>
+      <div class="col-4" method="get">
+         <div class="card text-white bg-success mb-4" style="max-width: 20rem;">
+            <div class="card-body">
+            <h5 class="card-title text-center">{% trans 'PAID INVOICES' %}</h5>
+            <h1 class="card-text text-center">{{total_paid}}</h1>
+            </div>
          </div>
       </div>
    </div>
 </div>
 
 <!-- Regestering buttons -->
-<div class="row">
-   <div class="col-4">
-      <a href="{% url 'add-invoice' %}" class="btn btn-primary mb-4">{% trans 'Register a new invoice' %}
-         <span class="badge text-bg-secondary"></span>
-      </a>
+<div class="container">
+   <div class="row justify-content-center">
+      <!-- Regestering invoice -->
+      <div class="col-4">
+         <a href="{% url 'add-invoice' %}" class="btn btn-primary btn-lg btn-block">{% trans 'Register a new invoice' %}
+         </a>
+      </div>
+      <!-- Regestering customer -->
+      <div class="col-4">
+         <a href="{% url 'add-customer' %}" class="btn btn-primary btn-lg btn-block">{% trans 'Register a new customer' %}
+            <span class="badge text-bg-secondary"></span>
+         </a>
+      </div>
    </div>
-
-   <div class="col-4">
-      <a href="{% url 'add-invoice' %}" class="btn btn-primary mb-4">{% trans 'Register a new invoice' %}
-         <span class="badge text-bg-secondary"></span>
-      </a>
-   </div>
-
-   <div class="col-4">
-      <a href="{% url 'add-customer' %}" class="btn btn-primary mb-4">{% trans 'Register a new customer' %}
-         <span class="badge text-bg-secondary"></span>
-      </a>
-   </div>
-
 </div>
-
 <br> <br>
 
 <!-- listes -->
