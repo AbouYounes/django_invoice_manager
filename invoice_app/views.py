@@ -46,7 +46,6 @@ class HomeView(LoginRequiredSuperuserMixim, View):
     
 
     def post(self, request, *args, **kwagrs):
-
         # modify an invoice
         if request.POST.get('id_modified'):
             paid = request.POST.get('modified')
@@ -70,10 +69,20 @@ class HomeView(LoginRequiredSuperuserMixim, View):
             except Exception as e:
                 messages.error(request, _(f"Sorry, the following error has occured: {e}."))  
 
+        # deleting a customer    
+        if request.POST.get('id_customer_del'):
+            try:
+                obj = Customer.objects.get(pk=request.POST.get('id_customer_del'))
+                obj.delete()
+                messages.success(request, _("The deletion was successful."))   
+            except Exception as e:
+                messages.error(request, _(f"Sorry, the following error has occured: {e}."))
+
         items = pagination(request, self.invoices)
         self.context['invoices'] = items
         Invoice.validate_constraints,
         return render(request, self.templates_name, self.context)
+    
 
 class AddEntrepreneurView(LoginRequiredSuperuserMixim, View):
      """ add new entrepreneur """    

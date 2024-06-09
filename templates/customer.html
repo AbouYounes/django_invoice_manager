@@ -8,63 +8,65 @@
 <h1 class="text-capitalize text-center mx-10 bg-dark text-white">{% trans 'Customer Page' %}</h1>
 
 {% csrf_token %}
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col">
-        <div class="card card-body text-white bg-info mb-4" style="max-width: 30rem;">
-            <h5>Customer:</h5>
-            <br>
-            <p>Name: {{customer.name}}</p>
-            <p>Sex: {{customer.sex}}</p>
-            <p>Age category: {{customer.age}}</p>
-            
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card card-body text-white bg-info mb-4" style="max-width: 30rem;">
+                <h5>Customer:</h5>
+                <br>
+                <p>Name: {{customer.name}}</p>
+                <p>Sex: {{customer.sex}}</p>
+                <p>Age category: {{customer.age}}</p>
+                
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-body text-white bg-info mb-4" style="max-width: 30rem; max-height: 50rem;">
+                <h5>Contact information:</h5>
+                <br>
+                <p>Email: {{customer.email}}</p>
+                <p>Phone: {{customer.phone}}</p>
+                <p>Adress: {{customer.address}}</p>
+                <p>City: {{customer.city}}</p>
+                <p>Zip code: {{customer.zip_code}}</p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-body text-white bg-info mb-4">
+                <h5>Total invoices:</h5>
+                <br>
+                <h1 style="text-align: center;">{{total_invoices}}</h1>
+            </div>
         </div>
     </div>
-    <div class="col">
-        <div class="card card-body text-white bg-info mb-4" style="max-width: 30rem; max-height: 50rem;">
-            <h5>Contact information:</h5>
-            <br>
-            <p>Email: {{customer.email}}</p>
-            <p>Phone: {{customer.phone}}</p>
-            <p>Adress: {{customer.address}}</p>
-            <p>City: {{customer.city}}</p>
-            <p>Zip code: {{customer.zip_code}}</p>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card card-body text-white bg-info mb-4">
-            <h5>Total invoices:</h5>
-            <br>
-            <h1 style="text-align: center;">{{total_invoices}}</h1>
-        </div>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col col-md-12">
-        <div class="card card-body">
-            <table class="table table-striped-columns">
-                <tr>
-                    <th>#</th>
-                    <th>Date</th>
-                    <th>Total</th>
-                    <th>Paid</th>
-                    <th>Type</th>
-                    <th>Update</th>
-                    <th>Remove</th>
-                </tr>
+    <div class="row">
+        <div class="col col-md-12">
+            <div class="card card-body">
+                <table class="table table-striped-columns">
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Total</th>
+                        <th>Paid</th>
+                        <th>Type</th>
+                        <th>Update</th>
+                        <th>Remove</th>
+                    </tr>
 
-                {% for invoice in invoices %}
-                <tr>
-                    <th scope="row">{{ invoice.pk }}</th>
-                    <td>{{invoice.invoice_date_time}}</td>
-                    <td>{{invoice.total}}</td>
-                    <td>{{invoice.paid}}</td>
-                    <td>{{invoice.invoice_type}}</td>
-                    <td><a href="" class="btn-sm btn-info">Updtae</a></td>
-                    <td><a href="" class="btn-sm btn-danger">remove</a></td>
-                </tr>
-                {% endfor %}
-            </table>
+                    {% for invoice in invoices %}
+                    <tr>
+                        <th scope="row">{{ invoice.pk }}</th>
+                        <td>{{invoice.invoice_date_time}}</td>
+                        <td>{{invoice.total}}</td>
+                        <td>{{invoice.paid}}</td>
+                        <td>{{invoice.invoice_type}}</td>
+                        <td><a href="" class="btn-sm btn-info">Updtae</a></td>
+                        <td><a href="" class="btn-sm btn-danger">remove</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
         </div>
     </div>
 </div>
