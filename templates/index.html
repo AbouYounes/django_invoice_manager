@@ -11,8 +11,8 @@
       <div class="col-4">
          <div class="card text-white bg-primary mb-4" style="max-width: 20rem;">
             <div class="card-body">
-            <h5 class="card-title text-center">{% trans 'INVOICES' %}</h5>
-            <h1 class="card-text text-center">{{total_invoices}}</h1>
+               <h5 class="card-title text-center">{% trans 'INVOICES' %}</h5>
+               <h1 class="card-text text-center">{{total_invoices}}</h1>
             </div>
          </div>
       </div>
@@ -92,11 +92,11 @@
                   </td>
                   <td>{{invoice.get_invoice_type_display}}</td>
                   <td>
-                     <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail"><button class="btn-sm btn-success">{% trans 'View' %}</button></a>
+                     <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail"><button class="btn-sm btn-success">{% trans 'Preview' %}</button></a>
 
                      <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
                      data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
-                     class="btn-sm btn-warning">{% trans 'Modify' %}
+                     class="btn-sm btn-warning">{% trans 'Details' %}
                      </button>
 
                      <button id="btn-invoice-sup" type="button" data-toggle="modal" data-target="#supprimer"
@@ -107,7 +107,7 @@
                </tr>
                {% endfor %}
 
-            {% if invoices.has_other_pages %}
+               {% if invoices.has_other_pages %}
                <div class="btn-group" role="group" aria-label="Item pagination">
 
                   {% if invoices.has_previous %}
@@ -130,7 +130,7 @@
                      <a href="?page={{ invoices.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
                   {% endif %}
                </div>
-            {% endif %}
+               {% endif %}
 
             {% else %}
                <p class="text-center text-white">{% trans 'No invoice found.' %}</p>
@@ -165,7 +165,7 @@
                   <td>{{customer.name}}</td>
                   <td>{{customer.email}}</td>
                   <td>
-                     <a href="{% url 'customer' pk=customer.pk %}" title="Detail"><button class="btn-sm btn-info">{% trans 'Update' %}</button></a>
+                     <a href="{% url 'customer' pk=customer.pk %}" title="Detail"><button class="btn-sm btn-warning">{% trans 'Details' %}</button></a>
 
                      <button id="btn-customer-sup" type="button" data-toggle="modal" data-target="#customer_del"
                         class="btn-sm btn-danger" title="Supprimer" data-id="{{ customer.pk }}"
@@ -175,7 +175,7 @@
                </tr>
                {% endfor %}
 
-            {% if customers.has_other_pages %}
+               {% if customers.has_other_pages %}
                <div class="btn-group" role="group" aria-label="Item pagination">
 
                   {% if customers.has_previous %}
@@ -197,8 +197,8 @@
                   {% if customers.has_next %}
                      <a href="?page={{ customers.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
                   {% endif %}
-               </div>
-            {% endif %}
+               </div>  
+               {% endif %}
 
             {% else %}
                <p class="text-center text-white">{% trans 'No customer found.' %}</p>

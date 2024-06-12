@@ -1,14 +1,16 @@
 
-from django.core.paginator import (Paginator, EmptyPage, PageNotAnInteger)
+from django.core.paginator import (
+     Paginator, EmptyPage, PageNotAnInteger
+     )
 
 from .models import *
 
-def pagination(request, invoices):
+def pagination_inv(request, invoices):
     # default_page 
         default_page = 1 
         page = request.GET.get('page', default_page)
         # paginate items
-        items_per_page = 5
+        items_per_page = 3
         paginator = Paginator(invoices, items_per_page)
 
         try:
@@ -20,14 +22,26 @@ def pagination(request, invoices):
         except EmptyPage:
             items_page = paginator.page(paginator.num_pages) 
 
-        return items_page 
+        return items_page
 
-def pagination_custm(request, customers):
+def get_total_paid(model):
+
+    total = model.objects.all().filter(paid='True').count()
+    return total
+
+def get_total(model):
+
+    obj = model.objects.all()
+    total = obj.count()
+    return total 
+
+
+def pagination_cus(request, customers):
     # default_page 
         default_page = 1 
         page = request.GET.get('page', default_page)
         # paginate items
-        items_per_page = 5
+        items_per_page = 3
         paginator = Paginator(customers, items_per_page)
 
         try:
@@ -39,7 +53,7 @@ def pagination_custm(request, customers):
         except EmptyPage:
             items_page = paginator.page(paginator.num_pages) 
 
-        return items_page   
+        return items_page 
 
 
 def get_invoice(pk):

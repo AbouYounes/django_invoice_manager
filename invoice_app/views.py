@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 
 from django.db import transaction
-from .utils import get_customer, pagination, get_invoice, pagination_custm
+from .utils import get_customer, get_total, get_total_paid, pagination_cus, pagination_inv, get_invoice
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -21,26 +21,33 @@ from django.utils.translation import gettext as _
 
 
 class HomeView(LoginRequiredSuperuserMixim, View):
+
     """ Main view """
 
     templates_name = 'index.html'
     invoices = Invoice.objects.all()
     customers = Customer.objects.all()
     article = Article.objects.all()
-    total_invoices = invoices.count()
-    total_customers = customers.count()
-    total_paid = invoices.filter(paid='True').count()
     context = {
         'invoices': invoices,
         'customers' : customers,
-        'total_invoices' : total_invoices,
-        'total_customers' : total_customers,
-        'total_paid' : total_paid
     }
-    
+
     def get(self, request, *args, **kwags):
-        items = pagination(request, self.invoices)
-        self.context['invoices'] = items
+        items_inv = pagination_inv(request, self.invoices)
+        self.context['invoices'] = items_inv
+        items_cust = pagination_cus(request, self.customers)
+        self.context['customers'] = items_cust
+        # total invoice
+        total_invoices = get_total(Invoice)
+        self.context['total_invoices'] = total_invoices
+        # total customer
+        total_customers = get_total(Customer)
+        self.context['total_customers'] = total_customers 
+        # total paid
+        total_paid = get_total_paid(Invoice)
+        self.context['total_paid'] = total_paid
+        
         return render(request, self.templates_name, self.context)
     
 
@@ -64,7 +71,7 @@ class HomeView(LoginRequiredSuperuserMixim, View):
             try:
                 obj = Invoice.objects.get(pk=request.POST.get('id_supprimer'))
                 obj.delete()
-                messages.success(request, _("The deletion was successful."))   
+                messages.success(request, _("The deletion of invoice was successful."))   
             except Exception as e:
                 messages.error(request, _(f"Sorry, the following error has occured: {e}."))  
 
@@ -73,14 +80,14 @@ class HomeView(LoginRequiredSuperuserMixim, View):
             try:
                 obj = Customer.objects.get(pk=request.POST.get('id_customer_del'))
                 obj.delete()
-                messages.success(request, _("The deletion was successful."))   
+                messages.success(request, _("The deletion of customer was successful."))   
             except Exception as e:
                 messages.error(request, _(f"Sorry, the following error has occured: {e}."))
 
-        items = pagination(request, self.invoices)
-        items_custom = pagination_custm(request, self.customers)
-        self.context['invoices'] = items
-        self.context['customers'] = items_custom
+        items_inv = pagination_inv(request, self.invoices)
+        self.context['invoices'] = items_inv
+        items_cust = pagination_cus(request, self.customers)
+        self.context['customers'] = items_cust
         Invoice.validate_constraints,
         Customer.validate_constraints,
         return render(request, self.templates_name, self.context)
@@ -248,7 +255,10 @@ class InvoiceVisualizationView(LoginRequiredSuperuserMixim, View):
         context = get_invoice(pk)
         return render(request, self.template_name, context)
     
-   
+
+
+
+
 @superuser_required
 def get_invoice_pdf(request, *args, **kwargs):
     """ generate pdf file from html file """
