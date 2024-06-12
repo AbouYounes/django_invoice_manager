@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 
 from django.db import transaction
-from .utils import get_customer, pagination, get_invoice
+from .utils import get_customer, pagination, get_invoice, pagination_custm
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -37,7 +37,6 @@ class HomeView(LoginRequiredSuperuserMixim, View):
         'total_customers' : total_customers,
         'total_paid' : total_paid
     }
-    Invoice.objects.alatest
     
     def get(self, request, *args, **kwags):
         items = pagination(request, self.invoices)
@@ -79,8 +78,11 @@ class HomeView(LoginRequiredSuperuserMixim, View):
                 messages.error(request, _(f"Sorry, the following error has occured: {e}."))
 
         items = pagination(request, self.invoices)
+        items_custom = pagination_custm(request, self.customers)
         self.context['invoices'] = items
+        self.context['customers'] = items_custom
         Invoice.validate_constraints,
+        Customer.validate_constraints,
         return render(request, self.templates_name, self.context)
     
 

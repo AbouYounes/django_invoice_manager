@@ -20,15 +20,15 @@ def pagination(request, invoices):
         except EmptyPage:
             items_page = paginator.page(paginator.num_pages) 
 
-        return items_page
+        return items_page 
 
-def pagination_custom(request, cutomers):
+def pagination_custm(request, customers):
     # default_page 
         default_page = 1 
         page = request.GET.get('page', default_page)
         # paginate items
-        items_per_page = 3
-        paginator = Paginator(cutomers, items_per_page)
+        items_per_page = 5
+        paginator = Paginator(customers, items_per_page)
 
         try:
             items_page = paginator.page(page)
@@ -39,7 +39,7 @@ def pagination_custom(request, cutomers):
         except EmptyPage:
             items_page = paginator.page(paginator.num_pages) 
 
-        return items_page    
+        return items_page   
 
 
 def get_invoice(pk):
