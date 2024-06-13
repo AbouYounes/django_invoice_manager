@@ -5,41 +5,58 @@
 {% block content %}
 
 
-<h1 class="text-capitalize text-center mx-10 bg-dark text-white">{% trans 'Customer Page' %}</h1>
+<h1 class="text-capitalize text-center mx-10 bg-dark text-white">{% trans 'Customer Details' %}</h1>
 
 {% csrf_token %}
-<div class="container">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-            <div class="card card-body text-white bg-info mb-4" style="max-width: 30rem;">
-                <h5>Customer:</h5>
-                <br>
-                <p>Name: {{customer.name}}</p>
-                <p>Sex: {{customer.sex}}</p>
-                <p>Age category: {{customer.age}}</p>
-                
-            </div>
-        </div>
-        <div class="col">
-            <div class="card card-body text-white bg-info mb-4" style="max-width: 30rem; max-height: 50rem;">
-                <h5>Contact information:</h5>
-                <br>
-                <p>Email: {{customer.email}}</p>
-                <p>Phone: {{customer.phone}}</p>
-                <p>Adress: {{customer.address}}</p>
-                <p>City: {{customer.city}}</p>
-                <p>Zip code: {{customer.zip_code}}</p>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card card-body text-white bg-info mb-4">
-                <h5>Total invoices:</h5>
-                <br>
-                <h1 style="text-align: center;">{{total_invoices}}</h1>
-            </div>
-        </div>
-    </div>
 
+<div class="container">
+    <!-- Customer Informmation-->
+    <div class="card text-white bg-info mb-3">
+        <div class="card-header text-center">
+            <div class="row justify-content-around">
+                <h4>{{customer.name}}</h4>
+                <!-- sex/age-->
+                <span class="badge badge-primary"><p>{{customer.sex}}</p></span>
+                <span class="badge badge-dark"><p>Age: {{customer.age}}</p></span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <div class="row justify-content-around">
+                    <!-- Contact-->
+                    <div class="col">
+                        <h5 class="card-title">Contact Information</h5>
+                        <p>Email: {{customer.email}}</p>
+                        <p>Phone: {{customer.phone}}</p>
+                    </div>
+                    <!-- Adress-->
+                    <div class="col">
+                        <h5 class="card-title">Adress</h5>
+                        <p>{{customer.address}}</p>
+                        <p>City: {{customer.city}}</p>
+                        <p>Zip code: {{customer.zip_code}}</p>
+                    </div>                    
+                    <!-- Counter-->
+                    <div class="col text-center">
+                        <h5>Total invoices:</h5>
+                        <br>
+                        <div class="card badge-dark"><h1 style="text-align: center;">{{total_invoices}}</h1></div>
+                    </div>                    
+                    <!-- Buttons-->
+                    <div class="container">
+                        <div class="row justify-content-around">
+                            <button type="submit" class="btn col-md-3 btn-success">{% trans 'Update' %}</button>
+                            <button type="submit" class="btn col-md-3 btn-danger">{% trans 'Delete' %}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+        
+<!-- Invoices List-->
+ <div class="container">
     <div class="row">
         <div class="col col-md-12">
             <div class="card card-body">
