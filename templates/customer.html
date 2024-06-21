@@ -17,7 +17,7 @@
                 <h4>{{customer.name}}</h4>
                 <!-- sex/age-->
                 <span class="badge badge-primary"><p>{{customer.sex}}</p></span>
-                <span class="badge badge-dark"><p>Age: {{customer.age}}</p></span>
+                <span class="badge badge-dark"><p>{% trans 'Age:' %} {{customer.age}}</p></span>
             </div>
         </div>
         <div class="card-body">
@@ -25,16 +25,16 @@
                 <div class="row justify-content-around">
                     <!-- Contact-->
                     <div class="col">
-                        <h5 class="card-title">Contact Information</h5>
-                        <p>Email: {{customer.email}}</p>
-                        <p>Phone: {{customer.phone}}</p>
+                        <h5 class="card-title">{% trans 'Contact Information' %}</h5>
+                        <p>{% trans 'Email' %}: {{customer.email}}</p>
+                        <p>{% trans 'Phone' %}: {{customer.phone}}</p>
                     </div>
                     <!-- Adress-->
                     <div class="col">
-                        <h5 class="card-title">Adress</h5>
+                        <h5 class="card-title">{% trans 'Adress' %}</h5>
                         <p>{{customer.address}}</p>
-                        <p>City: {{customer.city}}</p>
-                        <p>Zip code: {{customer.zip_code}}</p>
+                        <p>{% trans 'City' %}: {{customer.city}}</p>
+                        <p>{% trans 'Zip code' %}: {{customer.zip_code}}</p>
                     </div>                    
                     <!-- Counter-->
                     <div class="col text-center">
@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="col-4">
                                     <div class="badge badge-dark">
-                                        <h5>Total invoices</h5>
+                                        <h5>{% trans 'Total invoices' %}</h5>
                                     </div>
                                 </div>
                                 <div class="col-5">
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="badge badge-dark">
-                                        <h5>Paid invoices</h5>
+                                        <h5>{% trans 'Paid invoices' %}</h5>
                                     </div>
                                 </div>
                                 <div class="col-5">
@@ -73,7 +73,7 @@
                     <div class="container">
                         <div class="row justify-content-around">
                             <button type="submit" class="btn col-md-3 btn-success">{% trans 'Update' %}</button>
-                            <button type="submit" class="btn col-md-3 btn-danger">{% trans 'Delete' %}</button>
+                            <a href="{% url 'home' %}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">home</a>
                         </div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                         <td>{{invoice.total}}</td>
                         <td>{{invoice.paid}}</td>
                         <td>{{invoice.invoice_type}}</td>
-                        <td><a href="" class="btn-sm btn-info">Updtae</a></td>
+                        <td><a href="" class="btn-sm btn-info">{% trans 'Updtae' %}</a></td>
                         <td>
                             <button id="btn-invoice-del" type="button" data-toggle="modal" data-target="#delete"
                             class="btn-sm btn-danger" title="Supprimer" data-id="{{ invoice.pk }}"

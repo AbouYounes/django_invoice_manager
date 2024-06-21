@@ -245,6 +245,38 @@ class CustomerView(LoginRequiredSuperuserMixim, View):
         context = get_customer(pk)
         return render(request, self.template_name, context)
     
+    def post(self, request, *args, **kwagrs):
+        # modify a customer
+        if request.POST.get('id_modified'):
+            paid = request.POST.get('modified')
+            try: 
+                obj = Customer.objects.get(id=request.POST.get('id_modified'))
+                if paid == 'True':
+                    obj.paid = True
+                else:
+                    obj.paid = False 
+                obj.save()
+                messages.success(request,  _("Change made successfully."))
+            except Exception as e:   
+                messages.error(request, _(f"Sorry, the following error has occured: {e}."))      
+
+        # deleting a invoice    
+        if request.POST.get('id_supprimer'):
+            try:
+                obj = Invoice.objects.get(pk=request.POST.get('id_supprimer'))
+                obj.delete()
+                messages.success(request, _("The deletion of invoice was successful."))   
+            except Exception as e:
+                messages.error(request, _(f"Sorry, the following error has occured: {e}."))  
+
+        items_inv = pagination_inv(request, self.invoices)
+        self.context['invoices'] = items_inv
+        items_cust = pagination_cus(request, self.customers)
+        self.context['customers'] = items_cust
+        Invoice.validate_constraints,
+        Customer.validate_constraints,
+        return render(request, self.templates_name, self.context)
+    
     
 class InvoiceVisualizationView(LoginRequiredSuperuserMixim, View):
     """ This view helps to visualize the invoice """

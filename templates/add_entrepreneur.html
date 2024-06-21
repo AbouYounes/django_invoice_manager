@@ -8,109 +8,111 @@
 
 <h1 class="text-capitalize text-center mx-10 bg-dark text-white">{% trans 'Registrieren Einen Neuen Unternehmer' %}</h1>
 
-<form method="post">
-    {% csrf_token %}
-    <div class="form-row">
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-row">
 
-        <div class="form-group col-md-5">
-            <label for="company">{% trans 'Company Name' %}</label>
-            <input name="company" required type="text" class="form-control" id="company"
-                placeholder="company name">
+            <div class="form-group col-md-5">
+                <label for="company">{% trans 'Company Name' %}</label>
+                <input name="company" required type="text" class="form-control" id="company"
+                    placeholder="{% trans 'Company name' %}">
+            </div>
+
+            <div class="form-group col-md-5">
+                <label for="name">{% trans 'Name' %}</label>
+                <input name="name" required type="text" class="form-control" id="name"
+                    placeholder="{% trans 'Entrepreneur first and last name' %}">
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="email">{% trans 'Email' %}</label>
+                <input name="email" required type="email" class="form-control" id="email" placeholder="{% trans 'Entrepreneur Email' %}">
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="phone">{% trans 'Phone' %}</label>
+                <input name="phone" required type="number" class="form-control" id="phone"
+                    placeholder="{% trans 'Entrepreneur Phone' %}">
+            </div>
         </div>
 
-        <div class="form-group col-md-5">
-            <label for="name">{% trans 'Name' %}</label>
-            <input name="name" required type="text" class="form-control" id="name"
-                placeholder="customer first and last name">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="sex">{% trans 'Sex' %}</label>
+                <select name="sex" class="form-control" required id="sex">
+                    <option>{% trans 'Choose the gender' %} ..</option>
+                    <option value="M">{% trans 'Male' %}</option>
+                    <option value="F">{% trans 'Feminine' %}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="phone">{% trans 'Age' %}</label>
+                <input name="age" required type="number" class="form-control" id="age"
+                    placeholder="{% trans 'Entrepreneur age' %}">
+            </div>
         </div>
 
-        <div class="form-group col-md-4">
-            <label for="email">{% trans 'Email' %}</label>
-            <input name="email" required type="email" class="form-control" id="email" placeholder="Unternehmer-E-Mail">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="addres">{% trans 'Address' %} </label>
+                <input name="address" type="text" required type="text" class="form-control" id="address"
+                    placeholder="{% trans 'Entrepreneur adress' %}">
+            </div>
         </div>
 
-        <div class="form-group col-md-3">
-            <label for="phone">{% trans 'Phone' %}</label>
-            <input name="phone" required type="number" class="form-control" id="phone"
-                placeholder="Unternehmer-Telefon">
-        </div>
-    </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="city">{% trans 'City' %}</label>
+                <input name="city" required type="text" class="form-control" id="city" 
+                    placeholder="{% trans 'Entrepreneur city' %}">
+            </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="sex">{% trans 'Sex' %}</label>
-            <select name="sex" class="form-control" required id="sex">
-                <option>{% trans 'Choose the gender' %} ..</option>
-                <option value="M">{% trans 'Male' %}</option>
-                <option value="F">{% trans 'Feminine' %}</option>
-            </select>
-        </div>
+            <div class="form-group col-md-6">
+                <label for="zip">{% trans 'Zip code' %} </label>
+                <input name="zip" required type="text" class="form-control" id="zip"
+                    placeholder="{% trans 'Postal code of the entrepreneur' %}">
+            </div>
 
-        <div class="form-group col-md-3">
-            <label for="phone">{% trans 'Age' %}</label>
-            <input name="age" required type="number" class="form-control" id="age"
-                placeholder="Unternehmer-Age">
-        </div>
-    </div>
+            <div class="form-group col-md-6">
+                <label for="zip">{% trans 'Bank' %} </label>
+                <input name="bank" required type="text" class="form-control" id="bank"
+                    placeholder="{% trans 'Bank of the entrepreneur' %}">
+            </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            <label for="addres">{% trans 'Address' %} </label>
-            <input name="address" type="text" required type="text" class="form-control" id="address"
-                placeholder="Unternehmeradresse">
-        </div>
-    </div>
+            <div class="form-group col-md-6">
+                <label for="zip">{% trans 'Bank Account' %} </label>
+                <input name="bankaccount" required type="text" class="form-control" id="bankaccount"
+                    placeholder="{% trans 'bank account of the entrepreneur' %}">
+            </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="city">{% trans 'City' %}</label>
-            <input name="city" required type="text" class="form-control" id="city" 
-                placeholder="Unternehmerstadt">
-        </div>
+            <div class="form-group col-md-6">
+                <label for="zip">{% trans 'SWIFT' %} </label>
+                <input name="swift" required type="text" class="form-control" id="swift"
+                    placeholder="{% trans 'SWIFT of the entrepreneur' %}">
+            </div>
 
-        <div class="form-group col-md-6">
-            <label for="zip">{% trans 'Zip code' %} </label>
-            <input name="zip" required type="text" class="form-control" id="zip"
-                placeholder="Plz des Unternehmers">
+            <div class="form-group col-md-6">
+                <label for="zip">{% trans 'IBAN' %} </label>
+                <input name="iban" required type="text" class="form-control" id="iban"
+                    placeholder="{% trans 'IBAN of the entrepreneur' %}">
+            </div>
         </div>
+        
+        <div class="row">
+            <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
 
-        <div class="form-group col-md-6">
-            <label for="zip">{% trans 'Bank' %} </label>
-            <input name="bank" required type="text" class="form-control" id="bank"
-                placeholder="Bank des Unternehmers">
+            <a href='#' class="col-md-8">
+                <span class="badge text-bg-secondary"></span>
+            </a>
+
+            <a href="{% url 'home' %}" class="btn col-md-2 btn-danger">{% trans 'close' %}
+            </a>
         </div>
 
-        <div class="form-group col-md-6">
-            <label for="zip">{% trans 'Bank Account' %} </label>
-            <input name="bankaccount" required type="text" class="form-control" id="bankaccount"
-                placeholder="bankaccount des Unternehmers">
-        </div>
-
-        <div class="form-group col-md-6">
-            <label for="zip">{% trans 'SWIFT' %} </label>
-            <input name="swift" required type="text" class="form-control" id="swift"
-                placeholder="swift des Unternehmers">
-        </div>
-
-        <div class="form-group col-md-6">
-            <label for="zip">{% trans 'IBAN' %} </label>
-            <input name="iban" required type="text" class="form-control" id="iban"
-                placeholder="iban des Unternehmers">
-        </div>
-    </div>
-    
-    <div class="row">
-        <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
-
-        <a href='#' class="col-md-8">
-            <span class="badge text-bg-secondary"></span>
-        </a>
-
-        <a href="{% url 'customers' %}" class="btn col-md-2 btn-danger">{% trans 'close' %}
-        </a>
-    </div>
-
-</form>
+    </form>
+</div>
 
 <br><br><br>
 

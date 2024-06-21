@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-25 19:22+0100\n"
+"POT-Creation-Date: 2024-06-21 23:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,199 +18,369 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\django_invoice_manager\settings.py:123
-msgid "Deutsch"
-msgstr "Deutsch"
-
 #: .\django_invoice_manager\settings.py:124
-msgid "English"
-msgstr "Englisch"
+msgid "Deutsch"
+msgstr ""
 
-#: .\invoice_app\admin.py:18 .\invoice_app\admin.py:19
-#: .\invoice_app\admin.py:20
-#, fuzzy
-#| msgid "INVOICE SYSTEM  MANAGER"
+#: .\django_invoice_manager\settings.py:125
+msgid "English"
+msgstr ""
+
+#: .\invoice_app\admin.py:22 .\invoice_app\admin.py:23
+#: .\invoice_app\admin.py:24
 msgid "INVOICE SYSTEM MANAGER"
 msgstr "RECHNUNGSSYSTEM-MANAGER"
 
-#: .\invoice_app\models.py:14 .\templates\add_customer.html:37
+#: .\invoice_app\models.py:14 .\invoice_app\models.py:50
+#: .\templates\add_customer.html:38 .\templates\add_entrepreneur.html:45
 msgid "Male"
 msgstr "Männlich"
 
-#: .\invoice_app\models.py:15 .\templates\add_customer.html:38
+#: .\invoice_app\models.py:15 .\invoice_app\models.py:51
+#: .\templates\add_customer.html:39 .\templates\add_entrepreneur.html:46
 msgid "Feminine"
-msgstr "Feminin"
+msgstr "Weiblich"
 
-#: .\invoice_app\models.py:43 .\templates\add_invoice.html:31
+#: .\invoice_app\models.py:79 .\templates\add_invoice.html:43
+#: .\templates\update_invoice.html:42
 msgid "RECEIPT"
-msgstr "QUITTUNG"
+msgstr "QUIITTUNG"
 
-#: .\invoice_app\models.py:44 .\templates\add_invoice.html:32
+#: .\invoice_app\models.py:80 .\templates\add_invoice.html:44
+#: .\templates\update_invoice.html:43
 msgid "PROFORMA INVOICE"
 msgstr "PROFORMA-RECHNUNG"
 
-#: .\invoice_app\models.py:45 .\templates\add_invoice.html:33
+#: .\invoice_app\models.py:81 .\templates\add_invoice.html:45
+#: .\templates\update_invoice.html:44
 msgid "INVOICE"
 msgstr "RECHNUNG"
 
-#: .\invoice_app\views.py:50
-msgid "Change made successfully."
-msgstr "Änderung erfolgreich durchgeführt."
+#: .\invoice_app\models.py:115 .\templates\add_invoice.html:85
+#: .\templates\add_invoice.html:169 .\templates\update_invoice.html:84
+#: .\templates\update_invoice.html:168
+msgid "Hour"
+msgstr "Stunde"
 
-#: .\invoice_app\views.py:52 .\invoice_app\views.py:61
-#, fuzzy, python-brace-format
-#| msgid "Sorry, the following error has occured"
-msgid "Sorry, the following error has occured: {e}."
-msgstr "Leider ist der folgende Fehler aufgetreten: {e}"
+#: .\invoice_app\models.py:116 .\templates\add_invoice.html:86
+#: .\templates\add_invoice.html:170 .\templates\update_invoice.html:85
+#: .\templates\update_invoice.html:169
+msgid "Meter"
+msgstr "Meter"
 
-#: .\invoice_app\views.py:59
-msgid "The deletion was successful."
-msgstr "Der Löschvorgang war erfolgreich."
-
-#: .\invoice_app\views.py:92
-msgid "Customer registered successfully."
-msgstr "Der Kunde hat sich erfolgreich registriert."
-
-#: .\invoice_app\views.py:94 .\invoice_app\views.py:155
-msgid "Sorry, please try again the sent data is corrupt."
+#: .\invoice_app\models.py:120
+msgid "0%"
 msgstr ""
-"Entschuldigung, bitte versuchen Sie es erneut. Die gesendeten Daten sind "
-"beschädigt."
 
-#: .\invoice_app\views.py:97
-#, fuzzy, python-brace-format
-#| msgid "Sorry our system is detecting the following issues"
+#: .\invoice_app\models.py:121
+msgid "17%"
+msgstr ""
+
+#: .\invoice_app\models.py:122
+msgid "19%"
+msgstr ""
+
+#: .\invoice_app\views.py:65 .\invoice_app\views.py:259
+msgid "Change made successfully."
+msgstr "Änderung erfolgreich durchgeführt"
+
+#: .\invoice_app\views.py:67 .\invoice_app\views.py:76
+#: .\invoice_app\views.py:85 .\invoice_app\views.py:261
+#: .\invoice_app\views.py:270
+#, python-brace-format
+msgid "Sorry, the following error has occured: {e}."
+msgstr "Entschuldigung, es ist ein Fehler aufgetreten:"
+
+#: .\invoice_app\views.py:74 .\invoice_app\views.py:268
+msgid "The deletion of invoice was successful."
+msgstr "Die Löschung der Rechnung war erfolgreich."
+
+#: .\invoice_app\views.py:83
+msgid "The deletion of customer was successful."
+msgstr "Die Löschung des Kunden war erfolgreich."
+
+#: .\invoice_app\views.py:122
+msgid "Entrepreneur registered successfully."
+msgstr "Unternehmer erfolgreich registriert."
+
+#: .\invoice_app\views.py:124 .\invoice_app\views.py:159
+#: .\invoice_app\views.py:231
+msgid "Sorry, please try again the sent data is corrupt."
+msgstr "Entschuldigung, bitte versuchen Sie es erneut, die gesendeten Daten sind fehlerhaft."
+
+#: .\invoice_app\views.py:127 .\invoice_app\views.py:162
+#, python-brace-format
 msgid "Sorry our system is detecting the following issues: {e}"
-msgstr "Leider erkennt unser System die folgenden Probleme: {e}"
+msgstr "Entschuldigung, unser System erkennt die folgenden Probleme: {e}"
 
-#: .\invoice_app\views.py:153
+#: .\invoice_app\views.py:157
+msgid "Customer registered successfully."
+msgstr "Kunde erfolgreich registriert."
+
+#: .\invoice_app\views.py:229
 msgid "Data saved successfully."
-msgstr "Daten erfolgreich gespeichert."
+msgstr "Data saved successfully."
 
-#: .\invoice_app\views.py:158
-#, fuzzy, python-brace-format
-#| msgid "Sorry the following error has occured"
+#: .\invoice_app\views.py:234
+#, python-brace-format
 msgid "Sorry the following error has occured: {e}."
-msgstr "Leider ist der folgende Fehler aufgetreten: {e}"
+msgstr "Entschuldigung, es ist ein Fehler aufgetreten: {e}."
 
-#: .\templates\add_customer.html:9 .\templates\index.html:21
+#: .\templates\add_customer.html:9 .\templates\index.html:48
 msgid "Register a new customer"
-msgstr "Registrieren einen neuen Kunden"
+msgstr "Einen neuen Kunden registrieren"
 
-#: .\templates\add_customer.html:15
+#: .\templates\add_customer.html:16 .\templates\add_entrepreneur.html:23
 msgid "Name"
 msgstr "Name"
 
-#: .\templates\add_customer.html:21
+#: .\templates\add_customer.html:22 .\templates\add_entrepreneur.html:29
+#: .\templates\customer.html:29
 msgid "Email"
-msgstr "Email"
+msgstr "E-Mail"
 
-#: .\templates\add_customer.html:26
+#: .\templates\add_customer.html:27 .\templates\add_entrepreneur.html:34
+#: .\templates\customer.html:30
 msgid "Phone"
-msgstr "Telefon"
+msgstr "Telefonnummer"
 
-#: .\templates\add_customer.html:34
+#: .\templates\add_customer.html:35 .\templates\add_entrepreneur.html:42
 msgid "Sex"
-msgstr "Sex"
+msgstr "Geschlecht"
 
-#: .\templates\add_customer.html:36
+#: .\templates\add_customer.html:37 .\templates\add_entrepreneur.html:44
 msgid "Choose the gender"
 msgstr "Wählen Sie das Geschlecht"
 
-#: .\templates\add_customer.html:43
+#: .\templates\add_customer.html:44 .\templates\add_entrepreneur.html:51
 msgid "Age"
 msgstr "Alter"
 
-#: .\templates\add_customer.html:45
+#: .\templates\add_customer.html:46
 msgid "Choose the age range"
 msgstr "Wählen Sie die Altersgruppe"
 
-#: .\templates\add_customer.html:54
+#: .\templates\add_customer.html:55 .\templates\add_entrepreneur.html:59
 msgid "Address"
 msgstr "Adresse"
 
-#: .\templates\add_customer.html:56
+#: .\templates\add_customer.html:57
 msgid "Customer address"
 msgstr "Kundenadresse"
 
-#: .\templates\add_customer.html:62
+#: .\templates\add_customer.html:63 .\templates\add_entrepreneur.html:67
+#: .\templates\customer.html:36
 msgid "City"
 msgstr "Stadt"
 
-#: .\templates\add_customer.html:64
+#: .\templates\add_customer.html:65
 msgid "customer city"
 msgstr "Kundenstadt"
 
-#: .\templates\add_customer.html:68
+#: .\templates\add_customer.html:69 .\templates\add_entrepreneur.html:73
+#: .\templates\customer.html:37
 msgid "Zip code"
-msgstr "PLZ"
+msgstr "Postleitzahl"
 
-#: .\templates\add_customer.html:70
+#: .\templates\add_customer.html:71
 msgid "customer zip code required"
-msgstr "PLZ des Kunden erforderlich"
+msgstr "Kundenpostleitzahl erforderlich"
 
-#: .\templates\add_customer.html:74 .\templates\add_invoice.html:88
-#: .\templates\index.html:150
+#: .\templates\add_customer.html:75 .\templates\add_entrepreneur.html:104
+#: .\templates\add_invoice.html:133 .\templates\index.html:235
+#: .\templates\update_invoice.html:132
 msgid "Save"
 msgstr "Speichern"
 
-#: .\templates\add_invoice.html:9 .\templates\index.html:13
+#: .\templates\add_entrepreneur.html:9
+msgid "Registrieren Einen Neuen Unternehmer"
+msgstr ""
+
+#: .\templates\add_entrepreneur.html:17
+msgid "Company Name"
+msgstr "Unternehmensname"
+
+#: .\templates\add_entrepreneur.html:19
+msgid "Company name"
+msgstr "Unternehmensname"
+
+#: .\templates\add_entrepreneur.html:25
+msgid "Entrepreneur first and last name"
+msgstr "Vor- und Nachname des Unternehmers"
+
+#: .\templates\add_entrepreneur.html:30
+msgid "Entrepreneur Email"
+msgstr "E-Mail des Unternehmers"
+
+#: .\templates\add_entrepreneur.html:36
+msgid "Entrepreneur Phone"
+msgstr "Telefon des Unternehmers"
+
+#: .\templates\add_entrepreneur.html:53
+msgid "Entrepreneur age"
+msgstr "Alter des Unternehmers"
+
+#: .\templates\add_entrepreneur.html:61
+msgid "Entrepreneur address"
+msgstr "Adresse des Unternehmers"
+
+#: .\templates\add_entrepreneur.html:69
+msgid "Entrepreneur city"
+msgstr "Stadt des Unternehmers"
+
+#: .\templates\add_entrepreneur.html:75
+msgid "Postal code of the entrepreneur"
+msgstr "Postleitzahl des Unternehmers"
+
+#: .\templates\add_entrepreneur.html:79
+msgid "Bank"
+msgstr "Bank"
+
+#: .\templates\add_entrepreneur.html:81
+msgid "Bank of the entrepreneur"
+msgstr "Bank des Unternehmers"
+
+#: .\templates\add_entrepreneur.html:85
+msgid "Bank Account"
+msgstr "Kontonummer"
+
+#: .\templates\add_entrepreneur.html:87
+msgid "bank account of the entrepreneur"
+msgstr "Bankkonto des Unternehmers"
+
+#: .\templates\add_entrepreneur.html:91
+msgid "SWIFT"
+msgstr "SWIFT"
+
+#: .\templates\add_entrepreneur.html:93
+msgid "SWIFT of the entrepreneur"
+msgstr "SWIFT-Code des Unternehmers"
+
+#: .\templates\add_entrepreneur.html:97
+msgid "IBAN"
+msgstr "IBAN"
+
+#: .\templates\add_entrepreneur.html:99
+msgid "IBAN of the entrepreneur"
+msgstr ""
+
+#: .\templates\add_entrepreneur.html:110 .\templates\update_invoice.html:133
+msgid "close"
+msgstr "schließen"
+
+#: .\templates\add_invoice.html:9 .\templates\index.html:43
 msgid "Register a new invoice"
-msgstr "Registrieren eine neue Rechnung"
+msgstr "Eine neue Rechnung registrieren"
 
-#: .\templates\add_invoice.html:16
+#: .\templates\add_invoice.html:18 .\templates\update_invoice.html:17
+msgid "Entrepreneur"
+msgstr "Unternehmer/in"
+
+#: .\templates\add_invoice.html:20 .\templates\update_invoice.html:19
+msgid "Choose the Entrepreneur ..."
+msgstr "Wählen Sie den Unternehmer/in ..."
+
+#: .\templates\add_invoice.html:29 .\templates\update_invoice.html:28
 msgid "Customer"
-msgstr "Kunde"
+msgstr "Kunde/in"
 
-#: .\templates\add_invoice.html:18
+#: .\templates\add_invoice.html:31 .\templates\update_invoice.html:30
 msgid "Choose the customer ..."
-msgstr "Wählen Sie den Kunden..."
+msgstr "Wählen Sie den Kunden/in ..."
 
-#: .\templates\add_invoice.html:28
+#: .\templates\add_invoice.html:40 .\templates\update_invoice.html:39
 msgid "Invoice Type"
 msgstr "Rechnungsart"
 
-#: .\templates\add_invoice.html:30
+#: .\templates\add_invoice.html:42 .\templates\update_invoice.html:41
 msgid "Choose the invoice type ..."
-msgstr "Wählen Sie den Rechnungsart ..."
+msgstr "Wählen Sie die Rechnungsart ..."
 
-#: .\templates\add_invoice.html:42 .\templates\add_invoice.html:106
+#: .\templates\add_invoice.html:53 .\templates\add_invoice.html:106
+#: .\templates\add_invoice.html:190 .\templates\customer.html:94
+#: .\templates\update_invoice.html:52 .\templates\update_invoice.html:105
+#: .\templates\update_invoice.html:189
+msgid "Total"
+msgstr "Gesamtsumme"
+
+#: .\templates\add_invoice.html:61 .\templates\update_invoice.html:60
+msgid "Items"
+msgstr "Artikel"
+
+#: .\templates\add_invoice.html:67 .\templates\add_invoice.html:151
+#: .\templates\update_invoice.html:66 .\templates\update_invoice.html:150
 msgid "Item name"
 msgstr "Artikelname"
 
-#: .\templates\add_invoice.html:47 .\templates\add_invoice.html:111
+#: .\templates\add_invoice.html:72 .\templates\add_invoice.html:156
+#: .\templates\customer.html:93 .\templates\invoice-pdf.html:270
+#: .\templates\invoice-template.html:95 .\templates\invoice.html:93
+msgid "Date"
+msgstr "Datum"
+
+#: .\templates\add_invoice.html:77 .\templates\add_invoice.html:161
+#: .\templates\update_invoice.html:76 .\templates\update_invoice.html:160
 msgid "Quantity"
 msgstr "Menge"
 
-#: .\templates\add_invoice.html:52 .\templates\add_invoice.html:116
-#: .\templates\invoice-pdf.html:231 .\templates\invoice-template.html:84
-#: .\templates\invoice.html:84
+#: .\templates\add_invoice.html:82 .\templates\add_invoice.html:166
+#: .\templates\update_invoice.html:81 .\templates\update_invoice.html:165
+msgid "Unit Type"
+msgstr "Einheit"
+
+#: .\templates\add_invoice.html:84 .\templates\add_invoice.html:168
+#: .\templates\update_invoice.html:83 .\templates\update_invoice.html:167
+msgid "Choose the Unit type ..."
+msgstr "Wählen Sie den Einheitstyp ..."
+
+#: .\templates\add_invoice.html:91 .\templates\add_invoice.html:175
+#: .\templates\invoice-pdf.html:273 .\templates\invoice-template.html:98
+#: .\templates\invoice.html:96 .\templates\update_invoice.html:90
+#: .\templates\update_invoice.html:174
 msgid "Unit Price"
 msgstr "Einzelpreis"
 
-#: .\templates\add_invoice.html:57 .\templates\add_invoice.html:76
-#: .\templates\add_invoice.html:121 .\templates\invoice-pdf.html:281
-#: .\templates\invoice-template.html:134 .\templates\invoice.html:134
-msgid "Total"
-msgstr "Gesamt"
+#: .\templates\add_invoice.html:96 .\templates\add_invoice.html:180
+#: .\templates\update_invoice.html:95 .\templates\update_invoice.html:179
+msgid "Tax"
+msgstr "Ust."
 
-#: .\templates\add_invoice.html:67
+#: .\templates\add_invoice.html:98 .\templates\add_invoice.html:182
+#: .\templates\update_invoice.html:97 .\templates\update_invoice.html:181
+msgid "Choose the Tax value ..."
+msgstr "Wählen Sie den Steuerwert ..."
+
+#: .\templates\add_invoice.html:114 .\templates\update_invoice.html:113
 msgid "Add a new item line"
-msgstr "Fügen eine neue Artikelzeile hinzu"
+msgstr "Fügen Sie eine neue Artikelzeile hinzu"
 
-#: .\templates\add_invoice.html:68
+#: .\templates\add_invoice.html:115 .\templates\update_invoice.html:114
 msgid "Remove last item line"
 msgstr "Letzte Artikelzeile entfernen"
 
-#: .\templates\add_invoice.html:83
+#: .\templates\add_invoice.html:122 .\templates\update_invoice.html:121
 msgid "Comments"
 msgstr "Kommentare"
+
+#: .\templates\add_invoice.html:124 .\templates\update_invoice.html:123
+msgid "Choose the comment ..."
+msgstr "Wählen Sie den Kommentar ..."
+
+#: .\templates\add_invoice.html:125
+msgid ""
+"Thank you very much for your order. We are charging you for the following "
+"service:"
+msgstr "vielen Dank für Ihren Auftrag. Wir berechenen Ihnen fomgende Leistung:"
+
+#: .\templates\add_invoice.html:134
+msgid "home"
+msgstr "Startseite"
 
 #: .\templates\base.html:22 .\templates\invoice-pdf.html:11
 msgid "Invoice"
 msgstr "Rechnung"
 
-#: .\templates\base.html:32 .\templates\base.html:109
+#: .\templates\base.html:33 .\templates\base.html:105
 msgid "INVOICE SYSTEM  MANAGER"
 msgstr "RECHNUNGSSYSTEM-MANAGER"
 
@@ -218,175 +388,271 @@ msgstr "RECHNUNGSSYSTEM-MANAGER"
 msgid "Languages"
 msgstr "Sprachen"
 
-#: .\templates\base.html:62
+#: .\templates\base.html:59
 msgid "More option"
-msgstr "Mehr Option"
+msgstr "Mehr Optionen"
 
-#: .\templates\base.html:65
+#: .\templates\base.html:62
+msgid "Add entrepreneur"
+msgstr "Unternehmer hinzufügen"
+
+#: .\templates\base.html:63
 msgid "Add customer"
 msgstr "Kunde hinzufügen"
 
-#: .\templates\base.html:66
-msgid "add admin"
-msgstr "Administrator hinzufügen"
-
-#: .\templates\base.html:68
+#: .\templates\base.html:65
 msgid "statistic"
 msgstr "Statistik"
 
-#: .\templates\index.html:30
-msgid "Search"
-msgstr "Suchen"
+#: .\templates\customer.html:8
+msgid "Customer Details"
+msgstr "Kundendetails"
 
-#: .\templates\index.html:38
-msgid "CUSTOMERS NAME"
-msgstr "KUNDENNAME"
+#: .\templates\customer.html:20
+msgid "Age:"
+msgstr "Alter:"
 
-#: .\templates\index.html:39
-msgid "DATE"
-msgstr "DATUM"
+#: .\templates\customer.html:28
+msgid "Contact Information"
+msgstr "Kontaktinformationen"
 
-#: .\templates\index.html:40
-msgid "TOTAL"
-msgstr "GESAMT"
+#: .\templates\customer.html:34
+msgid "Adress"
+msgstr "Adresse"
 
-#: .\templates\index.html:41 .\templates\invoice-pdf.html:292
-#: .\templates\invoice-template.html:145 .\templates\invoice.html:145
-msgid "PAID"
-msgstr "BEZAHLT"
+#: .\templates\customer.html:45
+msgid "Total invoices"
+msgstr "Gesamtrechnungen"
 
-#: .\templates\index.html:42
-msgid "TYPE OF INVOICE"
-msgstr "ART DER RECHNUNG"
+#: .\templates\customer.html:55
+msgid "Paid invoices"
+msgstr "Bezahlte Rechnungen"
 
-#: .\templates\index.html:43
-msgid "ACTION"
-msgstr "AKTION"
+#: .\templates\customer.html:75 .\templates\customer.html:97
+msgid "Update"
+msgstr "Aktualisieren"
 
-#: .\templates\index.html:63
-msgid "View"
-msgstr "Sicht"
+#: .\templates\customer.html:95
+msgid "Paid"
+msgstr "Bezahlt"
 
-#: .\templates\index.html:67 .\templates\index.html:177
+#: .\templates\customer.html:96
+msgid "Type"
+msgstr "Typ"
+
+#: .\templates\customer.html:98
+msgid "Remove"
+msgstr "Entfernen"
+
+#: .\templates\customer.html:108
+msgid "Updtae"
+msgstr ""
+
+#: .\templates\customer.html:112 .\templates\customer.html:143
+#: .\templates\index.html:104 .\templates\index.html:172
+#: .\templates\index.html:261 .\templates\index.html:288
 #: .\venv\Lib\site-packages\django\forms\formsets.py:499
 msgid "Delete"
 msgstr "Löschen"
 
+#: .\templates\customer.html:131 .\templates\index.html:249
+msgid "Delete Invoice"
+msgstr "Rechnung löschen"
+
+#: .\templates\customer.html:140 .\templates\index.html:258
+msgid "Are you sure you want to delete the invoice ?"
+msgstr "Sind Sie sicher, dass Sie die Rechnung löschen möchten?"
+
+#: .\templates\customer.html:142 .\templates\index.html:234
+#: .\templates\index.html:260 .\templates\index.html:287
+msgid "Close"
+msgstr "Schließen"
+
+#: .\templates\index.html:14
+msgid "INVOICES"
+msgstr "RECHNUNGEN"
+
+#: .\templates\index.html:22
+msgid "CUSTOMERS"
+msgstr "KUNDEN"
+
+#: .\templates\index.html:30
+msgid "PAID INVOICES"
+msgstr "BEZAHLTE RECHNUNGEN"
+
+#: .\templates\index.html:63 .\templates\index.html:148
+msgid "Search"
+msgstr "Suche"
+
+#: .\templates\index.html:70
+msgid "CUSTOMERS NAME"
+msgstr "KUNDENNAME"
+
+#: .\templates\index.html:71
+msgid "DATE"
+msgstr "DATUM"
+
 #: .\templates\index.html:72
+msgid "TOTAL"
+msgstr "GESAMT"
+
+#: .\templates\index.html:73 .\templates\invoice-pdf.html:233
+#: .\templates\invoice-template.html:59 .\templates\invoice.html:57
+msgid "PAID"
+msgstr "BEZAHLT"
+
+#: .\templates\index.html:74
+msgid "TYPE OF INVOICE"
+msgstr "RECNUNGSTYP"
+
+#: .\templates\index.html:75 .\templates\index.html:157
+msgid "ACTION"
+msgstr "Aktion "
+
+#: .\templates\index.html:95 .\templates\index.html:168
+msgid "Details"
+msgstr "Details"
+
+#: .\templates\index.html:99
 msgid "Modify"
 msgstr "Ändern"
 
-#: .\templates\index.html:113
+#: .\templates\index.html:136
 msgid "No invoice found."
-msgstr "Keine Rechnung gefunden."
+msgstr "Keine Rechnung gefunden"
 
-#: .\templates\index.html:128
+#: .\templates\index.html:155
+msgid "CUSTOMER NAME"
+msgstr "KUNDENNAME"
+
+#: .\templates\index.html:156
+msgid "EMAIL"
+msgstr "E-MAIL"
+
+#: .\templates\index.html:204
+msgid "No customer found."
+msgstr "Kein Kunde gefunden"
+
+#: .\templates\index.html:218
 msgid "Modification"
 msgstr "Änderung"
 
-#: .\templates\index.html:139
+#: .\templates\index.html:227
 msgid "This bill has been paid?"
-msgstr "Diese Rechnung wurde bezahlt?"
+msgstr "Ist diese Rechnung bezahlt worden?"
 
-#: .\templates\index.html:142
+#: .\templates\index.html:229
 #: .\venv\Lib\site-packages\django\forms\widgets.py:801
 msgid "Yes"
 msgstr "Ja"
 
-#: .\templates\index.html:145
+#: .\templates\index.html:231
 #: .\venv\Lib\site-packages\django\forms\widgets.py:802
 msgid "No"
 msgstr "Nein"
 
-#: .\templates\index.html:149 .\templates\index.html:176
-msgid "Close"
-msgstr "Schließen"
+#: .\templates\index.html:276
+msgid "Delete Customer"
+msgstr "Kunden löschen"
 
-#: .\templates\index.html:164
-msgid "Delete Invoice"
-msgstr "Rechnung löschen"
+#: .\templates\index.html:285
+msgid "Are you sure you want to delete this customer ?"
+msgstr "Sind Sie sicher, dass Sie diesen Kunden löschen möchten?"
 
-#: .\templates\index.html:173
-msgid "Are you sure you want to delete the invoice ?"
-msgstr "Sind Sie sicher, dass Sie die Rechnung löschen möchten?"
-
-#: .\templates\invoice-pdf.html:228 .\templates\invoice-template.html:81
-#: .\templates\invoice.html:81
-msgid "Items"
-msgstr "Artikel"
-
-#: .\templates\invoice-pdf.html:229 .\templates\invoice-template.html:82
-#: .\templates\invoice.html:82
-msgid "Product ID"
-msgstr "Product ID"
-
-#: .\templates\invoice-pdf.html:230 .\templates\invoice-template.html:83
-#: .\templates\invoice.html:83
-msgid "Quantities"
-msgstr "Mengen"
-
-#: .\templates\invoice-pdf.html:232 .\templates\invoice-pdf.html:277
-#: .\templates\invoice-template.html:85 .\templates\invoice-template.html:130
-#: .\templates\invoice.html:85 .\templates\invoice.html:130
-msgid "Subtotal"
-msgstr "Zwischensumme"
-
-#: .\templates\invoice-pdf.html:274 .\templates\invoice-template.html:127
-#: .\templates\invoice.html:127
-msgid "Comment"
-msgstr "Kommentare"
-
-#: .\templates\invoice-pdf.html:278 .\templates\invoice-template.html:131
-#: .\templates\invoice.html:131
-msgid "Shipment"
-msgstr "Sendung"
-
-#: .\templates\invoice-pdf.html:278 .\templates\invoice-template.html:131
-#: .\templates\invoice.html:131
-msgid "Handling"
-msgstr "Handhabung"
-
-#: .\templates\invoice-pdf.html:279 .\templates\invoice-template.html:132
-#: .\templates\invoice.html:132
-msgid "Tax"
-msgstr "Steuer"
-
-#: .\templates\invoice-pdf.html:296
+#: .\templates\invoice-pdf.html:235
 msgid "YES"
-msgstr "JA"
+msgstr ""
 
-#: .\templates\invoice-pdf.html:298
+#: .\templates\invoice-pdf.html:237
 msgid "NO"
-msgstr "NEIN"
+msgstr ""
 
-#: .\templates\invoice-pdf.html:313 .\templates\invoice-template.html:166
-#: .\templates\invoice.html:166
-msgid "Thank you for your purchase"
-msgstr "Danke für Ihren Einkauf"
+#: .\templates\invoice-pdf.html:269 .\templates\invoice-template.html:94
+#: .\templates\invoice.html:92
+msgid "Description"
+msgstr ""
 
-#: .\templates\invoice-template.html:22 .\templates\invoice.html:22
+#: .\templates\invoice-pdf.html:271 .\templates\invoice-template.html:96
+#: .\templates\invoice.html:94
+msgid "Quantities"
+msgstr ""
+
+#: .\templates\invoice-pdf.html:272 .\templates\invoice-template.html:97
+#: .\templates\invoice.html:95
+msgid "Unit"
+msgstr ""
+
+#: .\templates\invoice-pdf.html:274 .\templates\invoice-template.html:99
+#: .\templates\invoice.html:97
+msgid "VAT"
+msgstr ""
+
+#: .\templates\invoice-pdf.html:275 .\templates\invoice-template.html:100
+#: .\templates\invoice.html:98
+msgid "Amount"
+msgstr ""
+
+#: .\templates\invoice-pdf.html:293 .\templates\invoice-template.html:118
+#: .\templates\invoice.html:116
+msgid "Net amount"
+msgstr ""
+
+#: .\templates\invoice-pdf.html:294 .\templates\invoice-template.html:119
+#: .\templates\invoice.html:117
+msgid "Total sum"
+msgstr ""
+
+#: .\templates\invoice-template.html:18 .\templates\invoice.html:18
 msgid "Download"
-msgstr "Herunterladen"
+msgstr ""
 
-#: .\templates\invoice-template.html:25 .\templates\invoice.html:25
+#: .\templates\invoice-template.html:21 .\templates\invoice.html:21
 msgid "Print"
-msgstr "Drucken"
+msgstr ""
+
+#: .\templates\invoice-template.html:138 .\templates\invoice.html:136
+msgid "Thank you for your purchase"
+msgstr ""
+
+#: .\templates\update_invoice.html:9
+msgid "Update invoice"
+msgstr ""
+
+#: .\templates\update_invoice.html:98
+#, python-format
+msgid "00%%"
+msgstr ""
+
+#: .\templates\update_invoice.html:99 .\templates\update_invoice.html:183
+#, python-format
+msgid "17%%"
+msgstr ""
+
+#: .\templates\update_invoice.html:100 .\templates\update_invoice.html:184
+#, python-format
+msgid "19%%"
+msgstr ""
+
+#: .\templates\update_invoice.html:182
+#, python-format
+msgid "0%%"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
 msgid "Messages"
-msgstr "Mitteilungen"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
 msgid "Site Maps"
-msgstr "Site Maps"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
 msgid "Static Files"
-msgstr "Statische Dateien"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
 msgid "Syndication"
-msgstr "Syndizierung"
+msgstr ""
 
 #. Translators: String used to replace omitted page numbers in elided page
 #. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
@@ -396,40 +662,38 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\paginator.py:32
 msgid "That page number is not an integer"
-msgstr "Diese Seitenzahl ist keine ganze Zahl"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\paginator.py:33
 msgid "That page number is less than 1"
-msgstr "Diese Seitenzahl ist kleiner als 1"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\paginator.py:34
 msgid "That page contains no results"
-msgstr "Diese Seite enthält keine Ergebnisse"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:22
 msgid "Enter a valid value."
-msgstr "Geben Sie einen gültigen Wert ein."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:104
 #: .\venv\Lib\site-packages\django\forms\fields.py:760
 msgid "Enter a valid URL."
-msgstr "Geben Sie eine gültige URL ein."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:165
 msgid "Enter a valid integer."
-msgstr "Geben Sie eine gültige Ganzzahl ein."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:176
 msgid "Enter a valid email address."
-msgstr "Geben sie eine gültige E-Mail-Adresse an."
+msgstr ""
 
 #. Translators: "letters" means latin letters: a-z and A-Z.
 #: .\venv\Lib\site-packages\django\core\validators.py:259
 msgid ""
 "Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
 msgstr ""
-"Geben Sie einen gültigen „Slug“ ein, der aus Buchstaben, Zahlen, "
-"Unterstrichen oder Bindestrichen besteht."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:267
 msgid ""
@@ -440,21 +704,21 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\core\validators.py:279
 #: .\venv\Lib\site-packages\django\core\validators.py:306
 msgid "Enter a valid IPv4 address."
-msgstr "Geben Sie eine gültige IPv4-Adresse ein."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:286
 #: .\venv\Lib\site-packages\django\core\validators.py:307
 msgid "Enter a valid IPv6 address."
-msgstr "Geben Sie eine gültige IPv6-Adresse ein."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:298
 #: .\venv\Lib\site-packages\django\core\validators.py:305
 msgid "Enter a valid IPv4 or IPv6 address."
-msgstr "Geben Sie eine gültige IPv4- oder IPv6-Adresse ein."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:341
 msgid "Enter only digits separated by commas."
-msgstr "Geben Sie nur durch Kommas getrennte Ziffern ein."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:347
 #, python-format
@@ -509,7 +773,7 @@ msgstr[1] ""
 #: .\venv\Lib\site-packages\django\forms\fields.py:355
 #: .\venv\Lib\site-packages\django\forms\fields.py:394
 msgid "Enter a number."
-msgstr "Geben Sie eine Zahl ein."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:482
 #, python-format
@@ -543,12 +807,12 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:624
 msgid "Null characters are not allowed."
-msgstr "Nullzeichen sind nicht zulässig."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\base.py:1473
 #: .\venv\Lib\site-packages\django\forms\models.py:906
 msgid "and"
-msgstr "und"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\base.py:1475
 #, python-format
@@ -567,11 +831,11 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:134
 msgid "This field cannot be null."
-msgstr "Dieses Feld darf nicht null sein."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:135
 msgid "This field cannot be blank."
-msgstr "Dieses Feld darf nicht leer sein."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:136
 #, python-format
@@ -594,29 +858,29 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1155
 #, python-format
 msgid "“%(value)s” value must be either True or False."
-msgstr "“%(value)s” Der Wert muss entweder „True“ oder „False“ sein."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1156
 #, python-format
 msgid "“%(value)s” value must be either True, False, or None."
-msgstr "“%(value)s” value must be either True, False, or None."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1158
 msgid "Boolean (Either True or False)"
-msgstr "Boolescher Wert (entweder wahr oder falsch)"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1208
 #, python-format
 msgid "String (up to %(max_length)s)"
-msgstr "Zeichenfolge (bis zu%(max_length))"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1210
 msgid "String (unlimited)"
-msgstr "Zeichenfolge (unbegrenzt)"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1314
 msgid "Comma-separated integers"
-msgstr "Durch Kommas getrennte Ganzzahlen"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1415
 #, python-format

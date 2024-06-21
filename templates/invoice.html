@@ -37,12 +37,12 @@
     						<!-- Row start -->
     						<div class="row gutters">
 								<div class="col-xl-12 col-lg-3 col-md-3 col-sm-3">
-									<h5 href="Karimprogrammeur.com" class="text-success"><strong>MK Hausmeisterdienst</strong></h5>
+									<h5 href="Karimprogrammeur.com" class="text-success"><strong>{{obj.entrepreneur.company}}</strong></h5>
 								</div><br>
 								<div class="col-xl-12 col-lg-6 col-md-6 col-sm-6">
 									<address class="text-left">
-										Mohamed Khattou<br>
-										Nadorster straße 70 - 26123 - Oldenburg<br>
+										{{obj.entrepreneur.name}}<br>
+										{{obj.entrepreneur.address}} - {{obj.entrepreneur.zip_code}} - {{obj.entrepreneur.city}}<br>
 									</address>
 								</div>
 							</div>
@@ -89,13 +89,13 @@
     									<table class="table custom-table m-0" >
     										<thead>
     											<tr>
-    												<th>{% trans 'Items' %}</th>
+    												<th>{% trans 'Description' %}</th>
 													<th>{% trans 'Date' %}</th>
 													<th>{% trans 'Quantities' %}</th>
-													<th>{% trans 'Unit Type' %}</th>
+													<th>{% trans 'Unit' %}</th>
 													<th>{% trans 'Unit Price' %}</th>
-													<th>{% trans 'TAX' %}</th>
-													<th>{% trans 'Subtotal' %}</th>
+													<th>{% trans 'VAT' %}. %</th>
+													<th>{% trans 'Amount' %}</th>
     											</tr>
     										</thead>
     										<tbody>
@@ -113,8 +113,8 @@
     											<tr>
     												<td colspan="6" class="text-right" >
 														<p>
-															{% trans 'Subtotal' %}<br>
-															<strong>{% trans 'Total' %}</strong>
+															{% trans 'Net amount' %}<br>
+															<strong>{% trans 'Total sum' %}</strong>
 														</p>
     												</td>
     												<td>

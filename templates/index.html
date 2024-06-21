@@ -92,11 +92,11 @@
                   </td>
                   <td>{{invoice.get_invoice_type_display}}</td>
                   <td>
-                     <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail"><button class="btn-sm btn-success">{% trans 'Preview' %}</button></a>
+                     <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail"><button class="btn-sm btn-success">{% trans 'Details' %}</button></a>
 
                      <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
                      data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
-                     class="btn-sm btn-warning">{% trans 'Details' %}
+                     class="btn-sm btn-warning">{% trans 'Modify' %}
                      </button>
 
                      <button id="btn-invoice-sup" type="button" data-toggle="modal" data-target="#supprimer"
@@ -152,7 +152,7 @@
             <thead>
                <tr>
                   <th scope="col">#</th>
-                  <th scope="col">{% trans 'CUSTOMERS NAME' %}</th>
+                  <th scope="col">{% trans 'CUSTOMER NAME' %}</th>
                   <th scope="col">{% trans 'EMAIL' %}</th>
                   <th scope="col">{% trans 'ACTION' %}</th>
                </tr>

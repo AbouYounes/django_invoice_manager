@@ -266,13 +266,13 @@
     									<table class="table" >
     										<thead>
     											<tr class="text-center">
-    												<th class="border border-dark">{% trans 'Items' %}</th>
+    												<th class="border border-dark">{% trans 'Description' %}</th>
 													<th class="border border-dark">{% trans 'Date' %}</th>
 													<th class="border border-dark">{% trans 'Quantities' %}</th>
 													<th class="border border-dark">{% trans 'Unit' %}</th>
 													<th class="border border-dark">{% trans 'Unit Price' %}</th>
-													<th class="border border-dark">{% trans 'TVA' %}</th>
-													<th class="border border-dark">{% trans 'Subtotal' %}</th>
+													<th class="border border-dark">{% trans 'VAT' %}. %</th>
+													<th class="border border-dark">{% trans 'Amount' %}</th>
     											</tr>
     										</thead>
     										<tbody>
@@ -290,8 +290,8 @@
                                                 <tr>
     												<td colspan="6" class="text-right" >
 														<p>
-															{% trans 'Subtotal' %}<br>
-															<strong>{% trans 'Total' %}</strong>
+															{% trans 'Net amount' %}<br>
+															<strong>{% trans 'Total sum' %}</strong>
 														</p>
     												</td>
     												<td class="text-right border border-dark">
