@@ -38,9 +38,36 @@
                     </div>                    
                     <!-- Counter-->
                     <div class="col text-center">
-                        <h5>Total invoices:</h5>
-                        <br>
-                        <div class="card badge-dark"><h1 style="text-align: center;">{{total_invoices}}</h1></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="badge badge-dark">
+                                        <h5>Total invoices</h5>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="badge badge-dark">
+                                        <h5>{{total_invoices}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="badge badge-dark">
+                                        <h5>Paid invoices</h5>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="badge badge-dark">
+                                        <h5>{{total_paid}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        <div class="container">
+                            <div class="row">
+                                
+                            </div>
+                        </div>
+
                     </div>                    
                     <!-- Buttons-->
                     <div class="container">
@@ -79,7 +106,12 @@
                         <td>{{invoice.paid}}</td>
                         <td>{{invoice.invoice_type}}</td>
                         <td><a href="" class="btn-sm btn-info">Updtae</a></td>
-                        <td><a href="" class="btn-sm btn-danger">remove</a></td>
+                        <td>
+                            <button id="btn-invoice-del" type="button" data-toggle="modal" data-target="#delete"
+                            class="btn-sm btn-danger" title="Supprimer" data-id="{{ invoice.pk }}"
+                            data-customer="#">{% trans 'Delete' %}
+                            </button>
+                        </td>
                     </tr>
                     {% endfor %}
                 </table>
@@ -89,5 +121,32 @@
 </div>
 
 <br><br><br>
+
+<!-- Modal invoice suppression -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="sexampleModalLabel"
+   aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title text-dark" id="sexampleModalLabel">{% trans 'Delete Invoice' %}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form method="post">
+               {% csrf_token %}
+               <input name="id_supprimer" type="hidden" id="id_supprimer">
+               <label id="label_id_s" class="text-dark checkbox-inline"> <strong id="strong_id_s">{% trans 'Are you sure you want to delete the invoice ?' %}</strong></label>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
+                  <button type="submit" class="btn btn-danger">{% trans 'Delete' %}</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- end modal-->
 
 {% endblock content %}

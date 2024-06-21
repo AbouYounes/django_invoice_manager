@@ -72,11 +72,13 @@ def get_customer(pk):
     customer =Customer.objects.get(pk=pk)
     invoices = customer.invoice_set.all()
     total_invoices = invoices.count()
+    total_paid = invoices.filter(paid='True').count()
 
     context = {
         'customer': customer,
         'invoices': invoices,
-        'total_invoices': total_invoices
+        'total_invoices': total_invoices,
+        'total_paid': total_paid
     }
     return context
 
