@@ -11,7 +11,8 @@
     </p>
     {% else %}
     <p>
-        {% trans 'Please, use the following form to login' %}.
+        {% trans 'Please, use the following form to login' %}. {% trans 'If you don\'t have an account' %}
+        <a href="{% url 'register' %}">{% trans 'register here' %}</a>
     </p>
     {% endif %}
     <div class="login-form">

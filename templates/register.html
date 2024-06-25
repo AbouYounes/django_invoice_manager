@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<h1 class="text-capitalize text-center mx-10 bg-dark text-white">{% trans 'Create your Account' %}</h1>
+<div class="container">
+    <h4>{% trans 'Welcome' %}</h4>
+    <p>{% trans 'Please sign up using the following form' %}:</p>
+        <form method="post">
+            {{ user_form.as_p }}
+            <input type="submit" class="btn btn-primary btn-lg active" value="Send email">
+            {% csrf_token %}
+        </form>
+</div>
+{% endblock %}

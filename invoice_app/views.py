@@ -16,12 +16,32 @@ from .utils import get_customer, get_total, get_total_paid, pagination_cus, pagi
 from .decorators import *
 from django.contrib.auth.decorators import login_required
 
-
 from django.utils.translation import gettext as _
 
 @login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
+
+def register(request):
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            #create a new user object
+            new_user = user_form.save(commit=False)
+            #set the choosen password
+            new_user.set_password(
+                user_form.cleaned_data['password']
+            )
+            #save the new object
+            new_user.save()
+            return render(request, 'register_confirm.html', {'new_user': new_user})
+    else:
+        user_form = UserRegistrationForm()
+    return render(request, 'register.html', {'user_form': user_form})
+
+def confirmUser(request):
+        return render(request, 'password_done.html')
+
 
 
 class HomeView(LoginRequiredSuperuserMixim, View):

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container text-center">
+    <h1>{% trans 'welcome' %} {{new_user.first_name}}</h1>
+    <p>{% trans 'Your account has been successfully created' %}. {% trans 'Now you can' %} 
+        <a href="{% url 'login' %}">{% trans 'Log-in' %}</a>
+    </p>
+</div>
+{% endblock %}
