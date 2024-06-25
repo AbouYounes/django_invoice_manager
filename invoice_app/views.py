@@ -12,12 +12,16 @@ from django.template.loader import get_template
 from django.db import transaction
 from .utils import get_customer, get_total, get_total_paid, pagination_cus, pagination_inv, get_invoice
 
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+#from django.contrib.auth.mixins import LoginRequiredMixin
 from .decorators import *
+from django.contrib.auth.decorators import login_required
+
 
 from django.utils.translation import gettext as _
 
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html')
 
 
 class HomeView(LoginRequiredSuperuserMixim, View):
@@ -25,9 +29,9 @@ class HomeView(LoginRequiredSuperuserMixim, View):
     """ Main view """
 
     templates_name = 'index.html'
-    invoices = Invoice.objects.all()
-    customers = Customer.objects.all()
-    article = Article.objects.all()
+    invoices = Invoice.objects.select_related('save_by').all()
+    customers = Customer.objects.select_related('save_by').all()
+    article = Article.objects.select_related('save_by').all()
     context = {
         'invoices': invoices,
         'customers' : customers,
@@ -291,7 +295,8 @@ class InvoiceVisualizationView(LoginRequiredSuperuserMixim, View):
 
 
 
-@superuser_required
+#@superuser_required
+@login_required
 def get_invoice_pdf(request, *args, **kwargs):
     """ generate pdf file from html file """
 
