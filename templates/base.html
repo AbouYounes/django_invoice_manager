@@ -58,26 +58,25 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-              {% trans 'More option' %}
+              {% trans 'Hello' %}, {{ request.user.username }}
             </a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="{% url 'add-entrepreneur' %}">{% trans 'Add entrepreneur' %}</a>
-              <a class="dropdown-item" href="{% url 'add-customer' %}">{% trans 'Add customer' %}</a>
+              <a class="dropdown-item" href="{% url 'add-entrepreneur' %}">{% trans 'My Profil' %}</a>
+              <a class="dropdown-item" href="{% url 'password_change' %}">{% trans 'Change password' %}</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">{% trans 'statistic' %}</a>
+                <a class="dropdown-item" href="{% url 'password_change' %}">
+                  <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">{% trans 'Logout' %}</button>
+                  </form>
+                </a>
             </div>
           </li>
         </ul>
       </div>
 
       <div>
-        <p>
-          Hello, {{ request.user.username }}
-        </p>
-        <form action="{% url 'logout' %}" method="post">
-          {% csrf_token %}
-          <button type="submit">Logout</button>
-        </form>
+        
       </div>
     </nav>
   </header>

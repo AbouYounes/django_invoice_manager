@@ -1,26 +1,32 @@
+{% extends "base.html" %}
 {% load static %}
 {% load i18n %}
 
-<h1>Log-in</h1>
-{% if form.errors %}
-<p>
-    please, check your username and password!
-</p>
-{% else %}
-<p>
-    Please, use the following form to login.
-</p>
-{% endif %}
-<div class="login-form">
-    <form action="{% url 'login' %}" method="post">
-        {{ form.as_p }}
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ next }}">
-        <p>
-            <input type="submit" value="Log-in">
-        </p>
-    </form>
+{% block content %}
+<h1 class="text-capitalize text-center mx-10 bg-dark text-white">{% trans 'log-in' %}</h1>
+<div class="container">
+    {% if form.errors %}
     <p>
-        <a href="#">Forgotten your password?</a>
+        {% trans 'please, check your username and password' %}!
     </p>
+    {% else %}
+    <p>
+        {% trans 'Please, use the following form to login' %}.
+    </p>
+    {% endif %}
+    <div class="login-form">
+        <form action="{% url 'login' %}" method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+            <p>
+                <input type="submit" value="Log-in" class="btn btn-primary btn-lg active">
+            </p>
+        </form>
+        <p>
+            <a href="{% url 'password_reset' %}">{% trans 'Forgotten your password' %}?</a>
+        </p>
+    </div>
 </div>
+    
+{% endblock %}
