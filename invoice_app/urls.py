@@ -3,7 +3,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [     
-    path('', views.HomeView.as_view(), name='home'),    
+    path('', views.dashboard, name='home'),    
     #path('', views.dashboard, name='dashboard'),    
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),    
     path('logout/', auth_views.LogoutView.as_view(), name='logout'), 
@@ -16,11 +16,10 @@ urlpatterns = [
     path('reset/done', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),
 
     path('register/', views.register, name='register'),
-    path('new_user/<uidb64>/<token>', views.confirmUser, name='password_done'),
 
 
-    path('customer/<int:pk>', views.CustomerView.as_view(), name="customer"),
-    path('add-entrepreneur', views.AddEntrepreneurView.as_view(), name='add-entrepreneur'),
+    path('customer/<int:pk>', views.customerView, name="customer"),
+    path('add-entrepreneur', views.entrepView, name='add-entrepreneur'),
     path('add-customer', views.AddCustomerView.as_view(), name='add-customer'),
     path('add-invoice', views.AddInvoiceView.as_view(), name='add-invoice'),   
     path('view-invoice/<int:pk>', views.InvoiceVisualizationView.as_view(), name='view-invoice'),
