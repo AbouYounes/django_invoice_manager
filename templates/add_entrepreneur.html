@@ -3,6 +3,174 @@
 
 
 {% block content %}
+<h1 class="text-capitalize text-center mx-10 bg-dark text-white">{% trans 'Entrepreneur profile' %}</h1>
+
+<div class="container">
+    <form method="post">
+    {% csrf_token %}
+        <div class="row gutters">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
+                                </div>
+                                <h5 class="user-name">{{entrepreneur.company}}</h5>
+                                <h6 class="user-email">{{entrepreneur.email}}</h6>
+                            </div>
+                            <div class="about">
+                                <h5>{% trans 'About' %}</h5>
+                                <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                            <!-- Company Details -->
+                            <div class="row gutters">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="mb-2 text-primary">{% trans 'Company Details' %}</h6>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="company">{% trans 'Name' %}</label>
+                                        <input name="company" required type="text" class="form-control" id="company"
+                                            placeholder="{% trans 'Company name' %}" value="{{entrepreneur.company}}">                                
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="email">{% trans 'Email' %}</label>
+                                        <input name="email" required type="email" class="form-control" id="email"
+                                        placeholder="{% trans 'Entrepreneur Email' %}" value="{{entrepreneur.email}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="phone">{% trans 'Phone' %}</label>
+                                        <input name="phone" required type="number" class="form-control" id="phone"
+                                            placeholder="{% trans 'Entrepreneur Phone' %}" value="{{entrepreneur.phone}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="website">{% trans 'Website URL' %}</label>
+                                        <input type="url" class="form-control" id="website" name="website" placeholder="Website url">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Company Address -->
+                            <div class="row gutters">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="mt-3 mb-2 text-primary">{% trans 'Company address ' %}</h6>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="Street">{% trans 'Street' %}</label>
+                                        <input type="name" class="form-control" id="address" name="address" placeholder="Enter Street" value="{{entrepreneur.address}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="ciTy">{% trans 'City' %}</label>
+                                        <input type="name" class="form-control" id="city" name="city" placeholder="Enter City" value="{{entrepreneur.city}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="zIp">{% trans 'Zip code' %}</label>
+                                        <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="Zip Code" value="{{entrepreneur.zip_code}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="sTate">{% trans 'State' %}</label>
+                                        <input type="text" class="form-control" id="sTate" name="sTate" placeholder="Enter State">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Owner Details -->
+                            <div class="row gutters">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="mt-3 mb-2 text-primary">{% trans 'Owner Details' %}</h6>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="Street">{% trans 'Full name' %}</label>
+                                        <input type="name" class="form-control" id="name" name="name" placeholder="Enter Street" value="{{entrepreneur.name}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="sex">{% trans 'Sex' %}</label>
+                                        <input type="name" class="form-control" id="sex" name="sex" placeholder="Enter City" value="{{entrepreneur.sex}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="age">{% trans 'Age' %}</label>
+                                        <input type="text" class="form-control" id="age" name="age" placeholder="Enter Age" value="{{entrepreneur.age}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bank Details -->
+                            <div class="row gutters">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="mt-3 mb-2 text-primary">{% trans 'Bank Details' %}</h6>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="Bank">{% trans 'Bank name' %}</label>
+                                        <input type="name" class="form-control" id="bank" name="bank" placeholder="Bank name" value="{{entrepreneur.bank}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="Account">{% trans 'Account' %}</label>
+                                        <input type="name" class="form-control" id="bankaccount" name="bank" placeholder="Bank Account" value="{{entrepreneur.bankaccount}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="swift">{% trans 'SWIFT' %}</label>
+                                        <input type="text" class="form-control" id="swift" name="swift" placeholder="SWIFT" value="{{entrepreneur.swift}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="iban">{% trans 'IBAN' %}</label>
+                                        <input type="text" class="form-control" id="iban" name="iban" placeholder="IBAN" value="{{entrepreneur.iban}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="row gutters">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-secondary">{% trans 'Close' %}</button>
+                                        <button type="button" class="btn btn-primary">{% trans 'Update' %}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
 
 <br><br><br><br>
 
