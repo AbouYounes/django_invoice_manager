@@ -3,7 +3,15 @@ from django.contrib.admin.views.decorators import user_passes_test
 from django.contrib.auth.mixins import UserPassesTestMixin
 
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group, Permission
+from django.contrib.contenttypes.models import ContentType
+from django.shortcuts import get_object_or_404
+
+from invoice_app.models import *
+
+
+
+
 
 
 
@@ -30,7 +38,7 @@ class LoginRequiredSuperuserMixim(UserPassesTestMixin):
     """ Mixin for superuser """
 
     def test_func(self):
-        return self.request.user.is_staff
+        return self.request.user.is_authenticated
     
 
 

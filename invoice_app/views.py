@@ -12,15 +12,51 @@ from django.template.loader import get_template
 from django.db import transaction
 from .utils import get_customer, get_total, get_total_paid, pagination_cus, pagination_inv, get_invoice
 
-#from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .decorators import *
 from django.contrib.auth.decorators import login_required
+
 
 from django.utils.translation import gettext as _
 
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    id = 0
+    if request.user.is_authenticated:
+        id = request.user.id
+
+    print('id= ',id)
+    invoices = Invoice.objects.filter(save_by=id).all()
+    customers = Customer.objects.filter(save_by=id).all()
+    article = Article.objects.select_related('save_by').all()
+    context = {
+        'invoices': invoices,
+        'customers' : customers,
+    }
+
+    items_inv = pagination_inv(request, invoices)
+    context['invoices'] = items_inv
+    items_cust = pagination_cus(request, customers)
+    context['customers'] = items_cust
+    # total invoice
+    total_invoices = get_total(Invoice, id)
+    context['total_invoices'] = total_invoices
+    # total customer
+    total_customers = get_total(Customer, id)
+    context['total_customers'] = total_customers 
+    # total paid
+    total_paid = get_total_paid(Invoice, id)
+    context['total_paid'] = total_paid
+
+    items_inv = pagination_inv(request, invoices)
+    context['invoices'] = items_inv
+    items_cust = pagination_cus(request, customers)
+    context['customers'] = items_cust
+    Invoice.validate_constraints,
+    Customer.validate_constraints,
+
+    return render(request, 'dashboard.html', context)
+    
 
 def register(request):
     if request.method == 'POST':
@@ -28,6 +64,7 @@ def register(request):
         if user_form.is_valid():
             #create a new user object
             new_user = user_form.save(commit=False)
+            
             #set the choosen password
             new_user.set_password(
                 user_form.cleaned_data['password']
@@ -35,22 +72,19 @@ def register(request):
             #save the new object
             new_user.save()
             return render(request, 'register_confirm.html', {'new_user': new_user})
+            
     else:
         user_form = UserRegistrationForm()
     return render(request, 'register.html', {'user_form': user_form})
 
-def confirmUser(request):
-        return render(request, 'password_done.html')
 
-
-
-class HomeView(LoginRequiredSuperuserMixim, View):
+class HomeView(LoginRequiredMixin, View):
 
     """ Main view """
 
     templates_name = 'index.html'
-    invoices = Invoice.objects.select_related('save_by').all()
-    customers = Customer.objects.select_related('save_by').all()
+    invoices = Invoice.objects.filter(save_by=1).all()
+    customers = Customer.objects.filter(save_by=1).all()
     article = Article.objects.select_related('save_by').all()
     context = {
         'invoices': invoices,
@@ -71,6 +105,13 @@ class HomeView(LoginRequiredSuperuserMixim, View):
         # total paid
         total_paid = get_total_paid(Invoice)
         self.context['total_paid'] = total_paid
+
+        id = 0
+        if request.user.is_authenticated:
+            id = request.user.id
+
+        print('id= ',id)
+
         
         return render(request, self.templates_name, self.context)
     
@@ -115,9 +156,63 @@ class HomeView(LoginRequiredSuperuserMixim, View):
         Invoice.validate_constraints,
         Customer.validate_constraints,
         return render(request, self.templates_name, self.context)
-    
 
-class AddEntrepreneurView(LoginRequiredSuperuserMixim, View):
+
+@login_required
+def entrepView(request):
+    if request.user.is_authenticated:
+        id = request.user.id 
+    try: 
+        if Entrepreneur.objects.filter(save_by=id).exists():
+            entrepreneur = Entrepreneur.objects.filter(save_by=id).get()
+        else:
+            data = {
+                'name': request.user.first_name,
+                'email': request.user.email,
+                'save_by': request.user
+            }
+            try:
+                created = Entrepreneur.objects.create(**data)
+                if created:
+                    messages.success(request, _("Entrepreneur updated successfully."))
+                else:
+                    messages.error(request, _("Sorry, please try again the sent data is corrupt."))
+            except Exception as e:    
+
+                messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
+
+    except Exception as e:    
+        messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
+        
+    if request.method == 'POST':
+        data = {
+            'company': request.POST.get('company'),
+            'name': request.POST.get('name'),
+            'email': request.POST.get('email'),
+            'phone': request.POST.get('phone'),
+            'address': request.POST.get('address'),
+            'sex': request.POST.get('sex'),
+            'age': request.POST.get('age'),
+            'city': request.POST.get('city'),
+            'zip_code': request.POST.get('zip'),
+            'save_by': request.user
+
+        }
+        try:
+            created = Entrepreneur.objects.update(**data)
+            if created:
+                messages.success(request, _("Entrepreneur updated successfully."))
+            else:
+                messages.error(request, _("Sorry, please try again the sent data is corrupt."))
+        except Exception as e:    
+
+            messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
+
+    entrepreneur = Entrepreneur.objects.filter(save_by=id).get()
+    context = {'entrepreneur': entrepreneur}
+    return render(request, 'add_entrepreneur.html', context) 
+
+class AddEntrepreneurView(LoginRequiredMixin, View):
      """ add new entrepreneur """    
      template_name = 'add_entrepreneur.html'
      
@@ -153,7 +248,7 @@ class AddEntrepreneurView(LoginRequiredSuperuserMixim, View):
         return render(request, self.template_name)   
 
 
-class AddCustomerView(LoginRequiredSuperuserMixim, View):
+class AddCustomerView(LoginRequiredMixin, View):
      """ add new customer """    
      template_name = 'add_customer.html'
      
@@ -188,7 +283,7 @@ class AddCustomerView(LoginRequiredSuperuserMixim, View):
         return render(request, self.template_name)   
 
 
-class AddInvoiceView(LoginRequiredSuperuserMixim, View):
+class AddInvoiceView(LoginRequiredMixin, View):
     """ add a new invoice view """
 
     template_name = 'add_invoice.html'
@@ -260,7 +355,13 @@ class AddInvoiceView(LoginRequiredSuperuserMixim, View):
         return  render(request, self.template_name, self.context)
  
 
-class CustomerView(LoginRequiredSuperuserMixim, View):
+@login_required
+def customerView(request, pk):
+    context = get_customer(pk)
+    return render(request, 'customer.html', context)
+
+
+class CustomerView(LoginRequiredMixin, View):
     """ Customer view """    
     
     template_name = 'customer.html'
@@ -302,7 +403,7 @@ class CustomerView(LoginRequiredSuperuserMixim, View):
         return render(request, self.templates_name, self.context)
     
     
-class InvoiceVisualizationView(LoginRequiredSuperuserMixim, View):
+class InvoiceVisualizationView(LoginRequiredMixin, View):
     """ This view helps to visualize the invoice """
 
     template_name = 'invoice.html'
@@ -312,10 +413,6 @@ class InvoiceVisualizationView(LoginRequiredSuperuserMixim, View):
         return render(request, self.template_name, context)
     
 
-
-
-
-#@superuser_required
 @login_required
 def get_invoice_pdf(request, *args, **kwargs):
     """ generate pdf file from html file """

@@ -14,6 +14,7 @@ class Entrepreneur(models.Model):
         ('M', _('Male')),
         ('F', _('Feminine')),
     )
+    save_by = models.ForeignKey(User, on_delete=models.PROTECT)
     name = models.CharField(max_length=132)
     company = models.CharField(max_length=132)
     email = models.EmailField()
@@ -24,7 +25,6 @@ class Entrepreneur(models.Model):
     city = models.CharField(max_length=32)
     zip_code = models.CharField(max_length=16)
     created_date = models.DateTimeField(auto_now_add=True)
-    save_by = models.ForeignKey(User, on_delete=models.PROTECT)
     bank = models.CharField(max_length=64)
     bankaccount = models.CharField(max_length=64)
     swift = models.CharField(max_length=64)
