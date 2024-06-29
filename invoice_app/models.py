@@ -29,6 +29,7 @@ class Entrepreneur(models.Model):
     bankaccount = models.CharField(max_length=64)
     swift = models.CharField(max_length=64)
     iban = models.CharField(max_length=64)
+    logo = models.ImageField(null=True, blank=True)
 
 
     class Meta: 

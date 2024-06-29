@@ -6,31 +6,32 @@
 <h1 class="text-capitalize text-center mx-10 bg-dark text-white">{% trans 'Entrepreneur profile' %}</h1>
 
 <div class="container">
-    <form method="post">
-    {% csrf_token %}
-        <div class="row gutters">
-            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="account-settings">
-                            <div class="user-profile">
-                                <div class="user-avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
-                                </div>
-                                <h5 class="user-name">{{entrepreneur.company}}</h5>
-                                <h6 class="user-email">{{entrepreneur.email}}</h6>
+    <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="account-settings">
+                        <div class="user-profile">
+                            <div class="user-avatar">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
                             </div>
-                            <div class="about">
-                                <h5>{% trans 'About' %}</h5>
-                                <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
-                            </div>
+                            <h5 class="user-name">{{entrepreneur.company}}</h5>
+                            <h6 class="user-email">{{entrepreneur.email}}</h6>
+                        </div>
+                        <div class="about">
+                            <h5>{% trans 'About' %}</h5>
+                            <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                <div class="card h-100">
-                    <div class="card-body">
+        </div>
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="container">
+                        <form method="post">
+                            {% csrf_token %}
                             <!-- Company Details -->
                             <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -85,7 +86,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="zIp">{% trans 'Zip code' %}</label>
-                                        <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="Zip Code" value="{{entrepreneur.zip_code}}">
+                                        <input type="text" class="form-control" id="zip" name="zip" placeholder="Zip Code" value="{{entrepreneur.zip_code}}">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -156,133 +157,16 @@
                             <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="text-right">
-                                        <button type="button" class="btn btn-secondary">{% trans 'Close' %}</button>
-                                        <button type="button" class="btn btn-primary">{% trans 'Update' %}</button>
+                                        <button type="submit" class="btn btn-secondary">{% trans 'Close' %}</button>
+                                        <button type="submit" class="btn btn-primary">{% trans 'Update' %}</button>
                                     </div>
                                 </div>
                             </div>
-                        
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 </div>
-
-
-
-
-<br><br><br><br>
-
-<h1 class="text-capitalize text-center mx-10 bg-dark text-white">{% trans 'Entrepreneur profile' %}</h1>
-
-<div class="container">
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-row">
-
-            <div class="form-group col-md-5">
-                <label for="company">{% trans 'Company Name' %}</label>
-                <input name="company" required type="text" class="form-control" id="company"
-                    placeholder="{% trans 'Company name' %}" value="{{entrepreneur.company}}">
-            </div>
-
-            <div class="form-group col-md-5">
-                <label for="name">{% trans 'Name' %}</label>
-                <input name="name" required type="text" class="form-control" id="name"
-                    placeholder="{% trans 'Entrepreneur first and last name' %}" value="{{entrepreneur.name}}">
-            </div>
-
-            <div class="form-group col-md-4">
-                <label for="email">{% trans 'Email' %}</label>
-                <input name="email" required type="email" class="form-control" id="email"
-                 placeholder="{% trans 'Entrepreneur Email' %}" value="{{entrepreneur.email}}">
-            </div>
-
-            <div class="form-group col-md-3">
-                <label for="phone">{% trans 'Phone' %}</label>
-                <input name="phone" required type="number" class="form-control" id="phone"
-                    placeholder="{% trans 'Entrepreneur Phone' %}" value="{{entrepreneur.phone}}">
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="sex">{% trans 'Sex' %}</label>
-                <select name="sex" class="form-control" required id="sex">
-                    <option>{% trans 'Choose the gender' %} ..</option>
-                    <option value="M">{% trans 'Male' %}</option>
-                    <option value="F">{% trans 'Feminine' %}</option>
-                </select>
-            </div>
-
-            <div class="form-group col-md-3">
-                <label for="phone">{% trans 'Age' %}</label>
-                <input name="age" required type="number" class="form-control" id="age"
-                    placeholder="{% trans 'Entrepreneur age' %}" value="{{entrepreneur.age}}">
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-12">
-                <label for="addres">{% trans 'Address' %} </label>
-                <input name="address" type="text" required type="text" class="form-control" id="address"
-                    placeholder="{% trans 'Entrepreneur adress' %}" value="{{entrepreneur.address}}">
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="city">{% trans 'City' %}</label>
-                <input name="city" required type="text" class="form-control" id="city" 
-                    placeholder="{% trans 'Entrepreneur city' %}" value="{{entrepreneur.city}}">
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="zip">{% trans 'Zip code' %} </label>
-                <input name="zip" required type="text" class="form-control" id="zip"
-                    placeholder="{% trans 'Postal code of the entrepreneur' %}" value="{{entrepreneur.zip_code}}">
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="zip">{% trans 'Bank' %} </label>
-                <input name="bank" required type="text" class="form-control" id="bank"
-                    placeholder="{% trans 'Bank of the entrepreneur' %}" value="{{entrepreneur.bank}}">
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="zip">{% trans 'Bank Account' %} </label>
-                <input name="bankaccount" required type="text" class="form-control" id="bankaccount"
-                    placeholder="{% trans 'bank account of the entrepreneur' %}" value="{{entrepreneur.bankaccount}}">
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="zip">{% trans 'SWIFT' %} </label>
-                <input name="swift" required type="text" class="form-control" id="swift"
-                    placeholder="{% trans 'SWIFT of the entrepreneur' %}" value="{{entrepreneur.swift}}">
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="zip">{% trans 'IBAN' %} </label>
-                <input name="iban" required type="text" class="form-control" id="iban"
-                    placeholder="{% trans 'IBAN of the entrepreneur' %}" value="{{entrepreneur.iban}}">
-            </div>
-        </div>
-        
-        <div class="row">
-            <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
-
-            <a href='#' class="col-md-8">
-                <span class="badge text-bg-secondary"></span>
-            </a>
-
-            <a href="{% url 'home' %}" class="btn col-md-2 btn-danger">{% trans 'close' %}
-            </a>
-        </div>
-
-    </form>
-</div>
-
-<br><br><br>
-
 {% endblock content %}
