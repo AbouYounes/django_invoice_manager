@@ -5,6 +5,9 @@ from django.utils.translation import gettext_lazy as _
 
 # Register your models here.
 
+class AdminFirma(admin.ModelAdmin):
+    list_display = ('user', 'name', 'company', 'email', 'logo')
+
 class AdminCustomer(admin.ModelAdmin):
     list_display = ('name', 'email', 'phone', 'address', 'sex', 'age', 'city', 'zip_code')
 
@@ -14,6 +17,7 @@ class AdminInvoice(admin.ModelAdmin):
 class AdminEntrepreneur(admin.ModelAdmin):
     list_display = ('name', 'email', 'phone', 'address', 'sex', 'age', 'city', 'zip_code', 'created_date', 'save_by', 'bank', 'bankaccount', 'swift', 'iban')
 
+admin.site.register(Firma, AdminFirma)
 admin.site.register(Customer, AdminCustomer)
 admin.site.register(Invoice, AdminInvoice)
 admin.site.register(Entrepreneur, AdminEntrepreneur)

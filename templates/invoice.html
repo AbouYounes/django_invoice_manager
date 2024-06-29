@@ -22,15 +22,12 @@
     									</a>
     								</div>
     							</div>
-								<div class="col-xl-12 d-flex justify-content-end">
-									<img src="{% static '/images/mk_hm.jpg' %}" alt="HTML tutorial  align-items-center" style="width:200px;height:150px;">
-    							</div>
     						</div>
     						<!-- Row end -->
 							<!-- Row start -->
     						<div class="row gutters">
     							<div class="col-xl-12 d-flex justify-content-end">
-									<img src="{% static 'images/mk_hm.png' %}" alt="HTML tutorial  align-items-center" style="width:200px;height:150px;">
+									<img src="{{ request.user.firma.logo.url }}" alt="HTML tutorial  align-items-center" style="width:200px;height:150px;">
     							</div>
     						</div>
     						<!-- Row end -->
