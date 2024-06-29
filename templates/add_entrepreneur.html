@@ -15,7 +15,7 @@
                         <div class="account-settings">
                             <div class="user-profile">
                                 <div class="user-avatar">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
+                                    <img src="{{ request.user.firma.logo.url }}" alt="Logo Firma" style="width:200px;height:150px;">
                                 </div>
                                 <h5 class="user-name">{{entrepreneur.company}}</h5>
                                 <h6 class="user-email">{{entrepreneur.email}}</h6>

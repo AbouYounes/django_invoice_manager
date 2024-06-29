@@ -4,6 +4,28 @@ from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
+class Firma(models.Model):
+    """
+    Name: Firma model definition
+    Description: 
+    author: karim.khattou@univ-tiaret.dz
+    """
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=132)
+    company = models.CharField(max_length=132)
+    email = models.EmailField()
+    logo = models.ImageField(null=True, blank=True)
+
+    class Meta: 
+        verbose_name = "Firma"
+        verbose_name_plural = "Firmas"
+
+    def __str__(self):
+        return self.name
+
+
+
+
 class Entrepreneur(models.Model):
     """
     Name: Entrepreneur model definition
