@@ -25,7 +25,6 @@ def dashboard(request):
     if request.user.is_authenticated:
         id = request.user.id
 
-    print('id= ',id)
     invoices = Invoice.objects.filter(save_by=id).all()
     customers = Customer.objects.filter(save_by=id).all()
     article = Article.objects.select_related('save_by').all()
@@ -163,16 +162,15 @@ def entrepView(request):
     if request.user.is_authenticated:
         id = request.user.id 
     try: 
-        if Entrepreneur.objects.filter(save_by=id).exists():
-            entrepreneur = Entrepreneur.objects.filter(save_by=id).get()
+        if Firma.objects.filter(id=id).exists():
+            firma = Firma.objects.filter(id=id).get()
         else:
             data = {
                 'name': request.user.first_name,
                 'email': request.user.email,
-                'save_by': request.user
             }
             try:
-                created = Entrepreneur.objects.create(**data)
+                created = Firma.objects.create(**data)
                 if created:
                     messages.success(request, _("Entrepreneur updated successfully."))
                 else:
@@ -195,11 +193,11 @@ def entrepView(request):
             'age': request.POST.get('age'),
             'city': request.POST.get('city'),
             'zip_code': request.POST.get('zip'),
-            'save_by': request.user
+            'logo': request.POST.get('logo'),
 
         }
         try:
-            created = Entrepreneur.objects.update(**data)
+            created = Firma.objects.update(**data)
             if created:
                 messages.success(request, _("Entrepreneur updated successfully."))
             else:
@@ -208,8 +206,8 @@ def entrepView(request):
 
             messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
 
-    entrepreneur = Entrepreneur.objects.filter(save_by=id).get()
-    context = {'entrepreneur': entrepreneur}
+    firma = Firma.objects.filter(id=id).get()
+    context = {'firma': firma}
     return render(request, 'add_entrepreneur.html', context) 
 
 class AddEntrepreneurView(LoginRequiredMixin, View):
