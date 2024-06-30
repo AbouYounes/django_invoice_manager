@@ -27,10 +27,11 @@ def dashboard(request):
 
     invoices = Invoice.objects.filter(save_by=id).all()
     customers = Customer.objects.filter(save_by=id).all()
-    article = Article.objects.select_related('save_by').all()
+    firma = Firma.objects.filter(user=id).all()
     context = {
         'invoices': invoices,
         'customers' : customers,
+        'firma' : firma,
     }
 
     items_inv = pagination_inv(request, invoices)
@@ -162,10 +163,12 @@ def entrepView(request):
     if request.user.is_authenticated:
         id = request.user.id 
     try: 
-        if Firma.objects.filter(id=id).exists():
-            firma = Firma.objects.filter(id=id).get()
+        if Firma.objects.filter(user=request.user).exists():
+            firma = Firma.objects.filter(user=request.user).get()
         else:
             data = {
+                'user' :  request.user,
+                'username' :  request.user.username,
                 'name': request.user.first_name,
                 'email': request.user.email,
             }
@@ -184,6 +187,7 @@ def entrepView(request):
         
     if request.method == 'POST':
         data = {
+            'username': request.POST.get('username'),
             'company': request.POST.get('company'),
             'name': request.POST.get('name'),
             'email': request.POST.get('email'),
@@ -197,8 +201,8 @@ def entrepView(request):
 
         }
         try:
-            created = Firma.objects.update(**data)
-            if created:
+            updating =Firma.objects.filter(user=request.user).update(**data)
+            if updating:
                 messages.success(request, _("Entrepreneur updated successfully."))
             else:
                 messages.error(request, _("Sorry, please try again the sent data is corrupt."))
@@ -206,8 +210,10 @@ def entrepView(request):
 
             messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
 
-    firma = Firma.objects.filter(id=id).get()
-    context = {'firma': firma}
+    firma = Firma.objects.get(user=request.user)
+    context = {
+        'firma': firma
+    }
     return render(request, 'add_entrepreneur.html', context) 
 
 class AddEntrepreneurView(LoginRequiredMixin, View):

@@ -16,6 +16,7 @@ class Firma(models.Model):
     )
 
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    username = models.CharField(max_length=132)
     name = models.CharField(max_length=132)
     company = models.CharField(max_length=132)
     email = models.EmailField()
