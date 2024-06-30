@@ -58,7 +58,7 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-              {% trans 'Hello' %}, {{ request.user.username }} {{ request.user.id }}
+              {% trans 'Hello' %}, {{ request.user.firma.id }}
             </a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="{% url 'add-entrepreneur' %}">{% trans 'My Profil' %}</a>

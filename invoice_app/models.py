@@ -10,11 +10,27 @@ class Firma(models.Model):
     Description: 
     author: karim.khattou@univ-tiaret.dz
     """
+    SEX_TYPES = (
+        ('M', _('Male')),
+        ('F', _('Feminine')),
+    )
+
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=132)
     company = models.CharField(max_length=132)
     email = models.EmailField()
-    logo = models.ImageField(null=True, blank=True)
+    logo = models.ImageField(default="profile1.png", null=True, blank=True)
+    phone = models.CharField(max_length=132)
+    address = models.CharField(max_length=64)
+    sex = models.CharField(max_length=1, choices=SEX_TYPES)
+    age = models.CharField(max_length=2)
+    city = models.CharField(max_length=32)
+    zip_code = models.CharField(max_length=16)
+    created_date = models.DateTimeField(auto_now_add=True)
+    bank = models.CharField(max_length=64)
+    bankaccount = models.CharField(max_length=64)
+    swift = models.CharField(max_length=64)
+    iban = models.CharField(max_length=64)
 
     class Meta: 
         verbose_name = "Firma"
