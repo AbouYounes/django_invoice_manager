@@ -27,8 +27,12 @@
 							<!-- Row start -->
     						<div class="row gutters">
     							<div class="col-xl-12 d-flex justify-content-end">
-									<img src="{{ request.user.firma.logo.url }}" alt="HTML tutorial  align-items-center" style="width:200px;height:150px;">
-    							</div>
+									{% if firma.logo %}
+                                    <img src="{{ request.user.firma.logo.url }}" alt="Logo" style="width:200px;height:150px;">
+                                    {% else %}
+                                    <img src="{% static 'images/profile1.png' %}" alt="Logo" style="width:200px;height:150px;">
+                                    {% endif %}
+								</div>
     						</div>
     						<!-- Row end -->
     						<!-- Row start -->

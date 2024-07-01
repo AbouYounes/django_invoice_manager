@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 
 from django.db import transaction
-from .utils import get_customer, get_total, get_total_paid, pagination_cus, pagination_inv, get_invoice
+from .utils import get_customer, get_total, get_total_paid, pagination, get_invoice
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .decorators import *
@@ -21,10 +21,41 @@ from django.utils.translation import gettext as _
 
 @login_required
 def dashboard(request):
-    id = 0
-    if request.user.is_authenticated:
-        id = request.user.id
 
+    # POST method
+    # Modifying an invoice   
+    if request.POST.get('id_modified'):
+            paid = request.POST.get('modified')
+            try: 
+                obj = Invoice.objects.get(id=request.POST.get('id_modified'))
+                if paid == 'True':
+                    obj.paid = True
+                else:
+                    obj.paid = False 
+                obj.save()
+                messages.success(request,  _("Change made successfully."))
+            except Exception as e:   
+                messages.error(request, _(f"Sorry, the following error has occured: {e}."))      
+
+    # deleting an invoice    
+    if request.POST.get('id_supprimer'):
+        try:
+            obj = Invoice.objects.get(pk=request.POST.get('id_supprimer'))
+            obj.delete()
+            messages.success(request, _("The deletion of invoice was successful."))   
+        except Exception as e:
+            messages.error(request, _(f"Sorry, the following error has occured: {e}."))  
+
+    # deleting a customer    
+    if request.POST.get('id_customer_del'):
+        try:
+            obj = Customer.objects.get(pk=request.POST.get('id_customer_del'))
+            obj.delete()
+            messages.success(request, _("The deletion of customer was successful."))   
+        except Exception as e:
+            messages.error(request, _(f"Sorry, the following error has occured: {e}."))
+
+    id = request.user.id
     invoices = Invoice.objects.filter(save_by=id).all()
     customers = Customer.objects.filter(save_by=id).all()
     firma = Firma.objects.filter(user=id).all()
@@ -34,9 +65,9 @@ def dashboard(request):
         'firma' : firma,
     }
 
-    items_inv = pagination_inv(request, invoices)
+    items_inv = pagination(request, invoices)
+    items_cust = pagination(request, customers)
     context['invoices'] = items_inv
-    items_cust = pagination_cus(request, customers)
     context['customers'] = items_cust
     # total invoice
     total_invoices = get_total(Invoice, id)
@@ -48,10 +79,7 @@ def dashboard(request):
     total_paid = get_total_paid(Invoice, id)
     context['total_paid'] = total_paid
 
-    items_inv = pagination_inv(request, invoices)
-    context['invoices'] = items_inv
-    items_cust = pagination_cus(request, customers)
-    context['customers'] = items_cust
+   
     Invoice.validate_constraints,
     Customer.validate_constraints,
 
@@ -105,13 +133,6 @@ class HomeView(LoginRequiredMixin, View):
         # total paid
         total_paid = get_total_paid(Invoice)
         self.context['total_paid'] = total_paid
-
-        id = 0
-        if request.user.is_authenticated:
-            id = request.user.id
-
-        print('id= ',id)
-
         
         return render(request, self.templates_name, self.context)
     

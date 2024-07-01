@@ -5,13 +5,13 @@ from django.core.paginator import (
 
 from .models import *
 
-def pagination_inv(request, invoices):
+def pagination(request, model):
     # default_page 
         default_page = 1 
         page = request.GET.get('page', default_page)
         # paginate items
-        items_per_page = 3
-        paginator = Paginator(invoices, items_per_page)
+        items_per_page = 5
+        paginator = Paginator(model, items_per_page)
 
         try:
             items_page = paginator.page(page)
@@ -35,27 +35,6 @@ def get_total(model, id):
     total = obj.count()
     return total 
 
-
-def pagination_cus(request, customers):
-    # default_page 
-        default_page = 1 
-        page = request.GET.get('page', default_page)
-        # paginate items
-        items_per_page = 3
-        paginator = Paginator(customers, items_per_page)
-
-        try:
-            items_page = paginator.page(page)
-
-        except PageNotAnInteger:
-            items_page = paginator.page(default_page)
-
-        except EmptyPage:
-            items_page = paginator.page(paginator.num_pages) 
-
-        return items_page 
-
-
 def get_invoice(pk):
     """ get invoice fonction """
     obj = Invoice.objects.get(pk=pk)
@@ -65,7 +44,6 @@ def get_invoice(pk):
         'articles': articles
     }
     return context
-
 
 def get_customer(pk):
     """ get customer fonction """
