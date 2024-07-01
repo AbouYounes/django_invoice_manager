@@ -209,20 +209,20 @@ def entrepView(request):
     if request.method == 'POST':
         data = {
             'username': request.POST.get('username'),
-            'company': request.POST.get('company'),
-            'name': request.POST.get('name'),
+            #'company': request.POST.get('company'),
+            #'name': request.POST.get('name'),
             'email': request.POST.get('email'),
             'phone': request.POST.get('phone'),
-            'address': request.POST.get('address'),
-            'sex': request.POST.get('sex'),
-            'age': request.POST.get('age'),
-            'city': request.POST.get('city'),
-            'zip_code': request.POST.get('zip'),
+            #'address': request.POST.get('address'),
+            #'sex': request.POST.get('sex'),
+            #'age': request.POST.get('age'),
+            #'city': request.POST.get('city'),
+            #'zip_code': request.POST.get('zip'),
             'logo': request.POST.get('logo'),
 
         }
         try:
-            updating =Firma.objects.filter(user=request.user).update(**data)
+            updating =User.objects.filter(username=request.user).update(**data)
             if updating:
                 messages.success(request, _("Entrepreneur updated successfully."))
             else:

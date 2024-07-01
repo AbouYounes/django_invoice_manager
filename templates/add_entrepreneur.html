@@ -16,14 +16,18 @@
                     <div class="card-body">
                         <div class="account-settings">
                             <div class="user-profile">
-                                <div class="user-avatar">
-                                    {% if firma.logo %}
-                                    <img src="{{ request.user.firma.logo.url }}" alt="Logo" style="width:200px;height:150px;">
-                                    {% else %}
-                                    <img src="{% static 'images/profile1.png' %}" alt="Logo" style="width:200px;height:150px;">
-                                    {% endif %}
-                                    <input type="file" id="logo" name="logo" value="firma.logo">
-                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        {% if user.logo %}
+                                        <img src="{{ user.logo.url }}" alt="Logo" style="width:200px;height:150px;">
+                                        <p>there is logo</p>
+                                        {% else %}
+                                        <img src="{% static 'images/profile1.png' %}" alt="Logo" style="width:200px;height:150px;">
+                                        <p>there is  no logo</p>
+                                        {% endif %}
+                                        <input type="file" id="logo" name="logo" value="firma.logo">
+                                    </div>
+                                </div>   
                                 <h5 class="user-name">{{firma.company}}</h5>
                                 <h6 class="user-email">{{firma.email}}</h6>
                             </div>
@@ -100,7 +104,7 @@
                                     <div class="form-group">
                                         <label for="email">{% trans 'Email' %}</label>
                                         <input name="email" type="email" class="form-control" id="email"
-                                            placeholder="{% trans 'Entrepreneur Email' %}" value="{{firma.email}}">
+                                            placeholder="{% trans 'Entrepreneur Email' %}" value="{{user.email}}">
                                     </div>
                                 </div>
                                 <!-- Phone -->
@@ -108,7 +112,7 @@
                                     <div class="form-group">
                                         <label for="phone">{% trans 'Phone' %}</label>
                                         <input name="phone" type="number" class="form-control" id="phone"
-                                            placeholder="{% trans 'Entrepreneur Phone' %}" value="{{firma.phone}}">
+                                            placeholder="{% trans 'Entrepreneur Phone' %}" value="{{user.phone}}">
                                     </div>
                                 </div>
                                 <!-- Website URL -->

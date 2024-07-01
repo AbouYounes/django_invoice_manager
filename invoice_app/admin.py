@@ -6,7 +6,25 @@ from django.utils.translation import gettext_lazy as _
 # Register your models here.
 
 class AdminFirma(admin.ModelAdmin):
-    list_display = ('user', 'name', 'company', 'email', 'logo')
+    list_display = (
+        'user', 
+        'username',
+        'name',
+        'company',
+        'email',
+        'logo',
+        'phone',
+        'address',
+        'sex',
+        'age',
+        'city',
+        'zip_code',
+        'created_date',
+        'bank',
+        'bankaccount',
+        'swift',
+        'iban'
+        )
 
 class AdminCustomer(admin.ModelAdmin):
     list_display = ('name', 'email', 'phone', 'address', 'sex', 'age', 'city', 'zip_code')
