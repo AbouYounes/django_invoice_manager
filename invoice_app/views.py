@@ -190,7 +190,7 @@ def entrepView(request):
             'age': request.POST.get('age'),
             'email': request.POST.get('email'),
             'phone': request.POST.get('phone'),
-            'logo': request.POST.get('logo'),
+            'logo': request.FILES.get('logo'),
             'company_name': request.POST.get('company_name'),
             'created_date': request.POST.get('created_date'),
             'street': request.POST.get('street'),
@@ -216,6 +216,8 @@ def entrepView(request):
 
     try:
         current_user= User.objects.filter(id=request.user.id).get()
+        #print("logo = ",current_user.logo)
+
     except Exception as e:    
         messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
 
