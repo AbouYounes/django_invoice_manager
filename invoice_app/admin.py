@@ -30,10 +30,10 @@ class AdminCustomer(admin.ModelAdmin):
     list_display = ('name', 'email', 'phone', 'address', 'sex', 'age', 'city', 'zip_code')
 
 class AdminInvoice(admin.ModelAdmin):
-    list_display = ('entrepreneur', 'customer', 'save_by', 'invoice_date_time', 'total', 'last_updated_date', 'paid', 'invoice_type')
+    list_display = ('entrepreneur', 'customer', 'invoice_date_time', 'total', 'last_updated_date', 'paid', 'invoice_type')
 
 class AdminEntrepreneur(admin.ModelAdmin):
-    list_display = ('name', 'email', 'phone', 'address', 'sex', 'age', 'city', 'zip_code', 'created_date', 'save_by', 'bank', 'bankaccount', 'swift', 'iban')
+    list_display = ('name', 'email', 'phone', 'address', 'sex', 'age', 'city', 'zip_code', 'created_date', 'bank', 'bankaccount', 'swift', 'iban')
 
 admin.site.register(Firma, AdminFirma)
 admin.site.register(Customer, AdminCustomer)

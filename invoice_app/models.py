@@ -41,8 +41,6 @@ class Firma(models.Model):
         return self.name
 
 
-
-
 class Entrepreneur(models.Model):
     """
     Name: Entrepreneur model definition
@@ -53,7 +51,6 @@ class Entrepreneur(models.Model):
         ('M', _('Male')),
         ('F', _('Feminine')),
     )
-    save_by = models.ForeignKey(User, on_delete=models.PROTECT)
     name = models.CharField(max_length=132)
     company = models.CharField(max_length=132)
     email = models.EmailField()
@@ -78,7 +75,6 @@ class Entrepreneur(models.Model):
         return self.name
     
 
-
 class Customer(models.Model):
     """
     Name: Customer model definition
@@ -89,6 +85,7 @@ class Customer(models.Model):
         ('M', _('Male')),
         ('F', _('Feminine')),
     )
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=132)
     email = models.EmailField()
     phone = models.CharField(max_length=132)
@@ -98,7 +95,6 @@ class Customer(models.Model):
     city = models.CharField(max_length=32)
     zip_code = models.CharField(max_length=16)
     created_date = models.DateTimeField(auto_now_add=True)
-    save_by = models.ForeignKey(User, on_delete=models.PROTECT)
 
     class Meta: 
         verbose_name = "Customer"
@@ -120,9 +116,9 @@ class Invoice(models.Model):
         ('I', _('INVOICE'))
     )
 
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     entrepreneur = models.ForeignKey(Entrepreneur, on_delete=models.PROTECT)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
-    save_by = models.ForeignKey(User, on_delete=models.PROTECT)
     invoice_date_time = models.DateTimeField(auto_now_add=True)
     total = models.DecimalField(max_digits=10000, decimal_places=2)
     last_updated_date = models.DateTimeField(null=True, blank=True)

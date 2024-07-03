@@ -26,12 +26,12 @@ def pagination(request, model):
 
 def get_total_paid(model, id):
 
-    total = model.objects.all().filter(save_by=id, paid='True').count()
+    total = model.objects.all().filter(user=id, paid='True').count()
     return total
 
 def get_total(model, id):
 
-    obj = model.objects.filter(save_by=id).all()
+    obj = model.objects.filter(user=id).all()
     total = obj.count()
     return total 
 

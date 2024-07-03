@@ -56,8 +56,8 @@ def dashboard(request):
             messages.error(request, _(f"Sorry, the following error has occured: {e}."))
 
     id = request.user.id
-    invoices = Invoice.objects.filter(save_by=id).all()
-    customers = Customer.objects.filter(save_by=id).all()
+    invoices = Invoice.objects.filter(user=id).all()
+    customers = Customer.objects.filter(user=id).all()
     firma = Firma.objects.filter(user=id).all()
     context = {
         'invoices': invoices,
@@ -111,8 +111,8 @@ class HomeView(LoginRequiredMixin, View):
     """ Main view """
 
     templates_name = 'index.html'
-    invoices = Invoice.objects.filter(save_by=1).all()
-    customers = Customer.objects.filter(save_by=1).all()
+    invoices = Invoice.objects.filter(user=1).all()
+    customers = Customer.objects.filter(user=1).all()
     article = Article.objects.select_related('save_by').all()
     context = {
         'invoices': invoices,
@@ -181,60 +181,48 @@ class HomeView(LoginRequiredMixin, View):
 
 @login_required
 def entrepView(request):
-    if request.user.is_authenticated:
-        id = request.user.id 
-    try: 
-        if Firma.objects.filter(user=request.user).exists():
-            firma = Firma.objects.filter(user=request.user).get()
-        else:
-            data = {
-                'user' :  request.user,
-                'username' :  request.user.username,
-                'name': request.user.first_name,
-                'email': request.user.email,
-            }
-            try:
-                created = Firma.objects.create(**data)
-                if created:
-                    messages.success(request, _("Entrepreneur updated successfully."))
-                else:
-                    messages.error(request, _("Sorry, please try again the sent data is corrupt."))
-            except Exception as e:    
-
-                messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
-
-    except Exception as e:    
-        messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
-        
     if request.method == 'POST':
         data = {
             'username': request.POST.get('username'),
-            #'company': request.POST.get('company'),
-            #'name': request.POST.get('name'),
+            'first_name': request.POST.get('first_name'),
+            'last_name': request.POST.get('last_name'),
+            'sex': request.POST.get('sex'),
+            'age': request.POST.get('age'),
             'email': request.POST.get('email'),
             'phone': request.POST.get('phone'),
-            #'address': request.POST.get('address'),
-            #'sex': request.POST.get('sex'),
-            #'age': request.POST.get('age'),
-            #'city': request.POST.get('city'),
-            #'zip_code': request.POST.get('zip'),
             'logo': request.POST.get('logo'),
+            'company_name': request.POST.get('company_name'),
+            'created_date': request.POST.get('created_date'),
+            'street': request.POST.get('street'),
+            'city': request.POST.get('city'),
+            'zip_code': request.POST.get('zip_code'),
+            'country': request.POST.get('country'),
+            'website': request.POST.get('website'),
+            'bank_name': request.POST.get('bank_name'),
+            'bank_account': request.POST.get('bank_account'),
+            'swift': request.POST.get('swift'),
+            'iban': request.POST.get('iban'),
 
         }
         try:
-            updating =User.objects.filter(username=request.user).update(**data)
+            updating =User.objects.filter(id=request.user.id).update(**data)
             if updating:
                 messages.success(request, _("Entrepreneur updated successfully."))
             else:
                 messages.error(request, _("Sorry, please try again the sent data is corrupt."))
-        except Exception as e:    
 
+        except Exception as e:    
             messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
 
-    firma = Firma.objects.get(user=request.user)
+    try:
+        current_user= User.objects.filter(id=request.user.id).get()
+    except Exception as e:    
+        messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
+
     context = {
-        'firma': firma
+        'current_user': current_user
     }
+
     return render(request, 'add_entrepreneur.html', context) 
 
 class AddEntrepreneurView(LoginRequiredMixin, View):
@@ -312,8 +300,8 @@ class AddInvoiceView(LoginRequiredMixin, View):
     """ add a new invoice view """
 
     template_name = 'add_invoice.html'
-    customers = Customer.objects.select_related('save_by').all()
-    entrepreneurs = Entrepreneur.objects.select_related('save_by').all()
+    customers = Customer.objects.select_related('user').all()
+    entrepreneurs = Entrepreneur.objects.select_related('user').all()
     context = {
         'entrepreneurs': entrepreneurs,
         'customers': customers
@@ -344,7 +332,6 @@ class AddInvoiceView(LoginRequiredMixin, View):
             invoice_object = {
                 'entrepreneur_id': entrepreneur,
                 'customer_id': customer,
-                'save_by': request.user,
                 'total': total,
                 'invoice_type': type,
                 'comments': comment

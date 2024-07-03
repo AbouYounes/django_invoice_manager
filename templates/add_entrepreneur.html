@@ -11,7 +11,7 @@
     <form method="post">
     {% csrf_token %}
         <div class="row gutters">
-            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="account-settings">
@@ -25,21 +25,21 @@
                                         <img src="{% static 'images/profile1.png' %}" alt="Logo" style="width:200px;height:150px;">
                                         <p>there is  no logo</p>
                                         {% endif %}
-                                        <input type="file" id="logo" name="logo" value="firma.logo">
+                                        <input type="file" id="logo" name="logo" value="user.logo">
                                     </div>
                                 </div>   
-                                <h5 class="user-name">{{firma.company}}</h5>
-                                <h6 class="user-email">{{firma.email}}</h6>
+                                <h4>{% trans 'About' %}</h4>
+                                <h6 class="user-name">{% trans 'Company' %}: {{user.company_name}}</h6>
+                                <h6 class="user-email">{% trans 'Phone' %}: {{user.phone}}</h6>
                             </div>
                             <div class="about">
-                                <h5>{% trans 'About' %}</h5>
-                                <p>{% trans 'member since' %}: {{firma.created_date}}</p>
+                                <p>{% trans 'Created since' %}: {{user.created_date}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
                     <div class="card-body">
                         <!-- Owner Details -->
@@ -53,15 +53,32 @@
                                     <div class="form-group">
                                         <label for="Street">{% trans 'Username' %}</label>
                                         <input name="username" type="text" class="form-control" id="username"
-                                            placeholder="{% trans 'Owner username' %}" value="{{firma.username}}">
+                                            placeholder="{% trans 'Owner username' %}" value="{{current_user.username}}">
                                     </div>
                                 </div>
+                                <!-- Email -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="email">{% trans 'Email' %}</label>
+                                        <input name="email" type="email" class="form-control" id="email"
+                                            placeholder="{% trans 'Entrepreneur Email' %}" value="{{current_user.email}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gutters">
                                 <!-- Full name -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="Street">{% trans 'Full name' %}</label>
-                                        <input name="name" type="text" class="form-control" id="name"
-                                            placeholder="{% trans 'Entrepreneur first and last name' %}" value="{{firma.name}}">
+                                        <label for="Street">{% trans 'First name' %}</label>
+                                        <input name="first_name" type="text" class="form-control" id="first_name"
+                                            placeholder="{% trans 'Entrepreneur first and last name' %}" value="{{current_user.first_name}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="last_name">{% trans 'last name' %}</label>
+                                        <input name="last_name" type="text" class="form-control" id="last_name"
+                                            placeholder="{% trans 'Entrepreneur first and last name' %}" value="{{current_user.last_name}}">
                                     </div>
                                 </div>
                                 <!-- Sex -->
@@ -69,7 +86,7 @@
                                     <div class="form-group">
                                         <label for="sex">{% trans 'Sex' %}</label>
                                         <select name="sex" class="form-control" id="sex">
-                                            <option>{{firma.sex}}</option>
+                                            <option>{{user.current_user}}</option>
                                             <option value="M">{% trans 'Male' %}</option>
                                             <option value="F">{% trans 'Feminine' %}</option>
                                         </select>
@@ -80,7 +97,7 @@
                                     <div class="form-group">
                                         <label for="age">{% trans 'Age' %}</label>
                                         <input name="age" type="number" class="form-control" id="age"
-                                            placeholder="{% trans 'Entrepreneur age' %}" value="{{firma.age}}">
+                                            placeholder="{% trans 'Entrepreneur age' %}" value="{{current_user.age}}">
                                     </div>
                                 </div>
                             </div>
@@ -94,17 +111,9 @@
                                 <!-- Name -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="company">{% trans 'Name' %}</label>
-                                        <input name="company" type="text" class="form-control" id="company"
-                                            placeholder="{% trans 'Company name' %}" value="{{firma.company}}">                                
-                                    </div>
-                                </div>
-                                <!-- Email -->
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="email">{% trans 'Email' %}</label>
-                                        <input name="email" type="email" class="form-control" id="email"
-                                            placeholder="{% trans 'Entrepreneur Email' %}" value="{{user.email}}">
+                                        <label for="company_name">{% trans 'Name' %}</label>
+                                        <input name="company_name" type="text" class="form-control" id="company_name"
+                                            placeholder="{% trans 'Company name' %}" value="{{current_user.company_name}}">                                
                                     </div>
                                 </div>
                                 <!-- Phone -->
@@ -112,16 +121,25 @@
                                     <div class="form-group">
                                         <label for="phone">{% trans 'Phone' %}</label>
                                         <input name="phone" type="number" class="form-control" id="phone"
-                                            placeholder="{% trans 'Entrepreneur Phone' %}" value="{{user.phone}}">
+                                            placeholder="{% trans 'Entrepreneur Phone' %}" value="{{current_user.phone}}">
                                     </div>
                                 </div>
                                 <!-- Website URL -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="website">{% trans 'Website URL' %}</label>
-                                        <input type="url" class="form-control" id="website" name="website" placeholder="Website url">
+                                        <input type="url" class="form-control" id="website" name="website" 
+                                            placeholder="Website url" value="{{current_user.website}}">
                                     </div>
                                 </div>
+                                <!-- Created date
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="created_date">{% trans 'Company created since' %}</label>
+                                        <input type="date" class="form-control" id="created_date" name="created_date" 
+                                            placeholder="{{current_user.created_date}}">
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
                         <!-- Company Address -->
@@ -133,32 +151,33 @@
                                 <!-- Street -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="Street">{% trans 'Street' %}</label>
-                                        <input name="address" type="text" type="text" class="form-control" id="address"
-                                            placeholder="{% trans 'Entrepreneur adress' %}" value="{{firma.address}}">
+                                        <label for="street">{% trans 'Street' %}</label>
+                                        <input name="street" type="text" type="text" class="form-control" id="street"
+                                            placeholder="{% trans 'Company street' %}" value="{{current_user.street}}">
                                     </div>
                                 </div>
                                 <!-- City -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="Street">{% trans 'City' %}</label>
+                                        <label for="city">{% trans 'City' %}</label>
                                         <input name="city" type="text" class="form-control" id="city" 
-                                            placeholder="{% trans 'Entrepreneur city' %}" value="{{firma.city}}">
+                                            placeholder="{% trans 'Entrepreneur city' %}" value="{{current_user.city}}">
                                     </div>
                                 </div>
                                 <!-- Zip code -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="zIp">{% trans 'Zip code' %}</label>
-                                        <input name="zip" type="text" class="form-control" id="zip"
-                                            placeholder="{% trans 'Postal code of the entrepreneur' %}" value="{{firma.zip_code}}">
+                                        <label for="zip_code">{% trans 'Zip code' %}</label>
+                                        <input name="zip_code" type="text" class="form-control" id="zip_code"
+                                            placeholder="{% trans 'Postal code of the entrepreneur' %}" value="{{current_user.zip_code}}">
                                     </div>
                                 </div>
                                 <!-- State -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="sTate">{% trans 'State' %}</label>
-                                        <input type="text" class="form-control" id="sTate" name="sTate" placeholder="Enter State">
+                                        <label for="country">{% trans 'State' %}</label>
+                                        <input type="text" class="form-control" id="country" name="country" 
+                                            placeholder="Enter State" value="{{current_user.country}}">
                                     </div>
                                 </div>
                             </div>
@@ -172,17 +191,17 @@
                                 <!-- Bank name -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="Bank">{% trans 'Bank name' %}</label>
-                                        <input name="bank" type="text" class="form-control" id="bank"
-                                            placeholder="{% trans 'Bank of the entrepreneur' %}" value="{{firma.bank}}">
+                                        <label for="bank_name">{% trans 'Bank name' %}</label>
+                                        <input name="bank_name" type="text" class="form-control" id="bank_name"
+                                            placeholder="{% trans 'Bank of the entrepreneur' %}" value="{{current_user.bank_name}}">
                                     </div>
                                 </div>
                                 <!-- Account -->
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="Account">{% trans 'Account' %}</label>
-                                        <input name="bankaccount" type="text" class="form-control" id="bankaccount"
-                                            placeholder="{% trans 'bank account of the entrepreneur' %}" value="{{firma.bankaccount}}">
+                                        <label for="bank_account">{% trans 'Account' %}</label>
+                                        <input name="bank_account" type="text" class="form-control" id="bank_account"
+                                            placeholder="{% trans 'bank account of the entrepreneur' %}" value="{{current_user.bank_account}}">
                                     </div>
                                 </div>
                                 <!-- SWIFT -->
@@ -190,7 +209,7 @@
                                     <div class="form-group">
                                         <label for="swift">{% trans 'SWIFT' %}</label>
                                         <input name="swift" type="text" class="form-control" id="swift"
-                                            placeholder="{% trans 'SWIFT of the entrepreneur' %}" value="{{firma.swift}}">
+                                            placeholder="{% trans 'SWIFT of the entrepreneur' %}" value="{{current_user.swift}}">
                                     </div>
                                 </div>
                                 <!-- IBAN -->
@@ -198,7 +217,7 @@
                                     <div class="form-group">
                                         <label for="iban">{% trans 'IBAN' %}</label>
                                         <input name="iban" type="text" class="form-control" id="iban"
-                                            placeholder="{% trans 'IBAN of the entrepreneur' %}" value="{{firma.iban}}">
+                                            placeholder="{% trans 'IBAN of the entrepreneur' %}" value="{{current_user.iban}}">
                                     </div>
                                 </div>
                             </div>
