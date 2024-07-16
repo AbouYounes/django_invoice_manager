@@ -85,7 +85,7 @@ class Customer(models.Model):
         ('M', _('Male')),
         ('F', _('Feminine')),
     )
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
     name = models.CharField(max_length=132)
     email = models.EmailField()
     phone = models.CharField(max_length=132)
@@ -116,8 +116,7 @@ class Invoice(models.Model):
         ('I', _('INVOICE'))
     )
 
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    entrepreneur = models.ForeignKey(Entrepreneur, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
     invoice_date_time = models.DateTimeField(auto_now_add=True)
     total = models.DecimalField(max_digits=10000, decimal_places=2)

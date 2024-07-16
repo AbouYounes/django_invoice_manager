@@ -23,8 +23,8 @@ urlpatterns = [
 
     path('customer/<int:pk>', views.customerView, name="customer"),
     path('add-entrepreneur', views.entrepView, name='add-entrepreneur'),
-    path('add-customer', views.AddCustomerView.as_view(), name='add-customer'),
-    path('add-invoice', views.AddInvoiceView.as_view(), name='add-invoice'),   
+    path('add-customer', views.addCustomer, name='add-customer'),
+    path('add-invoice', views.addInvoice, name='add-invoice'),   
     path('view-invoice/<int:pk>', views.InvoiceVisualizationView.as_view(), name='view-invoice'),
     path('invoice-pdf/<int:pk>', views.get_invoice_pdf, name="invoice-pdf"),
 

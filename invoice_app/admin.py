@@ -27,10 +27,10 @@ class AdminFirma(admin.ModelAdmin):
         )
 
 class AdminCustomer(admin.ModelAdmin):
-    list_display = ('name', 'email', 'phone', 'address', 'sex', 'age', 'city', 'zip_code')
+    list_display = ('user', 'name', 'email', 'phone', 'address', 'sex', 'age', 'city', 'zip_code')
 
 class AdminInvoice(admin.ModelAdmin):
-    list_display = ('entrepreneur', 'customer', 'invoice_date_time', 'total', 'last_updated_date', 'paid', 'invoice_type')
+    list_display = ('user', 'customer', 'invoice_date_time', 'total', 'last_updated_date', 'paid', 'invoice_type')
 
 class AdminEntrepreneur(admin.ModelAdmin):
     list_display = ('name', 'email', 'phone', 'address', 'sex', 'age', 'city', 'zip_code', 'created_date', 'bank', 'bankaccount', 'swift', 'iban')

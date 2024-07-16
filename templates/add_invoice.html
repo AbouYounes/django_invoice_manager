@@ -15,17 +15,6 @@
         <div class="form-row">
             <div class="col-sm">
                 <div class="form-group col-md-12">
-                    <label for="entrepreneur">{% trans 'Entrepreneur' %}</label>
-                    <select name="entrepreneur" class="form-control" id="entrepreneur">
-                        <option>{% trans 'Choose the Entrepreneur ...' %}</option>
-                        {% for entrepreneur in entrepreneurs %}
-                        <option value="{{entrepreneur.id}}">{{forloop.counter}}-{{entrepreneur.name}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm">
-                <div class="form-group col-md-12">
                     <label for="customer">{% trans 'Customer' %}</label>
                     <select name="customer" class="form-control" id="customer">
                         <option>{% trans 'Choose the customer ...' %}</option>
@@ -131,7 +120,7 @@
 
         <div class="row justify-content-between">
             <button type="submit" class="btn col-md-3 btn-primary">{% trans 'Save' %}</button>
-            <a href="{% url 'dashboard' %}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">{% trans 'home' %}</a>
+            <a href="{% url 'home' %}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">{% trans 'home' %}</a>
         </div>
     </form>
 

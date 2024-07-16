@@ -262,6 +262,39 @@ class AddEntrepreneurView(LoginRequiredMixin, View):
 
         return render(request, self.template_name)   
 
+@login_required
+def addCustomer(request):
+    if request.method == 'POST':
+        data = {
+            'user': request.user,
+            'name': request.POST.get('name'),
+            'email': request.POST.get('email'),
+            'phone': request.POST.get('phone'),
+            'address': request.POST.get('address'),
+            'sex': request.POST.get('sex'),
+            'age': request.POST.get('age'),
+            'city': request.POST.get('city'),
+            'zip_code': request.POST.get('zip_code'),
+            'created_date': request.POST.get('created_date'),
+        }
+        print(data)
+        try:
+            created = Customer.objects.create(**data)
+            if created:
+                messages.success(request, _("Customer registered successfully."))
+            else:
+                messages.error(request, _("Sorry, please try again the sent data is corrupt."))
+
+        except Exception as e:    
+            messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
+
+    try:
+        current_user= User.objects.filter(id=request.user.id).get()
+
+    except Exception as e:    
+        messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
+
+    return render(request, 'add_customer.html') 
 
 class AddCustomerView(LoginRequiredMixin, View):
      """ add new customer """    
@@ -296,6 +329,70 @@ class AddCustomerView(LoginRequiredMixin, View):
             messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
 
         return render(request, self.template_name)   
+
+@login_required
+def addInvoice(request):
+
+    current_user= User.objects.filter(id=request.user.id).get()
+    customers = Customer.objects.select_related('user').all()
+    context = {
+        'current_user': current_user,
+        'customers': customers
+    }
+
+    if request.method == 'POST':
+        items = []
+
+        try: 
+
+            customer = request.POST.get('customer')
+            type = request.POST.get('invoice_type')
+            articles = request.POST.getlist('article')
+            date_a = request.POST.getlist('dt_a')
+            qties = request.POST.getlist('qty')
+            u_type = request.POST.getlist('ut_a')
+            units = request.POST.getlist('unit')
+            tax_a = request.POST.getlist('tax')
+            total_a = request.POST.getlist('total-a')
+            total = request.POST.get('total')
+            comment = request.POST.get('commment')
+            invoice_object = {
+                'user': request.user,
+                'customer_id': customer,
+                'total': total,
+                'invoice_type': type,
+                'comments': comment
+            }
+
+            invoice = Invoice.objects.create(**invoice_object)
+
+            for index, article in enumerate(articles):
+
+                data = Article(
+                    invoice_id = invoice.id,
+                    name = article,
+                    article_date = date_a[index],
+                    quantity=qties[index],
+                    unit_type = u_type[index],
+                    unit_price = units[index],
+                    tva = tax_a[index],
+                    TTC_article = total_a[index]
+                )
+
+                items.append(data)
+
+            created = Article.objects.bulk_create(items)   
+
+            if created:
+                messages.success(request, _("Data saved successfully.")) 
+            else:
+                messages.error(request, _("Sorry, please try again the sent data is corrupt."))    
+
+        except Exception as e:
+            messages.error(request, _(f"Sorry the following error has occured: {e}."))  
+            
+        
+    return  render(request, 'add_invoice.html', context) 
 
 
 class AddInvoiceView(LoginRequiredMixin, View):
