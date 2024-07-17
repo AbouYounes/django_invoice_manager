@@ -62,7 +62,6 @@ def dashboard(request):
     context = {
         'invoices': invoices,
         'customers' : customers,
-        'firma' : firma,
     }
 
     items_inv = pagination(request, invoices)
@@ -106,77 +105,77 @@ def register(request):
     return render(request, 'register.html', {'user_form': user_form})
 
 
-class HomeView(LoginRequiredMixin, View):
+# class HomeView(LoginRequiredMixin, View):
 
-    """ Main view """
+#     """ Main view """
 
-    templates_name = 'index.html'
-    invoices = Invoice.objects.filter(user=1).all()
-    customers = Customer.objects.filter(user=1).all()
-    article = Article.objects.select_related('save_by').all()
-    context = {
-        'invoices': invoices,
-        'customers' : customers,
-    }
+#     templates_name = 'index.html'
+#     invoices = Invoice.objects.filter(user=1).all()
+#     customers = Customer.objects.filter(user=1).all()
+#     article = Article.objects.select_related('save_by').all()
+#     context = {
+#         'invoices': invoices,
+#         'customers' : customers,
+#     }
 
-    def get(self, request, *args, **kwags):
-        items_inv = pagination_inv(request, self.invoices)
-        self.context['invoices'] = items_inv
-        items_cust = pagination_cus(request, self.customers)
-        self.context['customers'] = items_cust
-        # total invoice
-        total_invoices = get_total(Invoice)
-        self.context['total_invoices'] = total_invoices
-        # total customer
-        total_customers = get_total(Customer)
-        self.context['total_customers'] = total_customers 
-        # total paid
-        total_paid = get_total_paid(Invoice)
-        self.context['total_paid'] = total_paid
+#     def get(self, request, *args, **kwags):
+#         items_inv = pagination_inv(request, self.invoices)
+#         self.context['invoices'] = items_inv
+#         items_cust = pagination_cus(request, self.customers)
+#         self.context['customers'] = items_cust
+#         # total invoice
+#         total_invoices = get_total(Invoice)
+#         self.context['total_invoices'] = total_invoices
+#         # total customer
+#         total_customers = get_total(Customer)
+#         self.context['total_customers'] = total_customers 
+#         # total paid
+#         total_paid = get_total_paid(Invoice)
+#         self.context['total_paid'] = total_paid
         
-        return render(request, self.templates_name, self.context)
+#         return render(request, self.templates_name, self.context)
     
 
-    def post(self, request, *args, **kwagrs):
-        # modify an invoice
-        if request.POST.get('id_modified'):
-            paid = request.POST.get('modified')
-            try: 
-                obj = Invoice.objects.get(id=request.POST.get('id_modified'))
-                if paid == 'True':
-                    obj.paid = True
-                else:
-                    obj.paid = False 
-                obj.save()
-                messages.success(request,  _("Change made successfully."))
-            except Exception as e:   
-                messages.error(request, _(f"Sorry, the following error has occured: {e}."))      
+#     def post(self, request, *args, **kwagrs):
+#         # modify an invoice
+#         if request.POST.get('id_modified'):
+#             paid = request.POST.get('modified')
+#             try: 
+#                 obj = Invoice.objects.get(id=request.POST.get('id_modified'))
+#                 if paid == 'True':
+#                     obj.paid = True
+#                 else:
+#                     obj.paid = False 
+#                 obj.save()
+#                 messages.success(request,  _("Change made successfully."))
+#             except Exception as e:   
+#                 messages.error(request, _(f"Sorry, the following error has occured: {e}."))      
 
-        # deleting an invoice    
-        if request.POST.get('id_supprimer'):
-            try:
-                obj = Invoice.objects.get(pk=request.POST.get('id_supprimer'))
-                obj.delete()
-                messages.success(request, _("The deletion of invoice was successful."))   
-            except Exception as e:
-                messages.error(request, _(f"Sorry, the following error has occured: {e}."))  
+#         # deleting an invoice    
+#         if request.POST.get('id_supprimer'):
+#             try:
+#                 obj = Invoice.objects.get(pk=request.POST.get('id_supprimer'))
+#                 obj.delete()
+#                 messages.success(request, _("The deletion of invoice was successful."))   
+#             except Exception as e:
+#                 messages.error(request, _(f"Sorry, the following error has occured: {e}."))  
 
-        # deleting a customer    
-        if request.POST.get('id_customer_del'):
-            try:
-                obj = Customer.objects.get(pk=request.POST.get('id_customer_del'))
-                obj.delete()
-                messages.success(request, _("The deletion of customer was successful."))   
-            except Exception as e:
-                messages.error(request, _(f"Sorry, the following error has occured: {e}."))
+#         # deleting a customer    
+#         if request.POST.get('id_customer_del'):
+#             try:
+#                 obj = Customer.objects.get(pk=request.POST.get('id_customer_del'))
+#                 obj.delete()
+#                 messages.success(request, _("The deletion of customer was successful."))   
+#             except Exception as e:
+#                 messages.error(request, _(f"Sorry, the following error has occured: {e}."))
 
-        items_inv = pagination_inv(request, self.invoices)
-        self.context['invoices'] = items_inv
-        items_cust = pagination_cus(request, self.customers)
-        self.context['customers'] = items_cust
-        Invoice.validate_constraints,
-        Customer.validate_constraints,
-        return render(request, self.templates_name, self.context)
+#         items_inv = pagination_inv(request, self.invoices)
+#         self.context['invoices'] = items_inv
+#         items_cust = pagination_cus(request, self.customers)
+#         self.context['customers'] = items_cust
+#         Invoice.validate_constraints,
+#         Customer.validate_constraints,
+#         return render(request, self.templates_name, self.context)
 
 
 @login_required
@@ -227,40 +226,40 @@ def entrepView(request):
 
     return render(request, 'add_entrepreneur.html', context) 
 
-class AddEntrepreneurView(LoginRequiredMixin, View):
-     """ add new entrepreneur """    
-     template_name = 'add_entrepreneur.html'
+# class AddEntrepreneurView(LoginRequiredMixin, View):
+#      """ add new entrepreneur """    
+#      template_name = 'add_entrepreneur.html'
      
-     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+#      def get(self, request, *args, **kwargs):
+#         return render(request, self.template_name)
 
-     def post(self, request, *args, **kwargs):
+#      def post(self, request, *args, **kwargs):
 
-        data = {
-            'company': request.POST.get('company'),
-            'name': request.POST.get('name'),
-            'email': request.POST.get('email'),
-            'phone': request.POST.get('phone'),
-            'address': request.POST.get('address'),
-            'sex': request.POST.get('sex'),
-            'age': request.POST.get('age'),
-            'city': request.POST.get('city'),
-            'zip_code': request.POST.get('zip'),
-            'save_by': request.user
+#         data = {
+#             'company': request.POST.get('company'),
+#             'name': request.POST.get('name'),
+#             'email': request.POST.get('email'),
+#             'phone': request.POST.get('phone'),
+#             'address': request.POST.get('address'),
+#             'sex': request.POST.get('sex'),
+#             'age': request.POST.get('age'),
+#             'city': request.POST.get('city'),
+#             'zip_code': request.POST.get('zip'),
+#             'save_by': request.user
 
-        }
+#         }
 
-        try:
-            created = Entrepreneur.objects.create(**data)
-            if created:
-                messages.success(request, _("Entrepreneur registered successfully."))
-            else:
-                messages.error(request, _("Sorry, please try again the sent data is corrupt."))
-        except Exception as e:    
+#         try:
+#             created = Entrepreneur.objects.create(**data)
+#             if created:
+#                 messages.success(request, _("Entrepreneur registered successfully."))
+#             else:
+#                 messages.error(request, _("Sorry, please try again the sent data is corrupt."))
+#         except Exception as e:    
 
-            messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
+#             messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
 
-        return render(request, self.template_name)   
+#         return render(request, self.template_name)   
 
 @login_required
 def addCustomer(request):
@@ -296,39 +295,39 @@ def addCustomer(request):
 
     return render(request, 'add_customer.html') 
 
-class AddCustomerView(LoginRequiredMixin, View):
-     """ add new customer """    
-     template_name = 'add_customer.html'
+# class AddCustomerView(LoginRequiredMixin, View):
+#      """ add new customer """    
+#      template_name = 'add_customer.html'
      
-     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+#      def get(self, request, *args, **kwargs):
+#         return render(request, self.template_name)
 
-     def post(self, request, *args, **kwargs):
+#      def post(self, request, *args, **kwargs):
 
-        data = {
-            'name': request.POST.get('name'),
-            'email': request.POST.get('email'),
-            'phone': request.POST.get('phone'),
-            'address': request.POST.get('address'),
-            'sex': request.POST.get('sex'),
-            'age': request.POST.get('age'),
-            'city': request.POST.get('city'),
-            'zip_code': request.POST.get('zip'),
-            'save_by': request.user
+#         data = {
+#             'name': request.POST.get('name'),
+#             'email': request.POST.get('email'),
+#             'phone': request.POST.get('phone'),
+#             'address': request.POST.get('address'),
+#             'sex': request.POST.get('sex'),
+#             'age': request.POST.get('age'),
+#             'city': request.POST.get('city'),
+#             'zip_code': request.POST.get('zip'),
+#             'save_by': request.user
 
-        }
+#         }
 
-        try:
-            created = Customer.objects.create(**data)
-            if created:
-                messages.success(request, _("Customer registered successfully."))
-            else:
-                messages.error(request, _("Sorry, please try again the sent data is corrupt."))
-        except Exception as e:    
+#         try:
+#             created = Customer.objects.create(**data)
+#             if created:
+#                 messages.success(request, _("Customer registered successfully."))
+#             else:
+#                 messages.error(request, _("Sorry, please try again the sent data is corrupt."))
+#         except Exception as e:    
 
-            messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
+#             messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
 
-        return render(request, self.template_name)   
+#         return render(request, self.template_name)   
 
 @login_required
 def addInvoice(request):
@@ -395,75 +394,75 @@ def addInvoice(request):
     return  render(request, 'add_invoice.html', context) 
 
 
-class AddInvoiceView(LoginRequiredMixin, View):
-    """ add a new invoice view """
+# class AddInvoiceView(LoginRequiredMixin, View):
+#     """ add a new invoice view """
 
-    template_name = 'add_invoice.html'
-    customers = Customer.objects.select_related('user').all()
-    entrepreneurs = Entrepreneur.objects.select_related('user').all()
-    context = {
-        'entrepreneurs': entrepreneurs,
-        'customers': customers
-    }
+#     template_name = 'add_invoice.html'
+#     customers = Customer.objects.select_related('user').all()
+#     entrepreneurs = Entrepreneur.objects.select_related('user').all()
+#     context = {
+#         'entrepreneurs': entrepreneurs,
+#         'customers': customers
+#     }
 
-    def get(self, request, *args, **kwargs):
-        return  render(request, self.template_name, self.context)
+#     def get(self, request, *args, **kwargs):
+#         return  render(request, self.template_name, self.context)
     
-    @transaction.atomic()
-    def post(self, request, *args, **kwargs):
+#     @transaction.atomic()
+#     def post(self, request, *args, **kwargs):
 
-        items = []
+#         items = []
 
-        try: 
+#         try: 
 
-            entrepreneur = request.POST.get('entrepreneur')
-            customer = request.POST.get('customer')
-            type = request.POST.get('invoice_type')
-            articles = request.POST.getlist('article')
-            date_a = request.POST.getlist('dt_a')
-            qties = request.POST.getlist('qty')
-            u_type = request.POST.getlist('ut_a')
-            units = request.POST.getlist('unit')
-            tax_a = request.POST.getlist('tax')
-            total_a = request.POST.getlist('total-a')
-            total = request.POST.get('total')
-            comment = request.POST.get('commment')
-            invoice_object = {
-                'entrepreneur_id': entrepreneur,
-                'customer_id': customer,
-                'total': total,
-                'invoice_type': type,
-                'comments': comment
-            }
+#             entrepreneur = request.POST.get('entrepreneur')
+#             customer = request.POST.get('customer')
+#             type = request.POST.get('invoice_type')
+#             articles = request.POST.getlist('article')
+#             date_a = request.POST.getlist('dt_a')
+#             qties = request.POST.getlist('qty')
+#             u_type = request.POST.getlist('ut_a')
+#             units = request.POST.getlist('unit')
+#             tax_a = request.POST.getlist('tax')
+#             total_a = request.POST.getlist('total-a')
+#             total = request.POST.get('total')
+#             comment = request.POST.get('commment')
+#             invoice_object = {
+#                 'entrepreneur_id': entrepreneur,
+#                 'customer_id': customer,
+#                 'total': total,
+#                 'invoice_type': type,
+#                 'comments': comment
+#             }
 
-            invoice = Invoice.objects.create(**invoice_object)
+#             invoice = Invoice.objects.create(**invoice_object)
 
-            for index, article in enumerate(articles):
+#             for index, article in enumerate(articles):
 
-                data = Article(
-                    invoice_id = invoice.id,
-                    name = article,
-                    article_date = date_a[index],
-                    quantity=qties[index],
-                    unit_type = u_type[index],
-                    unit_price = units[index],
-                    tva = tax_a[index],
-                    TTC_article = total_a[index]
-                )
+#                 data = Article(
+#                     invoice_id = invoice.id,
+#                     name = article,
+#                     article_date = date_a[index],
+#                     quantity=qties[index],
+#                     unit_type = u_type[index],
+#                     unit_price = units[index],
+#                     tva = tax_a[index],
+#                     TTC_article = total_a[index]
+#                 )
 
-                items.append(data)
+#                 items.append(data)
 
-            created = Article.objects.bulk_create(items)   
+#             created = Article.objects.bulk_create(items)   
 
-            if created:
-                messages.success(request, _("Data saved successfully.")) 
-            else:
-                messages.error(request, _("Sorry, please try again the sent data is corrupt."))    
+#             if created:
+#                 messages.success(request, _("Data saved successfully.")) 
+#             else:
+#                 messages.error(request, _("Sorry, please try again the sent data is corrupt."))    
 
-        except Exception as e:
-            messages.error(request, _(f"Sorry the following error has occured: {e}."))  
+#         except Exception as e:
+#             messages.error(request, _(f"Sorry the following error has occured: {e}."))  
         
-        return  render(request, self.template_name, self.context)
+#         return  render(request, self.template_name, self.context)
  
 
 @login_required
