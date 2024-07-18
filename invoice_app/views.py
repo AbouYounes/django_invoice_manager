@@ -468,6 +468,33 @@ def addInvoice(request):
 @login_required
 def customerView(request, pk):
     context = get_customer(pk)
+    if request.method == 'POST':
+        data = {
+            'name': request.POST.get('name'),
+            'email': request.POST.get('email'),
+            'phone': request.POST.get('phone'),
+            'address': request.POST.get('address'),
+            'sex': request.POST.get('sex'),
+            'age': request.POST.get('age'),
+            'city': request.POST.get('city'),
+            'zip_code': request.POST.get('zip_code'),
+        }
+        try: 
+            updating = Customer.objects.filter(id=pk).update(**data)
+            if updating:
+                messages.success(request, _("Entrepreneur updated successfully."))
+            else:
+                messages.error(request, _("Sorry, please try again the sent data is corrupt."))
+
+        except Exception as e:    
+            messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
+
+    try:
+        context = get_customer(pk)
+
+    except Exception as e:    
+        messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
+
     return render(request, 'customer.html', context)
 
 
@@ -512,7 +539,44 @@ class CustomerView(LoginRequiredMixin, View):
         Customer.validate_constraints,
         return render(request, self.templates_name, self.context)
     
-    
+@login_required
+def updateInvoiceView(request, pk):
+    context = get_invoice(pk)
+    customer = Customer.objects.filter(user=request.user.id)
+    context['date'] = datetime.datetime.today()
+    context['customer'] = customer
+    print(context)
+
+    if request.method == 'POST':
+        data = {
+            'name': request.POST.get('name'),
+            'email': request.POST.get('email'),
+            'phone': request.POST.get('phone'),
+            'address': request.POST.get('address'),
+            'sex': request.POST.get('sex'),
+            'age': request.POST.get('age'),
+            'city': request.POST.get('city'),
+            'zip_code': request.POST.get('zip_code'),
+        }
+        try: 
+            updating = Customer.objects.filter(id=pk).update(**data)
+            if updating:
+                messages.success(request, _("Entrepreneur updated successfully."))
+            else:
+                messages.error(request, _("Sorry, please try again the sent data is corrupt."))
+
+        except Exception as e:    
+            messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
+
+    try:
+        context = get_customer(pk)
+
+    except Exception as e:    
+        messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
+
+    return render(request, 'update_invoice.html', context)
+
+
 class InvoiceVisualizationView(LoginRequiredMixin, View):
     """ This view helps to visualize the invoice """
 

@@ -92,12 +92,15 @@
                   </td>
                   <td>{{invoice.get_invoice_type_display}}</td>
                   <td>
-                     <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail"><button class="btn-sm btn-success">{% trans 'Details' %}</button></a>
+                     <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail">
+                        <button class="btn-sm btn-success">{% trans 'Details' %}</button>
+                     </a>
+                     
+                     <a href="{% url 'update-invoice' pk=invoice.pk %}" title="Update">
+                        <button class="btn-sm btn-success">{% trans 'Update' %}</button>
+                     </a>
 
-                     <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
-                     data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
-                     class="btn-sm btn-warning">{% trans 'Modify' %}
-                     </button>
+                     
 
                      <button id="btn-invoice-sup" type="button" data-toggle="modal" data-target="#supprimer"
                         class="btn-sm btn-danger" title="Supprimer" data-id="{{ invoice.pk }}"

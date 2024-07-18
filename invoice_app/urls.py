@@ -26,6 +26,7 @@ urlpatterns = [
     path('add-customer', views.addCustomer, name='add-customer'),
     path('add-invoice', views.addInvoice, name='add-invoice'),   
     path('view-invoice/<int:pk>', views.InvoiceVisualizationView.as_view(), name='view-invoice'),
+    path('update-invoice/<int:pk>', views.updateInvoiceView, name='update-invoice'),
     path('invoice-pdf/<int:pk>', views.get_invoice_pdf, name="invoice-pdf"),
 
 ]

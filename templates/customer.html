@@ -29,8 +29,8 @@
                                         <!-- Full name -->
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div class="form-group">
-                                                <label for="Street">{% trans 'Full name' %}</label>
-                                                <input name="first_name" type="text" class="form-control" id="first_name"
+                                                <label for="name">{% trans 'Full name' %}</label>
+                                                <input name="name" type="text" class="form-control" id="name"
                                                     placeholder="{% trans 'Entrepreneur first and last name' %}" value="{{customer.name}}">
                                             </div>
                                         </div>
@@ -39,7 +39,7 @@
                                             <div class="form-group">
                                                 <label for="sex">{% trans 'Sex' %}</label>
                                                 <select name="sex" class="form-control" id="sex" value="{{customer.sex}}">
-                                                    <option value="M">{% trans 'f' %}</option>
+                                                    <option value="M">{% trans 'M' %}</option>
                                                     <option value="F">{% trans 'F' %}</option>
                                                 </select>
                                             </div>
@@ -49,8 +49,10 @@
                                             <div class="form-group">
                                                 <label for="age">{% trans 'Age' %}</label>
                                                 <select name="age" class="form-control" id="age" value="{{customer.age}}">
-                                                    <option value="18-">0-15</option>
-                                                    <option value="0-15">15-25</option>
+                                                    <option value="18-25">18-25</option>
+                                                    <option value="26-35">26-35</option>
+                                                    <option value="36-45">36-45</option>
+                                                    <option value="46+">46+</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -67,7 +69,7 @@
                                             <div class="form-group">
                                                 <label for="address">{% trans 'Street' %}</label>
                                                 <input name="address" type="text" class="form-control" id="address"
-                                                    placeholder="{% trans 'Entrepreneur Email' %}" value="{{customer.address}}">
+                                                    placeholder="{% trans 'Entrepreneur address' %}" value="{{customer.address}}">
                                             </div>
                                         </div>
                                         <!-- City -->
@@ -75,15 +77,15 @@
                                             <div class="form-group">
                                                 <label for="city">{% trans 'City' %}</label>
                                                 <input name="city" type="text" class="form-control" id="city"
-                                                    placeholder="{% trans 'Entrepreneur Email' %}" value="{{customer.city}}">
+                                                    placeholder="{% trans 'Entrepreneur City' %}" value="{{customer.city}}">
                                             </div>
                                         </div>
                                         <!-- Zip code -->
                                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div class="form-group">
-                                                <label for="email">{% trans 'zip code' %}</label>
-                                                <input name="email" type="email" class="form-control" id="email"
-                                                    placeholder="{% trans 'Entrepreneur Email' %}" value="{{customer.zip_code}}">
+                                                <label for="zip_code">{% trans 'zip code' %}</label>
+                                                <input name="zip_code" type="number" class="form-control" id="zip_code"
+                                                    placeholder="{% trans 'Entrepreneur zip code' %}" value="{{customer.zip_code}}">
                                             </div>
                                         </div>
                                     </div>
@@ -115,7 +117,7 @@
                             </div>
                             <!-- Customer Details -->
                             <div class="col-5">
-                                <!-- Related -->
+                                <!-- Details -->
                                 <div class="card card-body text-white bg-dark mb-2">
                                     <div class="card text-white bg-secondary mb-3">
                                         <div class="row justify-content-center">
@@ -123,12 +125,12 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="card text-white bg-success mt-3 mb-4">
-                                                    <h6 class="mt-3 mb-4 text-white text-center">sex: {{customer.sex}}</h6>
+                                                    <h6 class="mt-3 mb-4 text-white text-center">{% trans 'SEX' %}: {{customer.sex}}</h6>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="card text-white bg-success mt-3 mb-4">
-                                                    <h6 class="mt-3 mb-4 text-white text-center">age: {{customer.age}}</h6>
+                                                    <h6 class="mt-3 mb-4 text-white text-center">{% trans 'AGE' %}: {{customer.age}}</h6>
                                                 </div>
                                             </div>
                                             <div >
@@ -153,8 +155,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- Related -->
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                        <h6 class="mt-3 mb-4 text-white font-weight-bold">{% trans 'Related' %}</h6>
+                                        <h6 class="mt-1 mb-2 text-white font-weight-bold">{% trans 'Related' %}</h6>
                                     </div>
                                     <div class="row justify-content-center">
                                         <div class="col-6">
@@ -175,17 +178,14 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             <!-- Buttons -->
-                            <div class="card card-body text-white bg-dark mb-4">
-                                <div class="row justify-content-center">
-                                    <div class="text-right">
-                                        <a href="{% url 'home' %}" class="btn btn-secondary">{% trans 'close' %}</a>
-                                        <button type="submit" class="btn btn-primary">{% trans 'Update' %}</button>
-                                    </div>
+                            <div class="row justify-content-center">
+                                <div class="text-right">
+                                    <a href="{% url 'home' %}" class="btn btn-secondary">{% trans 'close' %}</a>
+                                    <button type="submit" class="btn btn-primary">{% trans 'Update' %}</button>
                                 </div>
                             </div>
-                            </div>
-                            
                         </div>
                     </div>
                 </div>
@@ -193,71 +193,71 @@
         </div>
     </form>
         
-<!-- Invoices List-->
- <div class="container">
-    <div class="row">
-        <div class="col col-md-12">
-            <div class="card card-body">
-                <table class="table table-striped-columns">
-                    <tr>
-                        <th>#</th>
-                        <th>{% trans 'Date' %}</th>
-                        <th>{% trans 'Total' %}</th>
-                        <th>{% trans 'Paid' %}</th>
-                        <th>{% trans 'Type' %}</th>
-                        <th>{% trans 'Update' %}</th>
-                        <th>{% trans 'Remove' %}</th>
-                    </tr>
+    <!-- Invoices List-->
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-12">
+                <div class="card card-body">
+                    <table class="table table-striped-columns">
+                        <tr>
+                            <th>#</th>
+                            <th>{% trans 'Date' %}</th>
+                            <th>{% trans 'Total' %}</th>
+                            <th>{% trans 'Paid' %}</th>
+                            <th>{% trans 'Type' %}</th>
+                            <th>{% trans 'Update' %}</th>
+                            <th>{% trans 'Remove' %}</th>
+                        </tr>
 
-                    {% for invoice in invoices %}
-                    <tr>
-                        <th scope="row">{{ invoice.pk }}</th>
-                        <td>{{invoice.invoice_date_time}}</td>
-                        <td>{{invoice.total}}</td>
-                        <td>{{invoice.paid}}</td>
-                        <td>{{invoice.invoice_type}}</td>
-                        <td><a href="" class="btn-sm btn-info">{% trans 'Updtae' %}</a></td>
-                        <td>
-                            <button id="btn-invoice-del" type="button" data-toggle="modal" data-target="#delete"
-                            class="btn-sm btn-danger" title="Supprimer" data-id="{{ invoice.pk }}"
-                            data-customer="#">{% trans 'Delete' %}
-                            </button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </table>
+                        {% for invoice in invoices %}
+                        <tr>
+                            <th scope="row">{{ invoice.pk }}</th>
+                            <td>{{invoice.invoice_date_time}}</td>
+                            <td>{{invoice.total}}</td>
+                            <td>{{invoice.paid}}</td>
+                            <td>{{invoice.invoice_type}}</td>
+                            <td><a href="" class="btn-sm btn-info">{% trans 'Updtae' %}</a></td>
+                            <td>
+                                <button id="btn-invoice-del" type="button" data-toggle="modal" data-target="#delete"
+                                class="btn-sm btn-danger" title="Supprimer" data-id="{{ invoice.pk }}"
+                                data-customer="#">{% trans 'Delete' %}
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
             </div>
         </div>
     </div>
+
+    <br><br><br>
+
+    <!-- Modal invoice suppression -->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="sexampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-dark" id="sexampleModalLabel">{% trans 'Delete Invoice' %}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                    {% csrf_token %}
+                    <input name="id_supprimer" type="hidden" id="id_supprimer">
+                    <label id="label_id_s" class="text-dark checkbox-inline"> <strong id="strong_id_s">{% trans 'Are you sure you want to delete the invoice ?' %}</strong></label>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
+                        <button type="submit" class="btn btn-danger">{% trans 'Delete' %}</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal-->
 </div>
-
-<br><br><br>
-
-<!-- Modal invoice suppression -->
-<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="sexampleModalLabel"
-   aria-hidden="true">
-   <div class="modal-dialog" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title text-dark" id="sexampleModalLabel">{% trans 'Delete Invoice' %}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-            </button>
-         </div>
-         <div class="modal-body">
-            <form method="post">
-               {% csrf_token %}
-               <input name="id_supprimer" type="hidden" id="id_supprimer">
-               <label id="label_id_s" class="text-dark checkbox-inline"> <strong id="strong_id_s">{% trans 'Are you sure you want to delete the invoice ?' %}</strong></label>
-               <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Close' %}</button>
-                  <button type="submit" class="btn btn-danger">{% trans 'Delete' %}</button>
-               </div>
-            </form>
-         </div>
-      </div>
-   </div>
-</div>
-<!-- end modal-->
-
 {% endblock content %}

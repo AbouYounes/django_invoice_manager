@@ -94,6 +94,8 @@
                   <td>
                      <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail"><button class="btn-sm btn-success">{% trans 'Details' %}</button></a>
 
+                     <a href="{% url 'update-invoice' pk=invoice.pk %}" title="Update"><button class="btn-sm btn-success">{% trans 'Update' %}</button></a>
+
                      <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
                      data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
                      class="btn-sm btn-warning">{% trans 'Modify' %}

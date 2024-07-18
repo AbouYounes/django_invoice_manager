@@ -14,20 +14,9 @@
     <div class="form-row">
         <div class="col-sm">
             <div class="form-group col-md-12">
-                <label for="entrepreneur">{% trans 'Entrepreneur' %}</label>
-                <select name="entrepreneur" class="form-control" id="entrepreneur">
-                    <option>{% trans 'Choose the Entrepreneur ...' %}</option>
-                    {% for entrepreneur in entrepreneurs %}
-                    <option value="{{entrepreneur.id}}">{{forloop.counter}}-{{entrepreneur.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="form-group col-md-12">
                 <label for="customer">{% trans 'Customer' %}</label>
                 <select name="customer" class="form-control" id="customer">
-                    <option>{% trans 'Choose the customer ...' %}</option>
+                    <option>{{customer.name}}</option>
                     {% for customer in customers %}
                     <option value="{{customer.id}}">{{forloop.counter}}-{{customer.name}}</option>
                     {% endfor %}
@@ -38,8 +27,8 @@
             <div class="form-group col-md-12">
                 <label for="invoice">{% trans 'Invoice Type' %}</label>
                 <select name="invoice_type" class="form-control" id="invoice">
-                    <option>{% trans 'Choose the invoice type ...' %}</option>
-                    <option value="R">{% trans 'RECEIPT' %}</option>
+                    <option>{{invoice.invoice_type}}</option>
+                    <option value="{{invoice.invoice_type}}">{% trans 'RECEIPT' %}</option>
                     <option value="P">{% trans 'PROFORMA INVOICE' %}</option>
                     <option value="I">{% trans 'INVOICE' %}</option>
                 </select>
