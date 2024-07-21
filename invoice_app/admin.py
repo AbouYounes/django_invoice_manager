@@ -12,7 +12,6 @@ class AdminFirma(admin.ModelAdmin):
         'name',
         'company',
         'email',
-        'logo',
         'phone',
         'address',
         'sex',
@@ -35,7 +34,6 @@ class AdminInvoice(admin.ModelAdmin):
 class AdminEntrepreneur(admin.ModelAdmin):
     list_display = ('name', 'email', 'phone', 'address', 'sex', 'age', 'city', 'zip_code', 'created_date', 'bank', 'bankaccount', 'swift', 'iban')
 
-admin.site.register(Firma, AdminFirma)
 admin.site.register(Customer, AdminCustomer)
 admin.site.register(Invoice, AdminInvoice)
 admin.site.register(Entrepreneur, AdminEntrepreneur)

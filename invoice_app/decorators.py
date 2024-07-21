@@ -10,7 +10,13 @@ from django.shortcuts import get_object_or_404
 from invoice_app.models import *
 
 
+# Profile Extra Form
+class ProfilePicForm(forms.ModelForm):
+    logo = forms.ImageField(label="Profile Picture")
 
+    class Meta:
+        model = User
+        fields = ('logo',)
 
 
 
@@ -57,7 +63,6 @@ class UserRegistrationForm(forms.ModelForm):
             'first_name',
             'last_name',
             'email',
-            'logo'
             )
 
     def clean_password2(self):

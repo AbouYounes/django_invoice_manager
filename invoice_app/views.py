@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.views import View
 from .models import *
 from django.contrib import messages
+from django import forms
+
 
 import pdfkit
 from django.http import HttpResponse
@@ -180,7 +182,14 @@ def register(request):
 
 @login_required
 def entrepView(request):
-    if request.method == 'POST':
+    current_user= User.objects.get(id=request.user.id)
+    profile_form = ProfilePicForm(request.POST or None, request.FILES or None, instance=current_user)
+    context = {
+        'current_user': current_user,
+        'profile_form': profile_form,
+    }
+    if request.method == 'POST' or profile_form.is_valid():
+        profile_form.save()
         data = {
             'username': request.POST.get('username'),
             'first_name': request.POST.get('first_name'),
@@ -189,7 +198,6 @@ def entrepView(request):
             'age': request.POST.get('age'),
             'email': request.POST.get('email'),
             'phone': request.POST.get('phone'),
-            'logo': request.FILES.get('logo'),
             'company_name': request.POST.get('company_name'),
             'created_date': request.POST.get('created_date'),
             'street': request.POST.get('street'),
@@ -213,16 +221,7 @@ def entrepView(request):
         except Exception as e:    
             messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
 
-    try:
-        current_user= User.objects.filter(id=request.user.id).get()
-        #print("logo = ",current_user.logo)
-
-    except Exception as e:    
-        messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
-
-    context = {
-        'current_user': current_user
-    }
+ 
 
     return render(request, 'add_entrepreneur.html', context) 
 
