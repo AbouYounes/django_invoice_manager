@@ -183,7 +183,7 @@
                             <div class="row justify-content-center">
                                 <div class="text-right">
                                     <a href="{% url 'home' %}" class="btn btn-secondary">{% trans 'close' %}</a>
-                                    <button type="submit" class="btn btn-primary">{% trans 'Update' %}</button>
+                                    <button type="submit" class="btn btn-success">{% trans 'Save' %}</button>
                                 </div>
                             </div>
                         </div>
@@ -216,7 +216,7 @@
                             <td>{{invoice.total}}</td>
                             <td>{{invoice.paid}}</td>
                             <td>{{invoice.invoice_type}}</td>
-                            <td><a href="" class="btn-sm btn-info">{% trans 'Updtae' %}</a></td>
+                            <td><a href="" class="btn-sm btn-info">{% trans 'Update' %}</a></td>
                             <td>
                                 <button id="btn-invoice-del" type="button" data-toggle="modal" data-target="#delete"
                                 class="btn-sm btn-danger" title="Supprimer" data-id="{{ invoice.pk }}"

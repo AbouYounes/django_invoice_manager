@@ -94,7 +94,7 @@
                   <td>
                      <a href="{% url 'view-invoice' pk=invoice.pk %}" title="Detail"><button class="btn-sm btn-success">{% trans 'Details' %}</button></a>
 
-                     <a href="{% url 'update-invoice' pk=invoice.pk %}" title="Update"><button class="btn-sm btn-success">{% trans 'Update' %}</button></a>
+                     <a href="{% url 'update-invoice' pk=invoice.pk %}" title="Update"><button class="btn-sm btn-info">{% trans 'Update' %}</button></a>
 
                      <button id="btn-invoice-mod" type="button" data-toggle="modal" title="Modifier" data-target="#modifier"
                      data-id="{{invoice.pk}}" data-customer="{{invoice.customer.name}}"
@@ -163,7 +163,7 @@
                   <td>{{customer.name}}</td>
                   <td>{{customer.email}}</td>
                   <td>
-                     <a href="{% url 'customer' pk=customer.pk %}" title="Detail"><button class="btn-sm btn-warning">{% trans 'Details' %}</button></a>
+                     <a href="{% url 'customer' pk=customer.pk %}" title="Detail"><button class="btn-sm btn-info">{% trans 'Update' %}</button></a>
 
                      <button id="btn-customer-sup" type="button" data-toggle="modal" data-target="#customer_del"
                         class="btn-sm btn-danger" title="Supprimer" data-id="{{ customer.pk }}"
