@@ -20,6 +20,8 @@
                                     <div class="card-body">
                                         {% if request.user.logo %}
                                         <img src="{{ current_user.logo.url }}" alt="logo" style="width:200px;height:200px;">
+                                        {% else %}
+                                        <img src="{% static 'images/profile1.png' %}" alt="logo" style="width:200px;height:200px;">
                                         {% endif %}
                                         {{ profile_form.as_p}}
                                         <button type="submit" class="btn btn-secondary">Update Logo</button>

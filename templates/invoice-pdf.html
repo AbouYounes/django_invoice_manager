@@ -191,20 +191,21 @@
                                 <!-- Row start -->
                                 <div class="row gutters">
                                     <div class="col-xl-12 d-flex justify-content-end">
-                                         <!-- <img src="/home/Karimprogramer/django_invoice_manager/static/images/mk_hm.png" alt="HTML tutorial  align-items-center" style="width:200px;height:150px;">-->
-                                        <img src="{{ request.user.firma.logo.url }}" alt="HTML tutorial  align-items-center" style="width:200px;height:150px;">
-                                	</div>
+                                         {% if obj.user.logo %}
+                                         <img src="{{ obj.user.logo.url }}" alt="logo" style="width:200px;height:200px;">
+                                         {% endif %}
+                                    </div>
                                 </div>
     						    <!-- Row end -->
                                 <!-- Row start -->
     						    <div class="row gutters">
                                     <div class="col-xl-12 col-lg-3 col-md-3 col-sm-3">
-                                        <h5 href="Karimprogrammeur.com" class="text-success"><strong>{{obj.entrepreneur.company}}</strong></h5>
+                                        <h5 href="Karimprogrammeur.com" class="text-success"><strong>{{obj.user.company_name}}</strong></h5>
                                     </div><br>
                                     <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6">
                                         <address class="text-left">
-                                            {{obj.entrepreneur.name}}<br>
-                                            {{obj.entrepreneur.address}} - {{obj.entrepreneur.zip_code}} - {{obj.entrepreneur.city}}<br>
+                                            {{obj.user.first_name}} {{obj.user.last_name}}<br>
+                                            {{obj.user.street}} - {{obj.user.zip_code}} - {{obj.user.city}}<br>
                                         </address>
                                     </div>
 							    </div>
@@ -252,7 +253,7 @@
                                         <h3 class="text-success"><strong>{{obj.get_invoice_type_display}}</strong></h3>
                                     </div>
                                     <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 text-center">
-                                        <div class="text-left">{{obj.comments}}</div>
+                                        <div class="text-left">{{obj.comment1}}</div>
                                     </div>
                                 </div>
                                 <!-- Row end -->
@@ -315,22 +316,22 @@
             </div>
             <!-- footer -->
             <footer class="footer-center">
-                <p>Im Sinne der Kleinunternehmerregelung nach § 19 UStG enthält der ausgewiesen Betrag Keine Umsatzsteuer.</p>
+                <p>{{obj.comment2}}</p>
                 <P><HR NOSHADE></P>
                 <ul class="list-group text-center">
                     <li>
-                        <td><strong>Address: </strong>{{obj.entrepreneur.address}} - {{obj.entrepreneur.zip_code}} - {{obj.entrepreneur.city}}</td>
-                        &emsp;<td><strong>Email: </strong>{{obj.entrepreneur.email}}</td>
-                        &emsp;<td><strong>Phone: </strong>{{obj.entrepreneur.phone}}</td>
+                        <td><strong>Address: </strong>{{obj.user.street}} - {{obj.user.zip_code}} - {{obj.user.city}}</td>
+                        &emsp;<td><strong>Email: </strong>{{obj.user.email}}</td>
+                        &emsp;<td><strong>Phone: </strong>{{obj.user.phone}}</td>
                     </li>
                     <li>
-                        <td><strong>Bank: </strong>{{obj.entrepreneur.bank}}</td>
-                        &emsp;<td><strong>SWIFT/BIC: </strong>{{obj.entrepreneur.swift}}</td>
-                        &emsp;<td><strong>IBAN: </strong>{{obj.entrepreneur.iban}}</td>
-                        &emsp;<td><strong>Account owner: </strong>{{obj.entrepreneur.name}}</td>
+                        <td><strong>Bank: </strong>{{obj.user.bank_name}}</td>
+                        &emsp;<td><strong>SWIFT/BIC: </strong>{{obj.user.swift}}</td>
+                        &emsp;<td><strong>IBAN: </strong>{{obj.user.iban}}</td>
+                        &emsp;<td><strong>Account owner: </strong>{{obj.user.first_name}} {{obj.user.last_name}}</td>
                     </li>
                     <li>
-                        <td><strong>Bank account: </strong>{{obj.entrepreneur.bankaccount}}</td>
+                        <td><strong>Bank account: </strong>{{obj.user.bank_account}}</td>
                     </li>
                 </ul>
             </footer>

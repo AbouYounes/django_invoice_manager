@@ -60,7 +60,6 @@ def dashboard(request):
     id = request.user.id
     invoices = Invoice.objects.filter(user=id).all()
     customers = Customer.objects.filter(user=id).all()
-    firma = Firma.objects.filter(user=id).all()
     context = {
         'invoices': invoices,
         'customers' : customers,
@@ -184,10 +183,6 @@ def register(request):
 def entrepView(request):
     current_user= User.objects.get(id=request.user.id)
     profile_form = ProfilePicForm(request.POST or None, request.FILES or None, instance=current_user)
-    context = {
-        'current_user': current_user,
-        'profile_form': profile_form,
-    }
     if request.method == 'POST' or profile_form.is_valid():
         profile_form.save()
         data = {
@@ -221,7 +216,11 @@ def entrepView(request):
         except Exception as e:    
             messages.error(request, _(f"Sorry our system is detecting the following issues: {e}"))
 
- 
+    
+    context = {
+        'current_user': current_user,
+        'profile_form': profile_form,
+    }
 
     return render(request, 'add_entrepreneur.html', context) 
 
@@ -353,14 +352,19 @@ def addInvoice(request):
             tax_a = request.POST.getlist('tax')
             total_a = request.POST.getlist('total-a')
             total = request.POST.get('total')
-            comment = request.POST.get('commment')
+            comment1 = request.POST.get('comment1')
+            comment2 = request.POST.get('comment2')
             invoice_object = {
                 'user': request.user,
                 'customer_id': customer,
                 'total': total,
                 'invoice_type': type,
-                'comments': comment
+                'comment1': comment1,
+                'comment2': comment2
             }
+
+            print("Comment 1: ", comment1)
+            print("Comment 2: ", comment2)
 
             invoice = Invoice.objects.create(**invoice_object)
 

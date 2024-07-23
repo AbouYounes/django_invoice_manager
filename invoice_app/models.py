@@ -123,7 +123,8 @@ class Invoice(models.Model):
     last_updated_date = models.DateTimeField(null=True, blank=True)
     paid  = models.BooleanField(default=False)
     invoice_type = models.CharField(max_length=1, choices=INVOICE_TYPE)
-    comments = models.TextField(null=True, max_length=1000, blank=True)
+    comment1 = models.TextField(null=True, max_length=1000, blank=True)
+    comment2 = models.TextField(null=True, max_length=1000, blank=True)
 
     class Meta:
         verbose_name = "Invoice"

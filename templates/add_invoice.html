@@ -47,6 +47,19 @@
             </div>
         </div>
 
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="comment">{% trans 'Comments' %}</label>
+                <select name="comment1" class="form-control" id="comment1">
+                    <option>{% trans 'Choose the comment ...' %}</option>
+                    <option value="{% trans 'Thank you very much for your order. We will charge you for the following service' %}:">{% trans 'Thank you very much for your order. We are charging you for the following service:' %}</option>
+                    <option value="{% trans 'In accordance with the small business regulation pursuant to § 19 of the German Value Added Tax Act (UStG), the stated amount does not include VAT' %}.">{% trans 'In accordance with the small business regulation pursuant to § 19 of the German Value Added Tax Act (UStG), the stated amount does not include VAT' %}.</option>
+                    <option ></option>
+                    <option ></option>
+                </select>
+            </div>
+        </div>
+
         <label for="customer">{% trans 'Items' %}</label>
         <div class="card text-dark bg-light mb-3">
             <div class="card-body">
@@ -109,9 +122,10 @@
         <div class="form-row">
             <div class="form-group col-md-12">
                 <label for="comment">{% trans 'Comments' %}</label>
-                <select name="commment" class="form-control" id="commment">
+                <select name="comment2" class="form-control" id="comment2">
                     <option>{% trans 'Choose the comment ...' %}</option>
-                    <option value="vielen Dank für Ihren Auftrag. Wir berechenen Ihnen fomgende Leistung:">{% trans 'Thank you very much for your order. We are charging you for the following service:' %}</option>
+                    <option value="{% trans 'Thank you very much for your order. We will charge you for the following service' %}:">{% trans 'Thank you very much for your order. We are charging you for the following service:' %}</option>
+                    <option value="{% trans 'In accordance with the small business regulation pursuant to § 19 of the German Value Added Tax Act (UStG), the stated amount does not include VAT' %}.">{% trans 'In accordance with the small business regulation pursuant to § 19 of the German Value Added Tax Act (UStG), the stated amount does not include VAT' %}.</option>
                     <option ></option>
                     <option ></option>
                 </select>
