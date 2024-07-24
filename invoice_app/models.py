@@ -4,77 +4,6 @@ from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
-class Firma(models.Model):
-    """
-    Name: Firma model definition
-    Description: 
-    author: karim.khattou@univ-tiaret.dz
-    """
-    SEX_TYPES = (
-        ('M', _('Male')),
-        ('F', _('Feminine')),
-    )
-
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    username = models.CharField(max_length=132)
-    name = models.CharField(max_length=132)
-    company = models.CharField(max_length=132)
-    email = models.EmailField()
-    logo = models.ImageField(default="profile1.png", null=True, blank=True)
-    phone = models.CharField(max_length=132)
-    address = models.CharField(max_length=64)
-    sex = models.CharField(max_length=1, choices=SEX_TYPES)
-    age = models.CharField(max_length=2)
-    city = models.CharField(max_length=32)
-    zip_code = models.CharField(max_length=16)
-    created_date = models.DateTimeField(auto_now_add=True)
-    bank = models.CharField(max_length=64)
-    bankaccount = models.CharField(max_length=64)
-    swift = models.CharField(max_length=64)
-    iban = models.CharField(max_length=64)
-
-    class Meta: 
-        verbose_name = "Firma"
-        verbose_name_plural = "Firmas"
-
-    def __str__(self):
-        return self.name
-
-
-class Entrepreneur(models.Model):
-    """
-    Name: Entrepreneur model definition
-    Description: 
-    author: karim.khattou@univ-tiaret.dz
-    """
-    SEX_TYPES = (
-        ('M', _('Male')),
-        ('F', _('Feminine')),
-    )
-    name = models.CharField(max_length=132)
-    company = models.CharField(max_length=132)
-    email = models.EmailField()
-    phone = models.CharField(max_length=132)
-    address = models.CharField(max_length=64)
-    sex = models.CharField(max_length=1, choices=SEX_TYPES)
-    age = models.CharField(max_length=2)
-    city = models.CharField(max_length=32)
-    zip_code = models.CharField(max_length=16)
-    created_date = models.DateTimeField(auto_now_add=True)
-    bank = models.CharField(max_length=64)
-    bankaccount = models.CharField(max_length=64)
-    swift = models.CharField(max_length=64)
-    iban = models.CharField(max_length=64)
-
-
-    class Meta: 
-        verbose_name = "Entrepreneur"
-        verbose_name_plural = "Entrepreneurs"
-
-    def __str__(self):
-        return self.name
-    
-
 class Customer(models.Model):
     """
     Name: Customer model definition
@@ -117,6 +46,7 @@ class Invoice(models.Model):
     )
 
     user = models.ForeignKey(User, on_delete=models.PROTECT)
+    #invoice_number = models.AutoField(primary_key=True)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
     invoice_date_time = models.DateTimeField(auto_now_add=True)
     total = models.DecimalField(max_digits=10000, decimal_places=2)

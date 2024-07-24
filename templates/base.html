@@ -83,7 +83,7 @@
     </nav>
   </header>
 
-  {% if not request.user.firma.logo %}
+  {% if not request.user.logo %}
     <div class="alert alert-danger" role="alert">
       {% trans 'Please,' %}<a href="{% url 'add-entrepreneur' %}" class="alert-link">{% trans 'click here' %}</a>. {% trans 'to complete your registration' %}.
     </div>

@@ -16,33 +16,49 @@
                     <div class="card-body">
                         <div class="account-settings">
                             <div class="user-profile">
-                                <div class="card">
-                                    <div class="card-body">
-                                        {% if request.user.logo %}
-                                        <img src="{{ current_user.logo.url }}" alt="logo" style="width:200px;height:200px;">
-                                        {% else %}
-                                        <img src="{% static 'images/profile1.png' %}" alt="logo" style="width:200px;height:200px;">
-                                        {% endif %}
-                                        {{ profile_form.as_p}}
-                                        <button type="submit" class="btn btn-secondary">Update Logo</button>
-                                    </div>
-                                </div>   
-                                <h4>{% trans 'About' %}</h4>
-                                <h6 class="user-name">{% trans 'Company' %}: {{current_user.company_name}}</h6>
-                                <h6 class="user-email">{% trans 'Phone' %}: {{user.phone}}</h6>
-                            </div>
-                            <div class="about">
-                                <p>{% trans 'Created since' %}: {{user.created_date}}</p>
+                                <div class="card card-body bg-dar">
+                                    {% if request.user.logo %}
+                                    <img class="rounded mx-auto d-block" src="{{ current_user.logo.url }}" alt="logo" style="width:250px;height:200px;">
+                                    {% else %}
+                                    <img src="{% static 'images/profile1.png' %}" alt="logo" style="width:200px;height:200px;">
+                                    {% endif %}
+                                    {{ profile_form.as_p}}
+                                    <button type="submit" class="btn btn-secondary">Update Logo</button>
+                                </div>
+                                <h3 class="text-capitalize text-center mx-10 bg-info text-white">{% trans 'About' %}</h3>
+                                <h5 class="text-capitalize text-left mx-10 bg-info text-white">{% trans 'Owner' %}</h5>
+                                <dl class="row">
+                                    <dt class="col-sm-4">{% trans 'Full Name' %}</dt><dd class="col-sm-8">{{current_user.first_name}} {{current_user.last_name}}</dd>
+                                    <dt class="col-sm-4">{% trans 'Username' %}</dt><dd class="col-sm-8">{{current_user.username}}</dd>
+                                    <dt class="col-sm-4">{% trans 'Email' %}</dt><dd class="col-sm-8">{{current_user.email}}</dd>
+                                    <dt class="col-sm-4">{% trans 'Sex' %}</dt><dd class="col-sm-8">{{current_user.sex}}</dd>
+                                    <dt class="col-sm-4">{% trans 'Membre since' %}</dt><dd class="col-sm-8">{{current_user.date_joined}}</dd>
+                                </dl>
+                                <h5 class="text-capitalize text-left mx-10 bg-info text-white">{% trans 'Company' %}</h5>
+                                <dl class="row">
+                                    <dt class="col-sm-4">{% trans 'Company' %}</dt><dd class="col-sm-8">{{current_user.company_name}}</dd>
+                                    <dt class="col-sm-4">{% trans 'Phone' %}</dt><dd class="col-sm-8">{{current_user.phone}}</dd>
+                                    <dt class="col-sm-4">{% trans 'Website' %}</dt><dd class="col-sm-8">{{current_user.website}}</dd>
+                                    <dt class="col-sm-4">{% trans 'Address' %}</dt><dd class="col-sm-8">{{current_user.street}} {{current_user.zip_code}} {{current_user.city}} - {{current_user.country}}</dd>
+                                    <dt class="col-sm-4">{% trans 'Created since' %}</dt><dd class="col-sm-8">{{current_user.created_date}}</dd>
+                                </dl>
+                                <h5 class="text-capitalize text-left mx-10 bg-info text-white">{% trans 'Bank Details' %}</h5>
+                                <dl class="row">
+                                    <dt class="col-sm-4">{% trans 'Bank Name' %}</dt><dd class="col-sm-8">{{current_user.bank_name}}</dd>
+                                    <dt class="col-sm-4">{% trans 'Bank Account' %}</dt><dd class="col-sm-8">{{current_user.bank_account}}</dd>
+                                    <dt class="col-sm-4">{% trans 'SWIFT' %}</dt><dd class="col-sm-8">{{current_user.swift}}</dd>
+                                    <dt class="col-sm-4">{% trans 'IBAN' %}</dt><dd class="col-sm-8">{{current_user.iban}}</dd>
+                                </dl>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+            <div class="col-xl-7 col-lg-8 col-md-12 col-sm-12 col-12">
                 <div class="card h-100">
                     <div class="card-body">
                         <!-- Owner Details -->
-                        <div class="card card-body text-white bg-dark mb-4">
+                        <div class="card card-body text-white bg-info mb-4">
                             <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <h5 class="mt-3 mb-4 text-white font-weight-bold">{% trans 'Owner Details' %}</h5>
@@ -85,7 +101,7 @@
                                     <div class="form-group">
                                         <label for="sex">{% trans 'Sex' %}</label>
                                         <select name="sex" class="form-control" id="sex">
-                                            <option>{{user.current_user}}</option>
+                                            <option value="{{current_user.sex}}">{{current_user.sex}}</option>
                                             <option value="M">{% trans 'Male' %}</option>
                                             <option value="F">{% trans 'Feminine' %}</option>
                                         </select>
@@ -102,7 +118,7 @@
                             </div>
                         </div>
                         <!-- Company Details -->
-                        <div class="card card-body text-white bg-dark mb-4">
+                        <div class="card card-body text-white bg-warning mb-4">
                             <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <h5 class="mt-3 mb-4 text-white font-weight-bold">{% trans 'Company Details' %}</h5>
@@ -131,14 +147,13 @@
                                             placeholder="Website url" value="{{current_user.website}}">
                                     </div>
                                 </div>
-                                <!-- Created date
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="created_date">{% trans 'Company created since' %}</label>
+                                        <label for="created_date">{% trans 'Created since' %}</label>
                                         <input type="date" class="form-control" id="created_date" name="created_date" 
-                                            placeholder="{{current_user.created_date}}">
+                                            placeholder="{{current_user.created_date}}" value="{{current_user.created_date}}">
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                         <!-- Company Address -->
