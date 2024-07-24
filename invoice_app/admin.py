@@ -9,7 +9,7 @@ class AdminCustomer(admin.ModelAdmin):
     list_display = ('user', 'name', 'email', 'phone', 'address', 'sex', 'age', 'city', 'zip_code')
 
 class AdminInvoice(admin.ModelAdmin):
-    list_display = ('user', 'customer', 'invoice_date_time', 'total', 'last_updated_date', 'paid', 'invoice_type')
+    list_display = ('user', 'invoice_number', 'customer', 'invoice_date_time', 'total', 'last_updated_date', 'paid', 'invoice_type')
 
 
 admin.site.register(Customer, AdminCustomer)

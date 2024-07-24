@@ -338,11 +338,14 @@ def addInvoice(request):
     }
 
     if request.method == 'POST':
+        last_order = Invoice.objects.all().filter(user=current_user).count()
+        print('last_order: ', last_order)
         items = []
 
         try: 
 
             customer = request.POST.get('customer')
+            new_order = last_order+1
             type = request.POST.get('invoice_type')
             articles = request.POST.getlist('article')
             date_a = request.POST.getlist('dt_a')
@@ -356,6 +359,7 @@ def addInvoice(request):
             comment2 = request.POST.get('comment2')
             invoice_object = {
                 'user': request.user,
+                'invoice_number': new_order,
                 'customer_id': customer,
                 'total': total,
                 'invoice_type': type,

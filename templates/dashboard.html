@@ -79,7 +79,7 @@
             {% if invoices %}
                {% for invoice in invoices %}
                <tr>
-                  <th scope="row">{{ invoice.pk }}</th>
+                  <th scope="row">{{ invoice.invoice_number }}</th>
                   <td>{{invoice.customer.name}}</td>
                   <td>{{invoice.invoice_date_time}}</td>
                   <td>{{ invoice.get_total }}</td>

@@ -219,23 +219,20 @@
                                                 <table>
                                                     <tbody  class="text-left">
                                                         <tr>
-                                                        <th scope="row">{{obj.get_invoice_type_display}}Number: </th>
-                                                        <td>KHA - {{obj.id}}</td>
+                                                            <th scope="row">{{obj.get_invoice_type_display}} number: </th>
+                                                            <td>KHA - {{obj.invoice_number}}</td>
                                                         </tr>
                                                         <tr>
-                                                        <th scope="row">{{obj.get_invoice_type_display}}Date: </th>
-                                                        <td>{{obj.invoice_date_time}}</td>
+                                                            <th scope="row">{{obj.get_invoice_type_display}} date: </th>
+                                                            <td>{{obj.invoice_date_time}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                <div class="text-left">{{obj.get_invoice_type_display}}Number: KHA - {{obj.id}}</div>
-                                                <div class="text-left">{{obj.get_invoice_type_display}}Date: {{obj.invoice_date_time}}</div>
+                                                <div class="text-left">Payment terms: KHA - {{obj.id}}</div>
                                                 <div class="text-left">
-                                                {% trans 'PAID' %}:
+                                                {% trans 'Due date' %}:
                                                     {% if obj.paid  %}
-                                                    <strong style="color: green;">{% trans 'YES' %}</strong>
-                                                    {% else %}
-                                                    <strong style="color: red;">{% trans 'NO' %}</strong>
+                                                    <div class="text-left">Due date: {{obj.invoice_date_time}}</div>
                                                 {% endif %}
                                                 </div>
                                             </div>
