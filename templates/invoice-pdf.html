@@ -219,22 +219,27 @@
                                                 <table>
                                                     <tbody  class="text-left">
                                                         <tr>
-                                                            <th scope="row">{{obj.get_invoice_type_display}} number: </th>
+                                                            <th scope="row">{{obj.get_invoice_type_display}} {% trans 'number' %}:</th>
                                                             <td>KHA - {{obj.invoice_number}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <th scope="row">{{obj.get_invoice_type_display}} date: </th>
+                                                            <th scope="row">{{obj.get_invoice_type_display}} {% trans 'date' %}:</th>
                                                             <td>{{obj.invoice_date_time}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">{% trans 'Payment terms' %}:</th>
+                                                            <td>KHA - {{obj.invoice_number}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">{% trans 'Due date' %}:</th>
+                                                            {% if obj.paid  %}
+                                                            <td>{{obj.last_updated_date}}</td>
+                                                            {% else  %}
+                                                            <td>{% trans 'Not yet paid' %}.</td>
+                                                            {% endif %}
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                <div class="text-left">Payment terms: KHA - {{obj.id}}</div>
-                                                <div class="text-left">
-                                                {% trans 'Due date' %}:
-                                                    {% if obj.paid  %}
-                                                    <div class="text-left">Due date: {{obj.invoice_date_time}}</div>
-                                                {% endif %}
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -246,14 +251,15 @@
                                             </address>
                                         </div>
                                     </div>
-                                    <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 text-center">
-                                        <h3 class="text-success"><strong>{{obj.get_invoice_type_display}}</strong></h3>
-                                    </div>
-                                    <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 text-center">
-                                        <div class="text-left">{{obj.comment1}}</div>
-                                    </div>
+                                    
                                 </div>
                                 <!-- Row end -->
+                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 text-center">
+                                    <h3 class="text-success"><strong>{{obj.get_invoice_type_display}}</strong></h3>
+                                </div>
+                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 text-center">
+                                    <div class="text-left">{{obj.comment1}}</div>
+                                </div>
     					    </div>
 
     					    <div class="invoice-body">

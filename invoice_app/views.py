@@ -31,9 +31,12 @@ def dashboard(request):
             try: 
                 obj = Invoice.objects.get(id=request.POST.get('id_modified'))
                 if paid == 'True':
-                    obj.paid = True
+                    obj.paid = True 
+                    obj.last_updated_date = request.POST.get('due-date')
+
                 else:
                     obj.paid = False 
+                    obj.last_updated_date = None
                 obj.save()
                 messages.success(request,  _("Change made successfully."))
             except Exception as e:   
@@ -331,7 +334,7 @@ def addCustomer(request):
 def addInvoice(request):
 
     current_user= User.objects.filter(id=request.user.id).get()
-    customers = Customer.objects.select_related('user').all()
+    customers = Customer.objects.filter(user=current_user).all()
     context = {
         'current_user': current_user,
         'customers': customers
